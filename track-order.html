@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Track Order – PowerEx</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="px-nav navbar navbar-expand-lg">
+  <div class="container">
+    <a class="nav-brand" href="index.html">
+      <img src="assets/px-icon.svg" class="brand-icon-img" alt="PowerEx" width="34" height="34">
+      <span class="brand-text-wrap">
+        <span class="brand-text">POWER<span class="brand-ex">EX</span></span>
+        <span class="brand-tag">Multi Trading</span>
+      </span>
+    </a>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <button class="theme-toggle" id="themeToggle"><i class="fa-solid fa-moon ico-moon"></i><i class="fa-solid fa-sun ico-sun"></i></button>
+      <a href="index.html" class="nav-link" style="color:rgba(255,255,255,.8);font-weight:600;">Home</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 fade-in">
+      <div class="text-center mb-4">
+        <div class="section-label">Real-time Tracking</div>
+        <h1 class="page-title" style="font-size:2.2rem;">Track Your <span class="accent">Order</span></h1>
+        <p style="color:var(--gray-500);font-size:.9rem;margin-top:.6rem;">Enter your Order ID to get the latest status.</p>
+      </div>
+
+      <div class="px-card">
+        <form id="trackForm">
+          <label style="font-size:.84rem;font-weight:600;color:var(--gray-700);margin-bottom:.5rem;display:block;">Order ID</label>
+          <div class="d-flex gap-2">
+            <input type="text" id="trackInput" class="auth-input form-control" placeholder="e.g. PX001" style="flex:1;"/>
+            <button type="submit" class="btn-auth" style="width:auto;padding:.72rem 1.4rem;white-space:nowrap;">
+              <i class="fa-solid fa-magnifying-glass me-1"></i>Track
+            </button>
+          </div>
+        </form>
+        <div id="trackResult"></div>
+      </div>
+
+      <!-- Steps legend -->
+      <div class="px-card mt-4">
+        <h6 style="font-weight:700;color:var(--gray-900);margin-bottom:1rem;"><i class="fa-solid fa-circle-info me-2" style="color:var(--blue);"></i>Order Status Guide</h6>
+        <div class="d-flex flex-column gap-2">
+          <div class="d-flex align-items-center gap-2"><span class="badge-danger">Pending</span><span style="font-size:.85rem;color:var(--gray-700);">Order received, awaiting processing</span></div>
+          <div class="d-flex align-items-center gap-2"><span class="badge-warn">Processing</span><span style="font-size:.85rem;color:var(--gray-700);">Being reviewed by our team</span></div>
+          <div class="d-flex align-items-center gap-2"><span class="badge-success">Active</span><span style="font-size:.85rem;color:var(--gray-700);">Investment is live and generating returns</span></div>
+          <div class="d-flex align-items-center gap-2"><span class="badge-warn">Completed</span><span style="font-size:.85rem;color:var(--gray-700);">Investment cycle complete</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer class="px-footer">
+  <div class="container">
+    <div class="footer-copy py-2">© 2026 <span>PowerEx</span> Multi Trading.</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+<script>
+  // Auto-fill from query param
+  const urlId = new URLSearchParams(location.search).get('id');
+  if (urlId) {
+    document.getElementById('trackInput').value = urlId;
+    document.getElementById('trackForm').dispatchEvent(new Event('submit'));
+  }
+</script>
+</body>
+</html>

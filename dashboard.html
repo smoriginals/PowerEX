@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard – PowerEx</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="px-nav navbar navbar-expand-lg">
+  <div class="container">
+    <a class="nav-brand" href="index.html">
+      <img src="assets/px-icon.svg" class="brand-icon-img" alt="PowerEx" width="34" height="34">
+      <span class="brand-text-wrap">
+        <span class="brand-text">POWER<span class="brand-ex">EX</span></span>
+        <span class="brand-tag">Multi Trading</span>
+      </span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#dashNav">
+      <i class="fa-solid fa-bars" style="color:#fff;"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="dashNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
+        <li class="nav-item"><a class="nav-link" href="orders.html"><i class="fa-solid fa-box me-1"></i>Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="profile.html"><i class="fa-solid fa-user me-1"></i>Profile</a></li>
+        <li class="nav-item">
+          <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+            <i class="fa-solid fa-moon ico-moon"></i>
+            <i class="fa-solid fa-sun  ico-sun"></i>
+          </button>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="logout-btn" style="background:rgba(249,115,22,.18);color:#FB923C;border:2px solid rgba(249,115,22,.35);border-radius:20px;padding:.4rem 1.1rem;font-size:.85rem;font-weight:700;text-decoration:none;">
+            <i class="fa-solid fa-right-from-bracket me-1"></i>Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row g-0">
+
+    <!-- Main content -->
+    <div class="col-12">
+      <div class="dash-main fade-in" style="max-width:900px;margin:0 auto;">
+
+        <!-- Welcome -->
+        <div class="d-flex align-items-center gap-3 mb-4 p-4 fade-in" style="background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(245,158,11,.06));border:1px solid rgba(16,185,129,.18);border-radius:16px;">
+          <div class="user-avatar-letter" style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--gold));display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:800;color:#fff;flex-shrink:0;">M</div>
+          <div>
+            <div style="font-size:.78rem;color:var(--gray-500);font-weight:500;margin-bottom:.1rem;">Welcome back 👋</div>
+            <h5 class="user-name" style="font-weight:800;color:var(--gray-900);margin:0;font-size:1.1rem;">Member</h5>
+            <div class="user-email" style="font-size:.82rem;color:var(--gray-500);"></div>
+          </div>
+          <span class="ms-auto d-none d-sm-flex" style="background:rgba(52,211,153,.15);color:#34d399;border-radius:20px;padding:.3rem .9rem;font-size:.75rem;font-weight:700;align-items:center;gap:.3rem;">
+            <i class="fa-solid fa-circle" style="font-size:.4rem;"></i>Active
+          </span>
+        </div>
+
+        <!-- Stats -->
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-lg-3">
+            <div class="stat-card">
+              <div class="stat-icon" style="background:rgba(79,70,229,.15);color:#6366F1;"><i class="fa-solid fa-wallet"></i></div>
+              <div><div class="stat-val">$0</div><div class="stat-lbl">Balance</div></div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card">
+              <div class="stat-icon" style="background:rgba(245,158,11,.15);color:#F59E0B;"><i class="fa-solid fa-arrow-trend-up"></i></div>
+              <div><div class="stat-val">0%</div><div class="stat-lbl">Returns</div></div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card">
+              <div class="stat-icon" style="background:rgba(52,211,153,.15);color:#34d399;"><i class="fa-solid fa-users"></i></div>
+              <div><div class="stat-val">0</div><div class="stat-lbl">Referrals</div></div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card">
+              <div class="stat-icon" style="background:rgba(249,115,22,.15);color:#FB923C;"><i class="fa-solid fa-box"></i></div>
+              <div><div class="stat-val">0</div><div class="stat-lbl">Orders</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent orders -->
+        <div class="px-card mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 style="font-weight:800;color:var(--gray-900);margin:0;">Recent Orders</h6>
+            <a href="orders.html" style="font-size:.82rem;color:var(--green);text-decoration:none;font-weight:600;">View all →</a>
+          </div>
+          <div class="empty-state">
+            <i class="fa-solid fa-box-open"></i>
+            <h5>No orders yet</h5>
+            <p>Your investment activity will appear here once you join a package.</p>
+            <a href="index.html#packages" class="btn-auth mt-3 d-inline-block" style="width:auto;padding:.6rem 1.6rem;text-decoration:none;">Explore Packages</a>
+          </div>
+        </div>
+
+        <!-- Quick links -->
+        <div class="row g-3">
+          <div class="col-md-4">
+            <a href="index.html#packages" class="px-card text-decoration-none d-block text-center">
+              <i class="fa-solid fa-layer-group" style="font-size:1.8rem;color:var(--green);margin-bottom:.7rem;display:block;"></i>
+              <div style="font-weight:700;color:var(--gray-900);">View Packages</div>
+              <div style="font-size:.8rem;color:var(--gray-500);">Browse investment plans</div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="track-order.html" class="px-card text-decoration-none d-block text-center">
+              <i class="fa-solid fa-location-dot" style="font-size:1.8rem;color:var(--gold);margin-bottom:.7rem;display:block;"></i>
+              <div style="font-weight:700;color:var(--gray-900);">Track Order</div>
+              <div style="font-size:.8rem;color:var(--gray-500);">Check order status</div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="profile.html" class="px-card text-decoration-none d-block text-center">
+              <i class="fa-solid fa-user-pen" style="font-size:1.8rem;color:var(--pink);margin-bottom:.7rem;display:block;"></i>
+              <div style="font-weight:700;color:var(--gray-900);">Edit Profile</div>
+              <div style="font-size:.8rem;color:var(--gray-500);">Update your information</div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Logout Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background:var(--white);border:1px solid var(--gray-300);border-radius:var(--radius-md);">
+      <div class="modal-header" style="border-color:var(--gray-300);">
+        <h5 class="modal-title" style="color:var(--gray-900);font-weight:700;">Confirm Logout</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" style="color:var(--gray-700);">
+        Are you sure you want to sign out of your PowerEx account?
+      </div>
+      <div class="modal-footer" style="border-color:var(--gray-300);">
+        <button type="button" class="btn btn-sm" data-bs-dismiss="modal"
+          style="background:var(--gray-100);color:var(--gray-700);border:1px solid var(--gray-300);border-radius:20px;padding:.42rem 1.2rem;font-weight:600;">
+          Cancel
+        </button>
+        <button type="button" id="logoutConfirm"
+          style="background:linear-gradient(135deg,#F97316,#C2410C);color:#fff;border:none;border-radius:20px;padding:.42rem 1.2rem;font-weight:700;cursor:pointer;">
+          <i class="fa-solid fa-right-from-bracket me-1"></i>Yes, Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+<script>requireAuth('login.html');</script>
+</body>
+</html>

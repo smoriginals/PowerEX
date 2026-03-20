@@ -1,0 +1,16 @@
+<svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10B981"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+  <!-- Badge background -->
+  <rect width="36" height="36" rx="9" fill="url(#g)"/>
+  <!-- Area fill under chart -->
+  <path d="M6,27 L13,17 L20,22 L30,8 L30,28 L6,28 Z" fill="#06130D" fill-opacity="0.18"/>
+  <!-- Trending chart line -->
+  <polyline points="6,27 13,17 20,22 30,8" stroke="#06130D" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Peak dot -->
+  <circle cx="30" cy="8" r="2.6" fill="#06130D"/>
+</svg>

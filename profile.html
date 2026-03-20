@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile – PowerEx</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="px-nav navbar navbar-expand-lg">
+  <div class="container-fluid px-4">
+    <a class="nav-brand" href="index.html">
+      <img src="assets/px-icon.svg" class="brand-icon-img" alt="PowerEx" width="34" height="34">
+      <span class="brand-text-wrap">
+        <span class="brand-text">POWER<span class="brand-ex">EX</span></span>
+        <span class="brand-tag">Multi Trading</span>
+      </span>
+    </a>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <button class="theme-toggle" id="themeToggle"><i class="fa-solid fa-moon ico-moon"></i><i class="fa-solid fa-sun ico-sun"></i></button>
+      <a href="dashboard.html" class="nav-link" style="color:rgba(255,255,255,.8);font-weight:600;"><i class="fa-solid fa-gauge me-1"></i>Dashboard</a>
+      <a href="#" class="logout-btn nav-link" style="color:#FB923C;font-weight:600;"><i class="fa-solid fa-right-from-bracket me-1"></i>Logout</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7 fade-in">
+
+      <div class="d-flex align-items-center gap-3 mb-4">
+        <a href="dashboard.html" style="color:var(--gray-500);text-decoration:none;font-size:.85rem;"><i class="fa-solid fa-arrow-left me-1"></i>Dashboard</a>
+        <span style="color:var(--gray-300);">›</span>
+        <span style="color:var(--gray-700);font-size:.85rem;font-weight:600;">Profile</span>
+      </div>
+
+      <div class="px-card">
+        <!-- Avatar -->
+        <div class="text-center mb-4">
+          <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#4F46E5,#F59E0B);display:flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;font-weight:800;margin:0 auto;" id="avatarCircle">?</div>
+          <div class="mt-2" style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:800;color:var(--gray-900);" id="profileName">Your Name</div>
+          <div style="font-size:.84rem;color:var(--gray-500);" id="profileEmail">your@email.com</div>
+        </div>
+
+        <div class="alert-auth" id="profileAlert"></div>
+
+        <form id="profileForm" novalidate>
+          <div class="mb-3">
+            <label style="font-size:.84rem;font-weight:600;color:var(--gray-700);margin-bottom:.4rem;display:block;">Full Name</label>
+            <input type="text" id="pName" class="auth-input form-control" placeholder="John Doe"/>
+          </div>
+          <div class="mb-3">
+            <label style="font-size:.84rem;font-weight:600;color:var(--gray-700);margin-bottom:.4rem;display:block;">Email Address</label>
+            <input type="email" id="pEmail" class="auth-input form-control" placeholder="you@example.com"/>
+          </div>
+          <div class="mb-3">
+            <label style="font-size:.84rem;font-weight:600;color:var(--gray-700);margin-bottom:.4rem;display:block;">Phone</label>
+            <input type="tel" id="pPhone" class="auth-input form-control" placeholder="+91 00000 00000"/>
+          </div>
+          <div class="mb-4">
+            <label style="font-size:.84rem;font-weight:600;color:var(--gray-700);margin-bottom:.4rem;display:block;">New Password <span style="color:var(--gray-500);font-weight:400;">(leave blank to keep current)</span></label>
+            <div class="pass-wrap">
+              <input type="password" id="pPass" class="auth-input form-control" placeholder="New password"/>
+              <i class="fa-solid fa-eye-slash toggle-pass"></i>
+            </div>
+          </div>
+          <button type="submit" class="btn-auth"><i class="fa-solid fa-floppy-disk me-2"></i>Save Changes</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Logout Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background:var(--white);border:1px solid var(--gray-300);border-radius:var(--radius-md);">
+      <div class="modal-header" style="border-color:var(--gray-300);"><h5 class="modal-title" style="color:var(--gray-900);">Confirm Logout</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body" style="color:var(--gray-700);">Are you sure you want to sign out?</div>
+      <div class="modal-footer" style="border-color:var(--gray-300);">
+        <button data-bs-dismiss="modal" style="background:var(--gray-100);color:var(--gray-700);border:1px solid var(--gray-300);border-radius:20px;padding:.42rem 1.2rem;font-weight:600;cursor:pointer;">Cancel</button>
+        <button id="logoutConfirm" style="background:linear-gradient(135deg,#F97316,#C2410C);color:#fff;border:none;border-radius:20px;padding:.42rem 1.2rem;font-weight:700;cursor:pointer;"><i class="fa-solid fa-right-from-bracket me-1"></i>Yes, Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+<script>
+  requireAuth('login.html');
+
+  // Pre-fill form
+  const user = getUser();
+  if (user) {
+    document.getElementById('pName').value  = user.name || '';
+    document.getElementById('pEmail').value = user.email || '';
+    document.getElementById('pPhone').value = user.phone || '';
+    document.getElementById('profileName').textContent  = user.name || 'Your Name';
+    document.getElementById('profileEmail').textContent = user.email || '';
+    document.getElementById('avatarCircle').textContent = (user.name || 'U')[0].toUpperCase();
+  }
+
+  document.getElementById('profileForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const updated = { ...getUser(),
+      name:  document.getElementById('pName').value.trim(),
+      email: document.getElementById('pEmail').value.trim(),
+      phone: document.getElementById('pPhone').value.trim()
+    };
+    const pass = document.getElementById('pPass').value;
+    if (pass) {
+      const users = JSON.parse(localStorage.getItem('px-users') || '[]');
+      const idx = users.findIndex(u => u.email === updated.email);
+      if (idx > -1) { users[idx].password = pass; localStorage.setItem('px-users', JSON.stringify(users)); }
+    }
+    setUser(updated);
+    document.getElementById('profileName').textContent = updated.name;
+    document.getElementById('avatarCircle').textContent = (updated.name || 'U')[0].toUpperCase();
+    showAlert('profileAlert', 'Profile updated successfully!', 'success');
+  });
+</script>
+</body>
+</html>

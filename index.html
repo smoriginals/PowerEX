@@ -1,0 +1,2640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Powerex Multi Trading – Financial Solutions</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════
+       VARIABLES
+    ═══════════════════════════════════════ */
+    :root {
+      /* ── Brand: Deep Indigo ── */
+      --green:      #4F46E5;
+      --green-d:    #3730A3;
+      --green-l:    #6366F1;
+      --green-xl:   #1a1f4d;
+      /* ── Secondary: Sky / Cyan ── */
+      --blue:       #0EA5E9;
+      --blue-d:     #0369A1;
+      --blue-l:     #38BDF8;
+      --blue-xl:    #0a1f35;
+      /* ── Accent: Coral-Orange ── */
+      --pink:       #F97316;
+      --pink-d:     #C2410C;
+      --pink-l:     #FB923C;
+      --pink-xl:    #2a1208;
+      /* ── Premium: Warm Amber ── */
+      --gold:       #D97706;
+      --gold-d:     #92400E;
+      --gold-l:     #F59E0B;
+      --gold-xl:    #241708;
+      --white:      #131a2e;
+      --gray-50:    #0d1117;
+      --gray-100:   #1a2236;
+      --gray-300:   #2d3f5c;
+      --gray-500:   #7a8fa8;
+      --gray-700:   #b0c0d8;
+      --gray-900:   #e2e8f0;
+      --shadow-sm:  0 2px 8px rgba(0,0,0,.28);
+      --shadow-md:  0 6px 24px rgba(0,0,0,.42);
+      --shadow-lg:  0 16px 48px rgba(0,0,0,.55);
+      --radius-sm:  8px;
+      --radius-md:  14px;
+      --radius-lg:  22px;
+      --radius-xl:  32px;
+      --transition: all .28s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ── LIGHT MODE overrides ── */
+    body.light {
+      --white:      #FFFFFF;
+      --gray-50:    #F8FAFC;
+      --gray-100:   #F1F5F9;
+      --gray-300:   #CBD5E1;
+      --gray-500:   #94A3B8;
+      --gray-700:   #475569;
+      --gray-900:   #0F172A;
+      --green-xl:   #EEF2FF;
+      --blue-xl:    #E0F2FE;
+      --pink-xl:    #FFF7ED;
+      --gold-xl:    #FFFBEB;
+      --shadow-sm:  0 2px 8px rgba(0,0,0,.07);
+      --shadow-md:  0 6px 24px rgba(0,0,0,.10);
+      --shadow-lg:  0 16px 48px rgba(0,0,0,.13);
+      background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 25%, #f0f9ff 50%, #fffbf0 75%, #f0fdf9 100%);
+      color: #0F172A;
+    }
+    body.light #about    { background: rgba(248,250,252,0.82); }
+    body.light #services { background: rgba(255,255,255,0.75); }
+    body.light #packages { background: rgba(248,250,252,0.82); }
+    body.light #income   { background: rgba(255,255,255,0.75); }
+    body.light #contact  { background: rgba(248,250,252,0.82); }
+    body.light ::-webkit-scrollbar-track { background: #F1F5F9; }
+    body.light .hero-input  { background: rgba(255,255,255,.85); color: #0F172A; }
+    body.light .social-btn  { background: #fff; color: var(--gray-700); }
+    body.light .hero-card   { background: #fff; }
+    body.light .hero-card-float { background: #fff; }
+    body.light .vmcard      { background: #fff; }
+    body.light .svc-card    { background: var(--gray-50); }
+    body.light .pkg-card    { background: #fff; }
+    body.light .boost-card  { background: #fff; }
+    body.light .bin-stat-card { background: #fff; }
+    body.light .contact-card  { background: #fff; }
+    body.light .px-table tbody tr:hover td { background: var(--gray-50); }
+    body.light .hero-counter { background: var(--gray-50); border-color: var(--gray-300); }
+    body.light .inc-tab      { background: #fff; }
+    body.light .boost-req    { background: var(--gray-50); }
+    body.light .hp-orb       { opacity: .08; }
+
+    /* ── THEME TOGGLE BUTTON ── */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.3);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.88);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .theme-toggle:hover {
+      background: rgba(245,158,11,.2);
+      border-color: var(--gold-l);
+      color: var(--gold-l);
+      transform: rotate(20deg) scale(1.08);
+    }
+    .theme-toggle .ico-moon,
+    .theme-toggle .ico-sun  { position: absolute; transition: opacity .3s, transform .3s; }
+    .theme-toggle .ico-sun  { opacity: 0; transform: rotate(-90deg) scale(.6); }
+    .theme-toggle .ico-moon { opacity: 1; transform: rotate(0)        scale(1); }
+    body.light .theme-toggle .ico-sun  { opacity: 1; transform: rotate(0)       scale(1); }
+    body.light .theme-toggle .ico-moon { opacity: 0; transform: rotate(90deg) scale(.6); }
+    body.light .theme-toggle {
+      border-color: rgba(79,70,229,.35);
+      background: rgba(79,70,229,.1);
+      color: var(--green);
+    }
+    body.light .theme-toggle:hover {
+      background: rgba(79,70,229,.2);
+      color: var(--green-d);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #e2e8f0;
+      background: linear-gradient(135deg, #0d0b2b 0%, #1a0a3d 20%, #0c1a3a 40%, #0a1f2e 60%, #0d1f1a 80%, #1a1205 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    /* ── scrollbar ── */
+    ::-webkit-scrollbar { width: 7px; }
+    ::-webkit-scrollbar-track { background: #0d1117; }
+    ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 4px; }
+
+    /* ═══════════════════════════════════════
+       UTILITIES
+    ═══════════════════════════════════════ */
+    .text-gold  { color: var(--gold)  !important; }
+    .text-green { color: var(--green) !important; }
+    .text-pink  { color: var(--pink)  !important; }
+    .text-blue  { color: var(--blue)  !important; }
+
+    .bg-green-xl { background: var(--green-xl); }
+    .bg-gold-xl  { background: var(--gold-xl); }
+    .bg-blue-xl  { background: var(--blue-xl); }
+    .bg-pink-xl  { background: var(--pink-xl); }
+
+    .sec-pad { padding: 5.5rem 0; }
+    .sec-pad-sm { padding: 3.5rem 0; }
+
+    .section-label {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: var(--green);
+      background: var(--green-xl);
+      border: 1.5px solid rgba(99,102,241,.28);
+      border-radius: 20px;
+      padding: .28rem .95rem;
+      margin-bottom: 1rem;
+    }
+    .section-label.label-gold {
+      color: var(--gold);
+      background: var(--gold-xl);
+      border-color: rgba(184,134,11,.22);
+    }
+    .section-label.label-blue {
+      color: var(--blue);
+      background: var(--blue-xl);
+      border-color: rgba(25,118,210,.22);
+    }
+
+    .sec-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1.05;
+    }
+    .sec-title .accent { color: var(--gold); }
+
+    .gold-divider {
+      width: 52px; height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-l));
+      border-radius: 2px;
+      margin: .8rem 0 1.2rem;
+    }
+    .gold-divider.center { margin: .8rem auto 1.2rem; }
+
+    .sec-lead {
+      color: var(--gray-700);
+      font-size: 1rem;
+      line-height: 1.85;
+      max-width: 640px;
+    }
+
+    /* fade-in on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ─── BUTTONS ─── */
+    .btn-px {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .72rem 1.85rem;
+      border-radius: var(--radius-xl);
+      font-weight: 700;
+      font-size: .93rem;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-green {
+      background: linear-gradient(135deg, var(--green), var(--green-l));
+      color: var(--white);
+      box-shadow: 0 6px 20px rgba(46,125,50,.32);
+    }
+    .btn-green:hover {
+      background: linear-gradient(135deg, var(--green-l), var(--green));
+      box-shadow: 0 10px 30px rgba(46,125,50,.44);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-l));
+      color: var(--white);
+      box-shadow: 0 6px 20px rgba(184,134,11,.32);
+    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, var(--gold-l), var(--gold));
+      box-shadow: 0 10px 30px rgba(184,134,11,.44);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+    .btn-pink {
+      background: linear-gradient(135deg, var(--pink), var(--pink-d));
+      color: var(--white);
+      box-shadow: 0 6px 20px rgba(194,24,91,.28);
+    }
+    .btn-pink:hover {
+      box-shadow: 0 10px 30px rgba(194,24,91,.40);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+    .btn-outline-green {
+      background: transparent;
+      color: var(--green);
+      border: 2px solid var(--green);
+    }
+    .btn-outline-green:hover {
+      background: var(--green);
+      color: var(--white);
+    }
+    .btn-outline-gold {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+    }
+    .btn-outline-gold:hover {
+      background: var(--gold);
+      color: var(--white);
+    }
+
+    /* ═══════════════════════════════════════
+       1. NAVBAR
+    ═══════════════════════════════════════ */
+    #mainNav {
+      background: linear-gradient(100deg, #1e1b4b 0%, var(--green-d) 40%, var(--green) 100%);
+      padding: .85rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1050;
+      box-shadow: 0 3px 18px rgba(55,48,163,.45);
+    }
+    .nav-brand { display:flex; align-items:center; gap:.6rem; text-decoration:none; line-height:1; }
+    .brand-icon-img {
+      width: 36px; height: 36px;
+      flex-shrink: 0;
+      border-radius: 9px;
+      box-shadow: 0 0 16px rgba(16,185,129,.5), 0 2px 8px rgba(0,0,0,.35);
+    }
+    .brand-text-wrap { display:flex; flex-direction:column; justify-content:center; }
+    .brand-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem; font-weight: 800; letter-spacing: 2.5px; color: #fff; line-height: 1;
+    }
+    .brand-ex { color: #F59E0B; text-shadow: 0 0 18px rgba(245,158,11,.6); }
+    .brand-tag {
+      font-size: .45rem; font-weight: 700; letter-spacing: 4px;
+      color: rgba(255,255,255,.45); text-transform: uppercase;
+      margin-top: 2px; font-family: 'Inter', sans-serif;
+    }
+
+    #mainNav .nav-link {
+      color: rgba(255,255,255,.88) !important;
+      font-weight: 600;
+      font-size: .89rem;
+      padding: .46rem 1rem !important;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+      letter-spacing: .3px;
+    }
+    #mainNav .nav-link:hover,
+    #mainNav .nav-link.active-nav {
+      color: var(--gold-l) !important;
+      background: rgba(255,255,255,.1);
+    }
+
+    .nav-btn-login {
+      background: transparent;
+      color: var(--white) !important;
+      border: 2px solid rgba(255,255,255,.55);
+      padding: .42rem 1.3rem;
+      border-radius: 26px;
+      font-weight: 700;
+      font-size: .86rem;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-block;
+    }
+    .nav-btn-login:hover {
+      border-color: var(--pink-l);
+      color: var(--pink-l) !important;
+      background: rgba(249,115,22,.12);
+    }
+    .nav-btn-signup {
+      background: linear-gradient(135deg, var(--gold-l), var(--gold));
+      color: var(--white) !important;
+      padding: .44rem 1.3rem;
+      border-radius: 26px;
+      font-weight: 700;
+      font-size: .86rem;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-block;
+      border: 2px solid transparent;
+      box-shadow: 0 4px 14px rgba(217,119,6,.38);
+    }
+    .nav-btn-signup:hover {
+      background: linear-gradient(135deg, var(--pink), var(--pink-d));
+      border-color: transparent;
+      box-shadow: 0 6px 20px rgba(249,115,22,.42);
+      color: var(--white) !important;
+    }
+
+    /* hamburger lines */
+    .hamburger-inner span {
+      display: block;
+      width: 22px; height: 2px;
+      background: rgba(255,255,255,.88);
+      margin: 5px 0;
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .navbar-toggler { border: none !important; padding: 0; outline: none !important; box-shadow: none !important; }
+
+    /* ═══════════════════════════════════════
+       2. HERO
+    ═══════════════════════════════════════ */
+    #hero {
+      background: transparent;
+      min-height: calc(100vh - 68px);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* geometric deco */
+    #hero::before,
+    #hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    #hero::before {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(79,70,229,.07) 0%, transparent 72%);
+      top: -200px; right: -200px;
+    }
+    #hero::after {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(14,165,233,.06) 0%, transparent 70%);
+      bottom: -140px; left: -100px;
+    }
+    .hero-deco {
+      position: absolute;
+      pointer-events: none;
+      opacity: .07;
+    }
+    .hero-deco-1 { width: 200px; height: 200px; border: 3px solid var(--blue); transform: rotate(45deg); top: 10%; right: 7%; }
+    .hero-deco-2 { width: 140px; height: 140px; border: 3px solid var(--green); transform: rotate(20deg); bottom: 14%; right: 15%; }
+    .hero-deco-3 { width: 90px;  height: 90px;  border: 2px solid var(--gold);  transform: rotate(60deg); top: 22%; left: 4%; }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      background: var(--green-xl);
+      border: 1.5px solid rgba(99,102,241,.28);
+      border-radius: 26px;
+      padding: .32rem 1.05rem;
+      font-size: .76rem;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-headline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 4rem;
+      font-weight: 800;
+      line-height: 1.04;
+      color: var(--gray-900);
+      margin-bottom: 1.4rem;
+    }
+    .hero-headline .gold-text {
+      color: var(--gold);
+    }
+    .hero-headline .green-text {
+      color: var(--green);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--gray-700);
+      line-height: 1.85;
+      margin-bottom: 2.2rem;
+      max-width: 520px;
+    }
+
+    .hero-input-row {
+      display: flex;
+      gap: .6rem;
+      margin-bottom: 1.6rem;
+      flex-wrap: wrap;
+    }
+    .hero-input {
+      flex: 1;
+      min-width: 220px;
+      padding: .82rem 1.3rem;
+      border: 2px solid var(--gray-300);
+      border-radius: var(--radius-xl);
+      font-size: .95rem;
+      outline: none;
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+      background: rgba(255,255,255,0.07);
+      color: #e2e8f0;
+    }
+    .hero-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(79,70,229,.14); }
+
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      color: var(--gray-500);
+      font-size: .82rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+    .hero-divider::before, .hero-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gray-300);
+    }
+
+    .social-login-row { display: flex; gap: .8rem; flex-wrap: wrap; }
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .62rem 1.4rem;
+      border: 2px solid var(--gray-300);
+      border-radius: var(--radius-xl);
+      font-size: .86rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      background: var(--white);
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .social-btn:hover { border-color: var(--green); color: var(--green); box-shadow: var(--shadow-sm); }
+
+    .hero-counter {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      margin-top: 2.4rem;
+      padding: 1rem 1.4rem;
+      background: var(--gray-50);
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--gray-300);
+      width: fit-content;
+    }
+    .hero-counter .count-val {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--green);
+    }
+    .hero-counter .count-lbl {
+      font-size: .76rem;
+      color: var(--gray-500);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      line-height: 1.35;
+    }
+    .hero-counter .count-sep {
+      width: 1px; height: 36px;
+      background: var(--gray-300);
+      margin: 0 .4rem;
+    }
+
+    /* Hero right card */
+    .hero-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 2rem;
+      position: relative;
+    }
+    .hero-card-float {
+      position: absolute;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: .75rem 1.1rem;
+      box-shadow: 0 8px 28px rgba(0,0,0,.1);
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      font-size: .8rem;
+    }
+    .hero-card-float-1 { top: -18px; right: -14px; border-left: 4px solid var(--gold); }
+    .hero-card-float-2 { bottom: -18px; left: -14px; border-left: 4px solid var(--green); }
+    .hero-card-float .fv { font-weight: 700; font-size: .92rem; }
+    .hero-card-float .fl { color: var(--gray-500); font-size: .68rem; }
+
+    .float-anim { animation: floatAnim 4.2s ease-in-out infinite; }
+    @keyframes floatAnim { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-13px)} }
+
+    .card-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 110px;
+      margin-bottom: 1.2rem;
+    }
+    .cbar { flex: 1; border-radius: 5px 5px 0 0; }
+    .cbar-b  { background: linear-gradient(180deg, var(--blue-l), var(--blue)); }
+    .cbar-g  { background: linear-gradient(180deg, var(--green-l), var(--green)); }
+    .cbar-go { background: linear-gradient(180deg, var(--gold-l), var(--gold)); }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 1rem;
+      border-top: 1.5px solid var(--gray-100);
+    }
+    .stat-item { text-align: center; }
+    .stat-item .sv { font-family:'Barlow Condensed',sans-serif; font-size:1.55rem; font-weight:800; color:var(--green); }
+    .stat-item .sl { font-size:.7rem; color:var(--gray-500); letter-spacing:.9px; text-transform:uppercase; }
+
+    /* ═══════════════════════════════════════
+       3. ABOUT
+    ═══════════════════════════════════════ */
+    #about { background: rgba(255,255,255,0.04); backdrop-filter: blur(4px); }
+
+    .about-timeline {
+      position: relative;
+      padding-left: 1.6rem;
+    }
+    .about-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px; bottom: 6px;
+      width: 3px;
+      background: linear-gradient(180deg, var(--green), var(--blue));
+      border-radius: 2px;
+    }
+    .about-tpoint {
+      position: relative;
+      margin-bottom: 1.6rem;
+    }
+    .about-tpoint::before {
+      content: '';
+      position: absolute;
+      left: -1.95rem;
+      top: 6px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--gold-l);
+      border: 2.5px solid var(--white);
+      box-shadow: 0 0 0 3px rgba(245,158,11,.28);
+    }
+
+    .vmcard {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 2rem 1.8rem;
+      border-left: 5px solid;
+      box-shadow: var(--shadow-sm);
+      height: 100%;
+      transition: var(--transition);
+    }
+    .vmcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .vmcard.vision  { border-left-color: var(--blue); }
+    .vmcard.mission { border-left-color: var(--pink); }
+    .vmcard.values  { border-left-color: var(--gold); }
+
+    .vmc-icon {
+      width: 52px; height: 52px;
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.2rem;
+    }
+    .vmc-icon.bl { background: rgba(14,165,233,.12);  color: var(--blue); }
+    .vmc-icon.pk { background: rgba(249,115,22,.12);  color: var(--pink); }
+    .vmc-icon.gd { background: rgba(217,119,6,.12);   color: var(--gold); }
+    .vmc-icon.gr { background: rgba(79,70,229,.12);   color: var(--green); }
+
+    .vmc-title {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: .65rem;
+    }
+
+    /* ═══════════════════════════════════════
+       4. SERVICES
+    ═══════════════════════════════════════ */
+    #services { background: rgba(255,255,255,0.03); backdrop-filter: blur(4px); }
+
+    .svc-card {
+      background: var(--gray-50);
+      border: 2px solid var(--gray-300);
+      border-radius: var(--radius-lg);
+      padding: 2.8rem 2.4rem;
+      height: 100%;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .svc-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: transparent;
+      transition: var(--transition);
+    }
+    .svc-card:hover {
+      border-color: var(--green);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-5px);
+    }
+    .svc-card:hover::before { background: linear-gradient(90deg, var(--green), var(--blue)); }
+    .svc-card.commodity:hover { border-color: var(--gold); }
+    .svc-card.commodity:hover::before { background: linear-gradient(90deg, var(--gold), var(--green)); }
+
+    .svc-icon-wrap {
+      width: 80px; height: 80px;
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.9rem;
+      margin-bottom: 1.6rem;
+    }
+    .svc-icon-wrap.gd { background: rgba(217,119,6,.12);   color: var(--gold); }
+    .svc-icon-wrap.bl { background: rgba(14,165,233,.12);  color: var(--blue); }
+
+    .svc-title {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: .85rem;
+    }
+
+    .svc-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 1.6rem;
+    }
+    .svc-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: .6rem;
+      padding: .38rem 0;
+      font-size: .9rem;
+      color: var(--gray-700);
+    }
+    .svc-list li i { color: var(--green); margin-top: .15rem; flex-shrink: 0; }
+
+    /* ═══════════════════════════════════════
+       5. WHY JOIN US
+    ═══════════════════════════════════════ */
+    #why {
+      background: linear-gradient(155deg, #1e1b4b 0%, var(--green-d) 45%, var(--green) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #why::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .why-card {
+      background: rgba(255,255,255,.07);
+      border: 2px solid rgba(255,255,255,.12);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 1.8rem;
+      text-align: center;
+      height: 100%;
+      transition: var(--transition);
+    }
+    .why-card:hover {
+      background: rgba(255,255,255,.14);
+      border-color: var(--gold-l);
+      transform: translateY(-6px);
+      box-shadow: 0 18px 48px rgba(0,0,0,.28);
+    }
+    .why-icon {
+      width: 70px; height: 70px;
+      background: linear-gradient(135deg, var(--gold-l), var(--gold));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.75rem;
+      color: var(--white);
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 0 0 0 rgba(245,158,11,.45);
+      animation: goldPulse 2.6s ease-in-out infinite;
+    }
+    @keyframes goldPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,.45); }
+      50%      { box-shadow: 0 0 0 14px rgba(245,158,11,0); }
+    }
+    .why-title {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: .8px;
+      margin-bottom: .7rem;
+    }
+    .why-text { color: rgba(255,255,255,.7); font-size: .88rem; line-height: 1.78; }
+
+    /* ═══════════════════════════════════════
+       6. PACKAGES
+    ═══════════════════════════════════════ */
+    #packages { background: rgba(255,255,255,0.04); backdrop-filter: blur(4px); }
+
+    .pkg-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 1.7rem;
+      text-align: center;
+      border: 2px solid var(--gray-300);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      height: 100%;
+    }
+    .pkg-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--pink-l));
+    }
+    .pkg-card:hover {
+      border-color: var(--pink);
+      transform: translateY(-7px);
+      box-shadow: 0 22px 52px rgba(249,115,22,.18);
+    }
+    .pkg-card.featured {
+      border-color: var(--gold);
+      background: linear-gradient(170deg, #FFFBEB, var(--white));
+    }
+    .pkg-card.featured::after {
+      background: linear-gradient(90deg, var(--gold), var(--gold-l));
+    }
+
+    .pkg-ribbon {
+      position: absolute;
+      top: 14px; right: -28px;
+      background: var(--pink);
+      color: var(--white);
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: .26rem 2.2rem;
+      transform: rotate(38deg);
+      box-shadow: 0 2px 8px rgba(0,0,0,.18);
+    }
+
+    .pkg-name {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--gray-700);
+      margin-bottom: .25rem;
+      letter-spacing: .5px;
+    }
+    .pkg-tier { font-size: .73rem; color: var(--gray-500); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: .8rem; }
+
+    .pkg-price {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size: 3.2rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      margin: .8rem 0;
+    }
+    .pkg-price sup { font-size: 1.5rem; vertical-align: super; }
+
+    .pkg-features { margin: 1rem 0 1.4rem; }
+    .pkg-feat {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .42rem 0;
+      font-size: .86rem;
+      color: var(--gray-700);
+      border-bottom: 1px dashed var(--gray-100);
+      text-align: left;
+    }
+    .pkg-feat:last-child { border-bottom: none; }
+    .pkg-feat i { color: var(--green); flex-shrink: 0; }
+
+    .btn-invest {
+      width: 100%;
+      padding: .75rem;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, var(--green), var(--green-l));
+      color: var(--white);
+      font-weight: 700;
+      font-size: .93rem;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-invest:hover {
+      background: linear-gradient(135deg, var(--pink), var(--pink-d));
+      box-shadow: 0 10px 28px rgba(249,115,22,.36);
+      transform: translateY(-2px);
+    }
+
+    /* ═══════════════════════════════════════
+       7. INCOME SECTION
+    ═══════════════════════════════════════ */
+    #income { background: rgba(255,255,255,0.03); backdrop-filter: blur(4px); }
+
+    .income-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      margin-bottom: 2.8rem;
+    }
+    .inc-tab {
+      padding: .62rem 1.35rem;
+      border-radius: 26px;
+      font-weight: 700;
+      font-size: .84rem;
+      border: 2px solid var(--gray-300);
+      background: var(--white);
+      color: var(--gray-700);
+      cursor: pointer;
+      transition: var(--transition);
+      user-select: none;
+      white-space: nowrap;
+    }
+    .inc-tab:hover { border-color: var(--green); color: var(--green); }
+    .inc-tab.active {
+      background: linear-gradient(135deg, var(--green-d), var(--green));
+      border-color: var(--green);
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(79,70,229,.32);
+    }
+
+    .income-panel { display: none; }
+    .income-panel.active { display: block; }
+
+    /* custom table */
+    .px-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .px-table thead th {
+      background: linear-gradient(100deg, var(--green-d), var(--green));
+      color: var(--white);
+      padding: 1rem 1.3rem;
+      font-weight: 700;
+      font-size: .88rem;
+      letter-spacing: .4px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .px-table tbody td {
+      padding: .88rem 1.3rem;
+      text-align: center;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: .92rem;
+      font-weight: 500;
+    }
+    .px-table tbody tr:last-child td { border-bottom: none; }
+    .px-table tbody tr:hover td { background: var(--gray-50); }
+    .px-table td.gold  { color: var(--gold);  font-weight: 800; font-family:'Barlow Condensed',sans-serif; font-size:1.05rem; }
+    .px-table td.green { color: var(--green); font-weight: 700; }
+    .px-table td.pink  { color: var(--pink);  font-weight: 700; }
+    .px-table td.blue  { color: var(--blue);  font-weight: 600; }
+
+    .note-block {
+      background: var(--gold-xl);
+      border: 1.5px solid rgba(217,119,6,.28);
+      border-left: 5px solid var(--gold-l);
+      border-radius: var(--radius-sm);
+      padding: 1.1rem 1.4rem;
+      margin-top: 1.8rem;
+    }
+    .note-block p { color: #78350F; font-size: .88rem; margin: 0; line-height: 1.7; }
+    .note-block p strong { color: var(--gold-d); }
+
+    /* Binary tree */
+    .bin-tree { text-align: center; padding: 2.5rem 0; }
+    .bin-node {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--green-d), var(--green));
+      color: var(--white);
+      padding: .7rem 1.4rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: .88rem;
+    }
+    .bin-node.gold { background: linear-gradient(135deg, var(--gold), var(--gold-l)); }
+    .bin-node.blue { background: linear-gradient(135deg, var(--blue-d), var(--blue)); }
+    .bin-line { width: 2px; height: 36px; background: var(--gray-300); margin: 0 auto; }
+
+    .bin-stat-card {
+      background: var(--white);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius-md);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      height: 100%;
+      transition: var(--transition);
+    }
+    .bin-stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .bin-stat-val {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .bin-stat-lbl { color: var(--gray-700); font-weight: 600; margin-top: .35rem; }
+
+    /* Level badges */
+    .lvl-pill {
+      display: inline-block;
+      padding: .25rem .85rem;
+      border-radius: 20px;
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    /* Booster cards */
+    .boost-card {
+      background: var(--white);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius-lg);
+      padding: 2.8rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      height: 100%;
+    }
+    .boost-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-l));
+    }
+    .boost-card:hover {
+      border-color: var(--pink);
+      box-shadow: 0 20px 55px rgba(249,115,22,.18);
+      transform: translateY(-7px);
+    }
+    .boost-card:hover::after { background: linear-gradient(90deg, var(--pink), var(--pink-d)); }
+
+    .boost-num {
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: .4rem;
+    }
+    .boost-pct {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size: 4.5rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .boost-req {
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+      padding: .9rem 1.1rem;
+      margin-top: 1.4rem;
+      font-size: .84rem;
+      color: var(--gray-700);
+      line-height: 1.65;
+    }
+    .boost-req strong { color: var(--green); }
+
+    /* ═══════════════════════════════════════
+       QUOTE / CTA
+    ═══════════════════════════════════════ */
+    #quote {
+      background: linear-gradient(150deg, #1e1b4b 0%, var(--green-d) 35%, var(--green) 65%, var(--blue) 100%);
+      padding: 6rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    #quote::before {
+      content: '\201C';
+      position: absolute;
+      font-family: Georgia, serif;
+      font-size: 24rem;
+      color: rgba(255,255,255,.035);
+      top: -80px; left: 3%;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .quote-text {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.4;
+      text-align: center;
+    }
+    .quote-text .hl { color: var(--gold-l); }
+    .quote-author {
+      text-align: center;
+      color: rgba(255,255,255,.48);
+      font-size: .8rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-top: 1rem;
+      margin-bottom: 2.8rem;
+    }
+
+    /* ═══════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════ */
+    #contact { background: rgba(255,255,255,0.04); backdrop-filter: blur(4px); }
+
+    .contact-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 2.2rem 1.8rem;
+      border-top: 4px solid;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      height: 100%;
+      transition: var(--transition);
+    }
+    .contact-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    footer {
+      background: linear-gradient(155deg, #0f0e2e 0%, #1e1b4b 45%, var(--green-d) 100%);
+      padding: 4.5rem 0 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.04);
+      top: -240px; right: -180px;
+      pointer-events: none;
+    }
+
+    .footer-brand {
+      font-family:'Barlow Condensed',sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: 1.5px;
+    }
+    .footer-brand span { color: var(--gold-l); }
+    .footer-brand small {
+      display: block;
+      font-size: .52rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,.5);
+      text-transform: uppercase;
+    }
+
+    .footer-text { color: rgba(255,255,255,.55); font-size: .87rem; line-height: 1.85; margin-top: 1rem; }
+
+    .footer-head {
+      font-weight: 800;
+      color: var(--white);
+      font-size: .95rem;
+      margin-bottom: 1.3rem;
+      position: relative;
+      padding-bottom: .65rem;
+    }
+    .footer-head::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 30px; height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .footer-link {
+      display: block;
+      color: rgba(255,255,255,.55);
+      font-size: .86rem;
+      margin-bottom: .62rem;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .footer-link i { font-size: .62rem; margin-right: .45rem; }
+    .footer-link:hover { color: var(--gold-l); padding-left: 4px; }
+
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      border: 1.5px solid rgba(249,115,22,.35);
+      color: var(--pink-l);
+      font-size: .9rem;
+      transition: var(--transition);
+      text-decoration: none;
+      margin-right: .4rem;
+    }
+    .social-icon:hover {
+      background: var(--pink);
+      border-color: var(--pink);
+      color: var(--white);
+      transform: translateY(-3px);
+    }
+
+    .footer-risk {
+      background: rgba(217,119,6,.1);
+      border: 1px solid rgba(245,158,11,.22);
+      border-radius: var(--radius-sm);
+      padding: .9rem 1.1rem;
+      margin-top: 1.2rem;
+    }
+    .footer-risk-title { color: var(--gold-l); font-size: .7rem; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: .3rem; }
+    .footer-risk p { color: rgba(255,255,255,.42); font-size: .72rem; margin: 0; line-height: 1.6; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 1.8rem;
+      margin-top: 3rem;
+      text-align: center;
+      color: rgba(255,255,255,.38);
+      font-size: .8rem;
+    }
+    .footer-bottom span { color: var(--gold-l); }
+
+    /* ═══════════════════════════════════════
+       HERO PARTICLES
+    ═══════════════════════════════════════ */
+    #hero-particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hp {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: hpDrift linear infinite;
+    }
+    @keyframes hpDrift {
+      0%   { transform: translateY(100%) translateX(0)    scale(0);   opacity: 0; }
+      8%   { opacity: 1; }
+      50%  { transform: translateY(48%)  translateX(22px)  scale(1); }
+      92%  { opacity: .6; }
+      100% { transform: translateY(-8%)  translateX(-18px) scale(.4); opacity: 0; }
+    }
+    /* a few larger glowing orbs that drift slowly */
+    .hp-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(28px);
+      opacity: 0;
+      animation: hpOrbFloat ease-in-out infinite;
+    }
+    @keyframes hpOrbFloat {
+      0%,100% { transform: translate(0,0);      opacity: .18; }
+      33%     { transform: translate(30px,-40px); opacity: .28; }
+      66%     { transform: translate(-20px,20px); opacity: .14; }
+    }
+
+    /* make sure hero content sits above particles */
+    #hero .container { position: relative; z-index: 1; }
+    #hero .hero-deco  { z-index: 0; }
+
+
+    @media (max-width: 991px) {
+      .hero-headline { font-size: 2.85rem; }
+      .sec-title { font-size: 2.15rem; }
+      .sec-pad { padding: 4rem 0; }
+      .svc-card { padding: 2rem 1.6rem; }
+      .pkg-card { padding: 1.8rem 1.4rem; }
+    }
+    @media (max-width: 767px) {
+      .hero-headline { font-size: 2.1rem; }
+      .sec-title { font-size: 1.82rem; }
+      .quote-text { font-size: 1.55rem; }
+      .sec-pad { padding: 3rem 0; }
+      .sec-pad-sm { padding: 2.2rem 0; }
+      .hero-card { padding: 1.4rem; }
+      .hero-card-float-1 { top: -12px; right: -8px; font-size: .73rem; padding: .55rem .85rem; }
+      .hero-card-float-2 { bottom: -12px; left: -8px; font-size: .73rem; padding: .55rem .85rem; }
+      .vmcard { padding: 1.5rem 1.2rem; }
+      .why-card { padding: 1.8rem 1.3rem; }
+      .boost-card { padding: 2rem 1.3rem; }
+      .boost-pct { font-size: 3.2rem; }
+      .pkg-price { font-size: 2.5rem; }
+      .px-table thead th, .px-table tbody td { padding: .65rem .8rem; font-size: .82rem; }
+      .income-tabs { gap: .4rem; }
+      .inc-tab { padding: .5rem 1rem; font-size: .78rem; }
+      .bin-stat-val { font-size: 2.2rem; }
+    }
+    @media (max-width: 576px) {
+      .hero-headline { font-size: 1.85rem; }
+      .sec-title { font-size: 1.55rem; }
+      .hero-input-row { flex-direction: column; }
+      .hero-counter { flex-direction: column; gap: .9rem; }
+      .hero-counter .count-sep { width: 60px; height: 1px; }
+      .hero-sub { font-size: .95rem; }
+      .social-login-row { flex-direction: column; }
+      .social-btn { justify-content: center; }
+      .svc-title { font-size: 1.45rem; }
+      .svc-icon-wrap { width: 64px; height: 64px; font-size: 1.5rem; }
+      .pkg-card { padding: 1.5rem 1.1rem; }
+      .quote-text { font-size: 1.3rem; }
+      .card-bars { height: 80px; }
+      .px-table { font-size: .78rem; }
+      .px-table thead th, .px-table tbody td { padding: .55rem .5rem; }
+      .sec-lead { font-size: .92rem; }
+      .contact-card { padding: 1.6rem 1.2rem; }
+      .bin-stat-card { padding: 1.4rem 1rem; }
+      .hero-deco-1, .hero-deco-2, .hero-deco-3 { display: none; }
+      .footer-head { font-size: .88rem; }
+      footer { padding: 3rem 0 1.5rem; }
+    }
+    @media (max-width: 400px) {
+      .hero-headline { font-size: 1.65rem; }
+      .nav-brand { font-size: 1.28rem; }
+      .btn-px { padding: .62rem 1.3rem; font-size: .85rem; }
+      .pkg-price { font-size: 2.1rem; }
+    }
+
+    /* ═══════════════════════════════════════
+       PAGE LOADER
+    ═══════════════════════════════════════ */
+    #px-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: linear-gradient(135deg, #0d0b2b 0%, #1a0a3d 30%, #0c1a3a 65%, #0a1f2e 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity .65s ease, visibility .65s ease;
+    }
+    #px-loader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* floating particles */
+    .ldr-particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .ldr-particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: ldrFloat linear infinite;
+    }
+    @keyframes ldrFloat {
+      0%   { transform: translateY(110vh) scale(0);  opacity: 0; }
+      10%  { opacity: .55; }
+      90%  { opacity: .35; }
+      100% { transform: translateY(-10vh)  scale(1.2); opacity: 0; }
+    }
+
+    /* logo */
+    .ldr-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3.4rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+      animation: ldrPulse 1.8s ease-in-out infinite;
+    }
+    .ldr-logo span { color: #F59E0B; }
+    @keyframes ldrPulse {
+      0%,100% { text-shadow: 0 0 18px rgba(99,102,241,.5), 0 0 40px rgba(99,102,241,.25); }
+      50%      { text-shadow: 0 0 32px rgba(245,158,11,.7), 0 0 70px rgba(245,158,11,.35); }
+    }
+
+    .ldr-tagline {
+      font-size: .72rem;
+      letter-spacing: 4.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      margin-top: .3rem;
+      margin-bottom: 2.8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* track */
+    .ldr-track {
+      width: min(340px, 78vw);
+      height: 5px;
+      background: rgba(255,255,255,.1);
+      border-radius: 99px;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+    /* glowing fill bar */
+    .ldr-bar {
+      height: 100%;
+      width: 0%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #4F46E5, #6366F1, #F59E0B, #FB923C);
+      background-size: 250% 100%;
+      animation: ldrShift 1.4s linear infinite;
+      transition: width .08s linear;
+      box-shadow: 0 0 14px rgba(245,158,11,.55);
+    }
+    @keyframes ldrShift {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 250% 50%; }
+    }
+
+    /* pct counter */
+    .ldr-pct {
+      margin-top: 1.1rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,.55);
+      position: relative;
+      z-index: 1;
+    }
+    .ldr-pct span { color: #F59E0B; }
+
+    /* glow ring */
+    .ldr-ring {
+      position: absolute;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      border: 1px solid rgba(99,102,241,.15);
+      animation: ldrSpin 8s linear infinite;
+    }
+    .ldr-ring::before {
+      content: '';
+      position: absolute;
+      top: -3px; left: 50%;
+      transform: translateX(-50%);
+      width: 6px; height: 6px;
+      background: #6366F1;
+      border-radius: 50%;
+      box-shadow: 0 0 12px 4px rgba(99,102,241,.6);
+    }
+    .ldr-ring-2 {
+      width: 560px; height: 560px;
+      border-color: rgba(245,158,11,.08);
+      animation-duration: 14s;
+      animation-direction: reverse;
+    }
+    .ldr-ring-2::before { background: #F59E0B; box-shadow: 0 0 12px 4px rgba(245,158,11,.5); }
+    @keyframes ldrSpin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<!-- ╔════════════════════════════════════════════╗
+     ║              PAGE LOADER                   ║
+     ╚════════════════════════════════════════════╝ -->
+<div id="px-loader">
+  <div class="ldr-particles"></div>
+  <div class="ldr-ring"></div>
+  <div class="ldr-ring ldr-ring-2"></div>
+  <div class="ldr-logo"><i class="fa-solid fa-bolt-lightning" style="margin-right:.4rem;"></i>POWER<span>EX</span></div>
+  <div class="ldr-tagline">Multi Trading · Financial Solutions</div>
+  <div class="ldr-track">
+    <div class="ldr-bar" id="ldrBar"></div>
+  </div>
+  <div class="ldr-pct">Loading <span id="ldrPct">0</span>%</div>
+</div>
+
+<!-- ╔════════════════════════════════════════════╗
+     ║              1. NAVIGATION                 ║
+     ╚════════════════════════════════════════════╝ -->
+<nav id="mainNav" class="navbar navbar-expand-lg">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="nav-brand navbar-brand" href="#hero">
+      <img src="assets/px-icon.svg" class="brand-icon-img" alt="PowerEx" width="36" height="36">
+      <span class="brand-text-wrap">
+        <span class="brand-text">POWER<span class="brand-ex">EX</span></span>
+        <span class="brand-tag">Multi Trading</span>
+      </span>
+    </a>
+
+    <!-- Hamburger -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navCollapse">
+      <div class="hamburger-inner">
+        <span></span><span></span><span></span>
+      </div>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navCollapse">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link active-nav" href="#hero">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#packages">Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="#income">Income</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+      </ul>
+      <div class="d-flex gap-2 align-items-center pt-3 pt-lg-0">
+        <button class="theme-toggle" id="themeToggle" title="Toggle light / dark mode">
+          <i class="fa-solid fa-moon ico-moon"></i>
+          <i class="fa-solid fa-sun  ico-sun"></i>
+        </button>
+        <a href="login.html" class="nav-btn-login">Login</a>
+        <a href="signup.html" class="nav-btn-signup">Sign Up <i class="fa-solid fa-arrow-right ms-1"></i></a>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<!-- ╔════════════════════════════════════════════╗
+     ║                2. HERO                     ║
+     ╚════════════════════════════════════════════╝ -->
+<section id="hero">
+  <div id="hero-particles"></div>
+  <div class="hero-deco hero-deco-1"></div>
+  <div class="hero-deco hero-deco-2"></div>
+  <div class="hero-deco hero-deco-3"></div>
+
+  <div class="container py-5">
+    <div class="row align-items-center g-5">
+
+      <!-- Left copy -->
+      <div class="col-xl-6 col-lg-6">
+        <div class="hero-tag">
+          <i class="fa-solid fa-star" style="font-size:.7rem;"></i>
+          Established 2021 · Trusted Globally
+        </div>
+
+        <h1 class="hero-headline">
+          JOIN US &amp;<br>
+          <span class="gold-text">SUCCESS YOUR</span><br>
+          <span class="green-text">DREAMS</span>
+        </h1>
+
+        <p class="hero-sub">
+          One of the country's best Financial Solution companies — combining
+          Commodity Market expertise with world-class Forex Trading, built for
+          visionary entrepreneurs who want exceptional, transparent returns.
+        </p>
+
+        <!-- Input row -->
+        <div class="hero-input-row">
+          <input type="email" class="hero-input" placeholder="Enter your email or phone…" />
+          <a href="signup.html" class="btn-px btn-green">
+            Get Started <i class="fa-solid fa-rocket"></i>
+          </a>
+        </div>
+
+        <!-- Or divider -->
+        <div class="hero-divider">or continue with</div>
+
+        <!-- Social logins -->
+        <div class="social-login-row">
+          <a href="#" class="social-btn">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="18" alt="Google" />
+            Google
+          </a>
+          <a href="#" class="social-btn">
+            <i class="fa-brands fa-apple" style="font-size:1.15rem;color:#000;"></i>
+            Apple
+          </a>
+          <a href="#" class="social-btn">
+            <i class="fa-brands fa-telegram" style="font-size:1.1rem;color:#2CA5E0;"></i>
+            Telegram
+          </a>
+        </div>
+
+        <!-- Counter pill -->
+        <div class="hero-counter">
+          <div class="stat-item">
+            <div class="count-val" id="cntMembers">0</div>
+            <div class="count-lbl">Active<br>Members</div>
+          </div>
+          <div class="count-sep"></div>
+          <div class="stat-item">
+            <div class="count-val" id="cntVol">$0</div>
+            <div class="count-lbl">Volume<br>Traded</div>
+          </div>
+          <div class="count-sep"></div>
+          <div class="stat-item">
+            <div class="count-val" id="cntUp">0%</div>
+            <div class="count-lbl">Platform<br>Uptime</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right card -->
+      <div class="col-xl-6 col-lg-6 d-flex justify-content-center">
+        <div style="max-width:440px;width:100%;position:relative;" class="float-anim">
+          <div class="hero-card">
+
+            <div class="hero-card-float hero-card-float-1">
+              <i class="fa-solid fa-arrow-trend-up" style="color:var(--gold);font-size:1.3rem;"></i>
+              <div>
+                <div class="fl">Monthly Cashback</div>
+                <div class="fv" style="color:var(--gold);">Up to 5%</div>
+              </div>
+            </div>
+            <div class="hero-card-float hero-card-float-2">
+              <i class="fa-solid fa-shield-halved" style="color:var(--green);font-size:1.3rem;"></i>
+              <div>
+                <div class="fl">Security Level</div>
+                <div class="fv" style="color:var(--green);">256-bit SSL</div>
+              </div>
+            </div>
+
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <div style="font-size:.74rem;color:var(--gray-500);">Portfolio Growth</div>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.7rem;font-weight:800;color:var(--green);">+24.8%</div>
+              </div>
+              <div style="background:var(--green-xl);border-radius:9px;padding:.42rem .9rem;color:var(--green);font-size:.76rem;font-weight:700;">
+                <i class="fa-solid fa-arrow-up me-1"></i>This Month
+              </div>
+            </div>
+
+            <!-- Bars -->
+            <div class="card-bars">
+              <div class="cbar cbar-b" style="height:58%"></div>
+              <div class="cbar cbar-b" style="height:74%"></div>
+              <div class="cbar cbar-b" style="height:50%"></div>
+              <div class="cbar cbar-go" style="height:88%"></div>
+              <div class="cbar cbar-b" style="height:66%"></div>
+              <div class="cbar cbar-go" style="height:94%"></div>
+              <div class="cbar cbar-g" style="height:80%"></div>
+              <div class="cbar cbar-g" style="height:100%"></div>
+            </div>
+            <div class="d-flex justify-content-between" style="font-size:.68rem;color:var(--gray-500);">
+              <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
+              <span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>
+            </div>
+
+            <div class="stat-row mt-3">
+              <div class="stat-item"><div class="sv">5K+</div><div class="sl">Members</div></div>
+              <div class="stat-item"><div class="sv">$10M+</div><div class="sl">Volume</div></div>
+              <div class="stat-item"><div class="sv">99.9%</div><div class="sl">Uptime</div></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔════════════════════════════════════════════╗
+     ║              3. ABOUT US                   ║
+     ╚════════════════════════════════════════════╝ -->
+<section id="about" class="sec-pad">
+  <div class="container">
+
+    <div class="text-center mb-5 reveal">
+      <div class="section-label">Our Story</div>
+      <h2 class="sec-title">About <span class="accent">Powerex</span> Multi Trading</h2>
+      <div class="gold-divider center"></div>
+      <p class="sec-lead mx-auto">
+        Founded in 2021 by visionary entrepreneurs passionate about financial empowerment,
+        Powerex Multi Trading bridges the gap between complex financial markets and everyday wealth-building.
+      </p>
+    </div>
+
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5 reveal">
+        <div class="about-timeline">
+          <div class="about-tpoint">
+            <h5 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--green);">2021 — Founded</h5>
+            <p style="color:var(--gray-700);font-size:.9rem;line-height:1.78;margin-top:.4rem;">
+              A team of visionary entrepreneurs launched Powerex Multi Trading with one goal:
+              to democratize premium financial investment opportunities for everyday people.
+            </p>
+          </div>
+          <div class="about-tpoint">
+            <h5 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--blue);">2022 — Rapid Growth</h5>
+            <p style="color:var(--gray-700);font-size:.9rem;line-height:1.78;margin-top:.4rem;">
+              Expanded services to cover both Commodity Markets and Forex Trading,
+              attracting thousands of members across the region within the first year.
+            </p>
+          </div>
+          <div class="about-tpoint">
+            <h5 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gold);">2023–2024 — Global Reach</h5>
+            <p style="color:var(--gray-700);font-size:.9rem;line-height:1.78;margin-top:.4rem;">
+              Introduced multi-tier income programs, launched the Binary and Level Income systems,
+              and began awarding luxury rewards to top performers worldwide.
+            </p>
+          </div>
+          <div class="about-tpoint">
+            <h5 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--pink);">Today — 1 Million+ Members</h5>
+            <p style="color:var(--gray-700);font-size:.9rem;line-height:1.78;margin-top:.4rem;">
+              Powerex continues to grow as one of the country's most trusted financial platforms,
+              empowering members to achieve life-changing financial goals.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="row g-3">
+          <div class="col-md-6 reveal">
+            <div class="vmcard vision">
+              <div class="vmc-icon bl"><i class="fa-solid fa-eye"></i></div>
+              <div class="vmc-title" style="color:var(--blue);">Our Vision</div>
+              <p style="color:var(--gray-700);font-size:.88rem;line-height:1.82;">
+                To be the world's most trusted financial trading platform — democratizing wealth creation
+                for individuals across all economic backgrounds through transparent, innovative solutions.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 reveal">
+            <div class="vmcard mission">
+              <div class="vmc-icon pk"><i class="fa-solid fa-bullseye"></i></div>
+              <div class="vmc-title" style="color:var(--pink);">Our Mission</div>
+              <p style="color:var(--gray-700);font-size:.88rem;line-height:1.82;">
+                To empower members with cutting-edge trading strategies, comprehensive support,
+                and a robust multi-income framework that turns financial goals into realities.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 reveal">
+            <div class="vmcard values">
+              <div class="vmc-icon gd"><i class="fa-solid fa-gem"></i></div>
+              <div class="vmc-title" style="color:var(--gold);">Our Values</div>
+              <p style="color:var(--gray-700);font-size:.88rem;line-height:1.82;">
+                Integrity, transparency, and excellence drive everything we do. We are committed to
+                building lasting relationships based on trust and mutual growth.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 reveal">
+            <div class="vmcard" style="border-left-color:var(--green);">
+              <div class="vmc-icon gr"><i class="fa-solid fa-handshake"></i></div>
+              <div class="vmc-title" style="color:var(--green);">Our Promise</div>
+              <p style="color:var(--gray-700);font-size:.88rem;line-height:1.82;">
+                Every member's investment is handled with the highest care. We promise timely payouts,
+                active support, and a community that grows together.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ╔════════════════════════════════════════════╗
+     ║             4. SERVICES                    ║
+     ╚════════════════════════════════════════════╝ -->
+<section id="services" class="sec-pad">
+  <div class="container">
+
+    <div class="text-center mb-5 reveal">
+      <div class="section-label label-gold">What We Offer</div>
+      <h2 class="sec-title">Our <span class="accent">Trading Services</span></h2>
+      <div class="gold-divider center"></div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-6 reveal">
+        <div class="svc-card commodity h-100">
+          <div class="svc-icon-wrap gd"><i class="fa-solid fa-chart-candlestick"></i></div>
+          <div class="svc-title" style="color:var(--gold);">COMMODITY MARKET</div>
+          <p style="color:var(--gray-700);line-height:1.82;font-size:.93rem;">
+            Trade in gold, silver, crude oil, natural gas, and agricultural commodities with our
+            expert-guided strategies. With <strong>10–15 years of combined experience</strong> in raw materials
+            markets, our analysts identify high-value opportunities even in volatile conditions.
+          </p>
+          <ul class="svc-list">
+            <li><i class="fa-solid fa-check"></i>Gold, Silver &amp; Precious Metals Trading</li>
+            <li><i class="fa-solid fa-check"></i>Energy Commodities — Crude Oil &amp; Natural Gas</li>
+            <li><i class="fa-solid fa-check"></i>Agricultural Futures — Wheat, Cotton, Coffee</li>
+            <li><i class="fa-solid fa-check"></i>Real-time Market Analysis &amp; Signals</li>
+            <li><i class="fa-solid fa-check"></i>Risk-managed Portfolio Allocation</li>
+          </ul>
+          <a href="#" class="btn-px btn-outline-gold">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-6 reveal">
+        <div class="svc-card forex h-100">
+          <div class="svc-icon-wrap bl"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="svc-title" style="color:var(--blue);">FOREX TRADING</div>
+          <p style="color:var(--gray-700);line-height:1.82;font-size:.93rem;">
+            Access the world's largest financial market with a
+            <strong>$5 trillion daily trading volume</strong>. Our advanced Forex trading division
+            provides major, minor, and exotic currency pair analysis backed by professional
+            mentorship and automated signal systems.
+          </p>
+          <ul class="svc-list">
+            <li><i class="fa-solid fa-check"></i>Major, Minor &amp; Exotic Currency Pairs</li>
+            <li><i class="fa-solid fa-check"></i>Advanced Technical &amp; Fundamental Analysis</li>
+            <li><i class="fa-solid fa-check"></i>Automated Trading Signals (24/5)</li>
+            <li><i class="fa-solid fa-check"></i>Professional Risk Management Tools</li>
+            <li><i class="fa-solid fa-check"></i>Live Market Commentary &amp; Mentorship</li>
+          </ul>
+          <a href="#" class="btn-px btn-outline-green">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ╔════════════════════════════════════════════╗
+     ║            5. WHY JOIN US                  ║
+     ╚════════════════════════════════════════════╝ -->
+<section id="why" class="sec-pad">
+  <div class="container position-relative">
+
+    <div class="text-center mb-5 reveal">
+      <h2 class="sec-title" style="color:var(--white);">Why <span style="color:var(--gold-l);">Join Us?</span></h2>
+      <div class="gold-divider center"></div>
+      <p class="sec-lead mx-auto" style="color:rgba(255,255,255,.68);">
+        Experience the Powerex advantage — designed entirely around your success
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-sm-6 col-xl-3 reveal">
+        <div class="why-card">
+          <div class="why-icon"><i class="fa-solid fa-coins"></i></div>
+          <div class="why-title">EASY INVEST</div>
+          <p class="why-text">Start from as little as $50 and grow your portfolio with simple, transparent packages designed for everyone — beginner to expert.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xl-3 reveal">
+        <div class="why-card">
+          <div class="why-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="why-title">HIGHEST SECURITY</div>
+          <p class="why-text">Your funds and data are protected by military-grade 256-bit SSL encryption and multi-factor authentication protocols.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xl-3 reveal">
+        <div class="why-card">
+          <div class="why-icon"><i class="fa-solid fa-headset"></i></div>
+          <div class="why-title">24/7 SUPPORT</div>
+          <p class="why-text">Our dedicated global support team is online round the clock — via chat, email, or phone — to answer every question you have.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xl-3 reveal">
+        <div class="why-card">
+          <div class="why-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+          <div class="why-title">EARN PROFIT</div>
+          <p class="why-text">Unlock 5 simultaneous income streams — Monthly Cashback, Binary, Level, Booster, and luxury Awards &amp; Rewards.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ╔════════════════════════════════════════════╗
+     ║             6. PACKAGES                    ║
+     ╚════════════════════════════════════════════╝ -->
+<section id="packages" class="sec-pad">
+  <div class="container">
+
+    <div class="text-center mb-5 reveal">
+      <div class="section-label">Investment Plans</div>
+      <h2 class="sec-title">Our <span class="accent">Investment Packages</span></h2>
+      <div class="gold-divider center"></div>
+      <p class="sec-lead mx-auto">Choose the package that best fits your financial goals and start earning today</p>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- $50 -->
+      <div class="col-sm-6 col-xl-4 reveal">
+        <div class="pkg-card">
+          <div class="pkg-name">STARTER PLAN</div>
+          <div class="pkg-tier">Entry Level</div>
+          <div class="pkg-price"><sup>$</sup>50</div>
+          <div class="pkg-features">
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Monthly Cashback</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Binary Income (5%)</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Level Income (5 Levels)</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>24/7 Support</div>
+          </div>
+          <button class="btn-invest"><i class="fa-solid fa-bolt me-2"></i>Invest Now</button>
+        </div>
+      </div>
+
+      <!-- $100 -->
+      <div class="col-sm-6 col-xl-4 reveal">
+        <div class="pkg-card">
+          <div class="pkg-name">BASIC PLAN</div>
+          <div class="pkg-tier">Popular Choice</div>
+          <div class="pkg-price"><sup>$</sup>100</div>
+          <div class="pkg-features">
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Monthly Cashback</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Binary Income (5%)</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Level Income (5 Levels)</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Booster Income Eligible</div>
+          </div>
+          <button class="btn-invest"><i class="fa-solid fa-bolt me-2"></i>Invest Now</button>
+        </div>
+      </div>
+
+      <!-- $500 featured -->
+      <div class="col-sm-6 col-xl-4 reveal">
+        <div class="pkg-card featured">
+          <div class="pkg-ribbon">Best Value</div>
+          <div class="pkg-name">SILVER PLAN</div>
+          <div class="pkg-tier">Recommended</div>
+          <div class="pkg-price"><sup>$</sup>500</div>
+          <div class="pkg-features">
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Enhanced Cashback</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Binary Income (5%)</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Level Income (5 Levels)</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>All Booster Tiers</div>
+          </div>
+          <button class="btn-invest"><i class="fa-solid fa-bolt me-2"></i>Invest Now</button>
+        </div>
+      </div>
+
+      <!-- $1000 -->
+      <div class="col-sm-6 col-xl-4 reveal">
+        <div class="pkg-card">
+          <div class="pkg-ribbon" style="background:var(--gold);">Top Tier</div>
+          <div class="pkg-name">GOLD PLAN</div>
+          <div class="pkg-tier">Premium</div>
+          <div class="pkg-price"><sup>$</sup>1,000</div>
+          <div class="pkg-features">
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Premium Cashback</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Binary Income (5%)</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Full Level Income</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Awards &amp; Rewards Eligible</div>
+          </div>
+          <button class="btn-invest"><i class="fa-solid fa-bolt me-2"></i>Invest Now</button>
+        </div>
+      </div>
+
+      <!-- $5000 -->
+      <div class="col-sm-6 col-xl-4 reveal">
+        <div class="pkg-card">
+          <div class="pkg-name">PLATINUM PLAN</div>
+          <div class="pkg-tier">Elite Investor</div>
+          <div class="pkg-price"><sup>$</sup>5,000</div>
+          <div class="pkg-features">
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Max Cashback Income</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Enhanced Binary Income</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Full Level Access</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Priority Support + Rewards</div>
+          </div>
+          <button class="btn-invest"><i class="fa-solid fa-bolt me-2"></i>Invest Now</button>
+        </div>
+      </div>
+
+      <!-- $10000 featured -->
+      <div class="col-sm-6 col-xl-4 reveal">
+        <div class="pkg-card featured">
+          <div class="pkg-ribbon">VIP</div>
+          <div class="pkg-name">DIAMOND PLAN</div>
+          <div class="pkg-tier">Ultimate Package</div>
+          <div class="pkg-price"><sup>$</sup>10,000</div>
+          <div class="pkg-features">
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Max Cashback Returns</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Max Binary Income</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>Full Level Access</div>
+            <div class="pkg-feat"><i class="fa-solid fa-check-circle"></i>BMW / Luxury Villa Eligible</div>
+          </div>
+          <button class="btn-invest"><i class="fa-solid fa-bolt me-2"></i>Invest Now</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔════════════════════════════════════════════╗
+     ║           7-12. INCOME SECTION             ║
+     ╚════════════════════════════════════════════╝ -->
+<section id="income" class="sec-pad">
+  <div class="container">
+
+    <div class="text-center mb-5 reveal">
+      <div class="section-label">Earn With Us</div>
+      <h2 class="sec-title">Multiple <span class="accent">Income Streams</span></h2>
+      <div class="gold-divider center"></div>
+      <p class="sec-lead mx-auto">5 powerful ways to grow your wealth simultaneously</p>
+    </div>
+
+    <!-- Tab nav -->
+    <div class="income-tabs" id="incomeTabs">
+      <div class="inc-tab active" data-tab="cashback"><i class="fa-solid fa-percent me-1"></i> Monthly Cashback</div>
+      <div class="inc-tab" data-tab="binary"><i class="fa-solid fa-code-branch me-1"></i> Binary Income</div>
+      <div class="inc-tab" data-tab="level"><i class="fa-solid fa-layer-group me-1"></i> Level Income</div>
+      <div class="inc-tab" data-tab="booster"><i class="fa-solid fa-rocket me-1"></i> Booster Income</div>
+      <div class="inc-tab" data-tab="awards"><i class="fa-solid fa-trophy me-1"></i> Awards &amp; Rewards</div>
+    </div>
+
+    <!-- ── 8. CASHBACK ── -->
+    <div class="income-panel active" id="panel-cashback">
+      <div class="row align-items-start g-5">
+        <div class="col-lg-4 reveal">
+          <div class="section-label">Passive Returns</div>
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--green);font-size:1.95rem;">MONTHLY CASHBACK INCOME</h3>
+          <div class="gold-divider"></div>
+          <p style="color:var(--gray-700);line-height:1.85;font-size:.92rem;margin-bottom:1.4rem;">
+            Earn consistent monthly cashback on your invested package. Income is calculated
+            weekly and credited every <strong>Friday</strong> directly to your wallet.
+            Market closes on Fridays with your weekly share distributed automatically.
+          </p>
+          <div class="d-flex align-items-center gap-3 p-3 bg-white rounded-3 border" style="border-color:var(--gray-300)!important;">
+            <i class="fa-solid fa-calendar-days fa-2x" style="color:var(--gold);"></i>
+            <div>
+              <div style="font-weight:700;font-size:.88rem;color:var(--gray-900);">Weekly Payment</div>
+              <div style="font-size:.78rem;color:var(--gray-500);">Every Friday — auto-credited</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 reveal">
+          <div class="table-responsive">
+            <table class="px-table">
+              <thead>
+                <tr>
+                  <th><i class="fa-solid fa-box me-1"></i> Package ($)</th>
+                  <th><i class="fa-solid fa-percent me-1"></i> Monthly %</th>
+                  <th><i class="fa-solid fa-coins me-1"></i> Monthly ($)</th>
+                  <th><i class="fa-solid fa-flag-checkered me-1"></i> Till Capping ($)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="gold">$50</td>    <td class="green">5%</td><td>$2.50</td>    <td class="pink">$100</td></tr>
+                <tr><td class="gold">$100</td>   <td class="green">5%</td><td>$5.00</td>    <td class="pink">$200</td></tr>
+                <tr><td class="gold">$500</td>   <td class="green">5%</td><td>$25.00</td>   <td class="pink">$1,000</td></tr>
+                <tr><td class="gold">$1,000</td> <td class="green">5%</td><td>$50.00</td>   <td class="pink">$2,000</td></tr>
+                <tr><td class="gold">$5,000</td> <td class="green">5%</td><td>$250.00</td>  <td class="pink">$10,000</td></tr>
+                <tr><td class="gold">$10,000</td><td class="green">5%</td><td>$500.00</td>  <td class="pink">$20,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="note-block">
+            <p>
+              <i class="fa-solid fa-circle-info me-2" style="color:var(--gold);"></i>
+              <strong>Note:</strong> Cashback is paid <strong>weekly every Friday</strong>.
+              The market closes on Friday and your proportionate weekly share (monthly ÷ 4)
+              is credited automatically. Capping applies to total cumulative income per package.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 9. BINARY ── -->
+    <div class="income-panel" id="panel-binary">
+      <div class="row g-4 mb-5">
+        <div class="col-md-4 reveal">
+          <div class="bin-stat-card">
+            <i class="fa-solid fa-percentage fa-2x" style="color:var(--gold);margin-bottom:.7rem;"></i>
+            <div class="bin-stat-val">5%</div>
+            <div class="bin-stat-lbl">Matching Bonus Per Pair</div>
+            <p style="color:var(--gray-500);font-size:.82rem;margin-top:.6rem;line-height:1.7;">Earn 5% on every matching pair generated across both legs of your binary network.</p>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="bin-stat-card" style="border-color:var(--blue);">
+            <i class="fa-solid fa-code-branch fa-2x" style="color:var(--blue);margin-bottom:.7rem;"></i>
+            <div class="bin-stat-val" style="color:var(--blue);">1:1</div>
+            <div class="bin-stat-lbl">Matching Ratio</div>
+            <p style="color:var(--gray-500);font-size:.82rem;margin-top:.6rem;line-height:1.7;">Equal left:right matching for maximum pairing efficiency in your downline network.</p>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="bin-stat-card" style="border-color:var(--pink);">
+            <i class="fa-solid fa-calendar-days fa-2x" style="color:var(--pink);margin-bottom:.7rem;"></i>
+            <div class="bin-stat-val" style="color:var(--pink);">Daily</div>
+            <div class="bin-stat-lbl">Payment Frequency</div>
+            <p style="color:var(--gray-500);font-size:.82rem;margin-top:.6rem;line-height:1.7;">Binary income is calculated and credited on a daily basis to your wallet.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Binary tree diagram -->
+      <div class="bin-tree bg-white rounded-4 p-4 shadow-sm reveal">
+        <div class="bin-node gold" style="padding:1rem 2rem;font-size:.96rem;">
+          <i class="fa-solid fa-user-circle me-2"></i> YOU (Sponsor)
+        </div>
+        <div class="bin-line"></div>
+        <div class="d-flex justify-content-center gap-5 flex-wrap">
+          <div class="text-center">
+            <div class="bin-node blue"><i class="fa-solid fa-arrow-left me-1"></i> LEFT LEG</div>
+            <div class="bin-line"></div>
+            <div class="d-flex gap-2 justify-content-center">
+              <div class="bin-node" style="font-size:.72rem;padding:.45rem .75rem;">Member A</div>
+              <div class="bin-node" style="font-size:.72rem;padding:.45rem .75rem;">Member B</div>
+            </div>
+          </div>
+          <div class="text-center">
+            <div class="bin-node blue">RIGHT LEG <i class="fa-solid fa-arrow-right ms-1"></i></div>
+            <div class="bin-line"></div>
+            <div class="d-flex gap-2 justify-content-center">
+              <div class="bin-node" style="font-size:.72rem;padding:.45rem .75rem;">Member C</div>
+              <div class="bin-node" style="font-size:.72rem;padding:.45rem .75rem;">Member D</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="note-block reveal">
+        <p>
+          <i class="fa-solid fa-circle-info me-2" style="color:var(--gold);"></i>
+          <strong>How it works:</strong> When 1 member joins your left leg and 1 joins your right — a <strong>1st pair</strong> is formed.
+          You earn <strong>5% of the lesser leg's business value</strong> as binary income, paid daily.
+          The unmatched side's business carries forward to the next pairing cycle.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── 10. LEVEL ── -->
+    <div class="income-panel" id="panel-level">
+      <div class="row g-5 align-items-start">
+        <div class="col-lg-4 reveal">
+          <div class="section-label">Downline Earnings</div>
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--green);font-size:1.95rem;">LEVEL INCOME</h3>
+          <div class="gold-divider"></div>
+          <p style="color:var(--gray-700);line-height:1.85;font-size:.92rem;">
+            Earn passive income from your downline members' investments across 5 generations.
+            Each direct referral you add unlocks the next income level automatically.
+          </p>
+          <div class="note-block">
+            <p>
+              <i class="fa-solid fa-circle-info me-2" style="color:var(--gold);"></i>
+              <strong>Unlock Levels:</strong> Level 1 opens immediately. Each additional level
+              requires the corresponding number of active direct referrals to unlock.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-8 reveal">
+          <div class="table-responsive">
+            <table class="px-table">
+              <thead>
+                <tr><th>Level</th><th>Income %</th><th>Directs Required</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="lvl-pill" style="background:var(--green);">Level 1</span></td>
+                  <td class="gold">2%</td><td>1 Direct</td>
+                  <td><span style="color:var(--green);font-weight:700;"><i class="fa-solid fa-unlock me-1"></i>Open</span></td>
+                </tr>
+                <tr>
+                  <td><span class="lvl-pill" style="background:var(--blue);">Level 2</span></td>
+                  <td class="gold">1%</td><td>2 Directs</td>
+                  <td><span style="color:var(--blue);font-weight:700;"><i class="fa-solid fa-lock me-1"></i>2 Directs</span></td>
+                </tr>
+                <tr>
+                  <td><span class="lvl-pill" style="background:var(--pink);">Level 3</span></td>
+                  <td class="gold">0.5%</td><td>3 Directs</td>
+                  <td><span style="color:var(--pink);font-weight:700;"><i class="fa-solid fa-lock me-1"></i>3 Directs</span></td>
+                </tr>
+                <tr>
+                  <td><span class="lvl-pill" style="background:var(--gold);">Level 4</span></td>
+                  <td class="gold">0.25%</td><td>4 Directs</td>
+                  <td><span style="color:var(--gold);font-weight:700;"><i class="fa-solid fa-lock me-1"></i>4 Directs</span></td>
+                </tr>
+                <tr>
+                  <td><span class="lvl-pill" style="background:#7B1FA2;">Level 5</span></td>
+                  <td class="gold">0.12%</td><td>5 Directs</td>
+                  <td><span style="color:#7B1FA2;font-weight:700;"><i class="fa-solid fa-lock me-1"></i>5 Directs</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 11. BOOSTER ── -->
+    <div class="income-panel" id="panel-booster">
+      <div class="mb-4 reveal">
+        <div class="section-label">Fast-Track Bonus</div>
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--green);font-size:1.95rem;">BOOSTER INCOME</h3>
+        <div class="gold-divider"></div>
+        <p style="color:var(--gray-700);line-height:1.85;font-size:.92rem;max-width:680px;">
+          Build your network fast and unlock special one-time booster percentages paid on
+          your total package value. The more aggressively you grow, the higher your reward!
+        </p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4 reveal">
+          <div class="boost-card">
+            <div class="boost-num">1st Booster</div>
+            <div class="boost-pct">1%</div>
+            <p style="color:var(--gray-700);margin-top:.7rem;font-size:.92rem;">of your total package value, paid as a one-time booster bonus</p>
+            <div class="boost-req">Achieve <strong>2 direct referrals</strong><br>within <strong>7 days</strong> of joining</div>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="boost-card">
+            <div class="boost-num">2nd Booster</div>
+            <div class="boost-pct">2%</div>
+            <p style="color:var(--gray-700);margin-top:.7rem;font-size:.92rem;">of your total package value, paid as a second-tier booster bonus</p>
+            <div class="boost-req">Achieve <strong>5 direct referrals</strong><br>within <strong>14 days</strong> of joining</div>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="boost-card">
+            <div class="boost-num">3rd Booster</div>
+            <div class="boost-pct">3%</div>
+            <p style="color:var(--gray-700);margin-top:.7rem;font-size:.92rem;">of your total package value, paid as the ultimate booster bonus</p>
+            <div class="boost-req">Achieve <strong>10 direct referrals</strong><br>within <strong>21 days</strong> of joining</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 12. AWARDS ── -->
+    <div class="income-panel" id="panel-awards">
+      <div class="mb-4 reveal">
+        <div class="section-label label-gold">Luxury Milestone Rewards</div>
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--green);font-size:1.95rem;">AWARDS &amp; REWARDS</h3>
+        <div class="gold-divider"></div>
+        <p style="color:var(--gray-700);line-height:1.85;font-size:.92rem;max-width:680px;">
+          Hit business milestones in your binary network and earn life-changing luxury prizes.
+          Build both legs equally to unlock the next reward tier.
+        </p>
+      </div>
+      <div class="table-responsive reveal">
+        <table class="px-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th><i class="fa-solid fa-arrow-left me-1"></i> Left Leg Business</th>
+              <th><i class="fa-solid fa-arrow-right me-1"></i> Right Leg Business</th>
+              <th><i class="fa-solid fa-gift me-1"></i> Reward</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="lvl-pill" style="background:var(--blue-l);">Rank 1</span></td>
+              <td class="gold">$500</td><td class="gold">$500</td>
+              <td class="pink"><i class="fa-solid fa-tablet-screen-button me-2"></i>Tablet / Phone</td>
+            </tr>
+            <tr>
+              <td><span class="lvl-pill" style="background:var(--blue);">Rank 2</span></td>
+              <td class="gold">$2,000</td><td class="gold">$2,000</td>
+              <td class="pink"><i class="fa-solid fa-laptop me-2"></i>Laptop</td>
+            </tr>
+            <tr>
+              <td><span class="lvl-pill" style="background:var(--blue-d);">Rank 3</span></td>
+              <td class="gold">$5,000</td><td class="gold">$5,000</td>
+              <td class="pink"><i class="fa-solid fa-motorcycle me-2"></i>Sport Bike</td>
+            </tr>
+            <tr>
+              <td><span class="lvl-pill" style="background:var(--gold);">Rank 4</span></td>
+              <td class="gold">$10,000</td><td class="gold">$10,000</td>
+              <td style="color:var(--gold);font-weight:700;"><i class="fa-solid fa-car me-2"></i>Car</td>
+            </tr>
+            <tr>
+              <td><span class="lvl-pill" style="background:var(--gold-d);">Rank 5</span></td>
+              <td class="gold">$25,000</td><td class="gold">$25,000</td>
+              <td style="color:var(--gold);font-weight:700;"><i class="fa-solid fa-car-side me-2"></i>BMW</td>
+            </tr>
+            <tr>
+              <td><span class="lvl-pill" style="background:var(--green);">Rank 6</span></td>
+              <td class="gold">$50,000</td><td class="gold">$50,000</td>
+              <td style="color:var(--green);font-weight:700;"><i class="fa-solid fa-house me-2"></i>House</td>
+            </tr>
+            <tr>
+              <td><span class="lvl-pill" style="background:var(--gold);">Rank 7</span></td>
+              <td class="gold">$100,000</td><td class="gold">$100,000</td>
+              <td style="color:var(--gold);font-weight:700;"><i class="fa-solid fa-coins me-2"></i>Gold (500g)</td>
+            </tr>
+            <tr>
+              <td><span class="lvl-pill" style="background:#7B1FA2;">Rank 8</span></td>
+              <td class="gold">$250,000</td><td class="gold">$250,000</td>
+              <td style="color:#7B1FA2;font-weight:700;"><i class="fa-solid fa-building me-2"></i>Luxurious Villa</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ╔════════════════════════════════════════════╗
+     ║          13. INSPIRATIONAL QUOTE           ║
+     ╚════════════════════════════════════════════╝ -->
+<section id="quote">
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 reveal">
+        <p class="quote-text">
+          "Invest your <span class="hl">energy</span> into something that is going to
+          contribute to your <span class="hl">growth</span>."
+        </p>
+        <p class="quote-author">— Powerex Multi Trading Philosophy</p>
+        <div class="text-center">
+          <a href="#packages" class="btn-px btn-gold" style="font-size:1rem;padding:.9rem 2.4rem;">
+            <i class="fa-solid fa-rocket"></i> Start Your Journey Today
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔════════════════════════════════════════════╗
+     ║              CONTACT                       ║
+     ╚════════════════════════════════════════════╝ -->
+<section id="contact" class="sec-pad">
+  <div class="container">
+
+    <div class="text-center mb-5 reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="sec-title">Contact <span style="color:var(--green);">Us</span></h2>
+      <div class="gold-divider center"></div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4 reveal">
+        <div class="contact-card" style="border-top-color:var(--green);">
+          <div class="vmc-icon gr mx-auto mb-3"><i class="fa-solid fa-map-marker-alt"></i></div>
+          <h5 class="vmc-title text-green">Our Office</h5>
+          <p style="color:var(--gray-700);margin-top:.6rem;line-height:1.8;font-size:.9rem;">
+            Powerex Multi Trading HQ<br>Financial District, Business Bay
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 reveal">
+        <div class="contact-card" style="border-top-color:var(--gold);">
+          <div class="vmc-icon gd mx-auto mb-3"><i class="fa-solid fa-envelope"></i></div>
+          <h5 class="vmc-title text-gold">Email Us</h5>
+          <p style="color:var(--gray-700);margin-top:.6rem;line-height:1.8;font-size:.9rem;">
+            support@powerextrading.com<br>info@powerextrading.com
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4 reveal">
+        <div class="contact-card" style="border-top-color:var(--pink);">
+          <div class="vmc-icon pk mx-auto mb-3"><i class="fa-solid fa-clock"></i></div>
+          <h5 class="vmc-title text-pink">Support Hours</h5>
+          <p style="color:var(--gray-700);margin-top:.6rem;line-height:1.8;font-size:.9rem;">
+            24 / 7 Customer Support<br>Always Here For You
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ╔════════════════════════════════════════════╗
+     ║               14. FOOTER                   ║
+     ╚════════════════════════════════════════════╝ -->
+<footer>
+  <div class="container position-relative">
+
+    <div class="row g-5">
+
+      <!-- Brand col -->
+      <div class="col-lg-4">
+        <div class="footer-brand"><i class="fa-solid fa-bolt-lightning" style="color:#10B981;margin-right:.35rem;font-size:1rem;"></i>POWER<span>EX</span> <small>Multi Trading</small></div>
+        <p class="footer-text">
+          Powerex Multi Trading is a premier financial solutions company established in 2021.
+          We empower individuals through transparent investment opportunities in Commodity
+          Markets and Forex Trading — with integrity and trust at every step.
+        </p>
+        <div class="mt-4">
+          <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-telegram"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div class="col-lg-2 col-sm-6">
+        <div class="footer-head">Quick Links</div>
+        <a href="#hero"       class="footer-link"><i class="fa-solid fa-chevron-right"></i>Home</a>
+        <a href="about.html"  class="footer-link"><i class="fa-solid fa-chevron-right"></i>About Us</a>
+        <a href="#services"   class="footer-link"><i class="fa-solid fa-chevron-right"></i>Services</a>
+        <a href="#packages"   class="footer-link"><i class="fa-solid fa-chevron-right"></i>Packages</a>
+        <a href="#income"     class="footer-link"><i class="fa-solid fa-chevron-right"></i>Income Plan</a>
+        <a href="contact.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Contact</a>
+        <a href="faq.html"    class="footer-link"><i class="fa-solid fa-chevron-right"></i>FAQ</a>
+      </div>
+
+      <!-- Income types -->
+      <div class="col-lg-3 col-sm-6">
+        <div class="footer-head">Income Types</div>
+        <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Monthly Cashback</a>
+        <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Binary Income</a>
+        <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Level Income</a>
+        <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Booster Income</a>
+        <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Awards &amp; Rewards</a>
+        <a href="track-order.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Track Order</a>
+      </div>
+
+      <!-- Legal / Risk -->
+      <div class="col-lg-3 col-sm-6">
+        <div class="footer-head">Legal</div>
+        <a href="privacy-policy.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Privacy Policy</a>
+        <a href="terms.html"          class="footer-link"><i class="fa-solid fa-chevron-right"></i>Terms of Service</a>
+        <a href="refund-policy.html"  class="footer-link"><i class="fa-solid fa-chevron-right"></i>Refund Policy</a>
+        <a href="login.html"          class="footer-link"><i class="fa-solid fa-chevron-right"></i>Login</a>
+        <a href="signup.html"         class="footer-link"><i class="fa-solid fa-chevron-right"></i>Sign Up</a>
+        <div class="footer-risk">
+          <div class="footer-risk-title"><i class="fa-solid fa-triangle-exclamation me-1"></i>Risk Warning</div>
+          <p>Trading involves risk. Past performance is not indicative of future results. Invest responsibly.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2024 <span>Powerex Multi Trading</span>. All Rights Reserved.
+         Established 2021 &middot; Powered by <span>POWEREX</span></p>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+/* ═══════════════════════════════════
+   TAB SWITCHER
+═══════════════════════════════════ */
+document.querySelectorAll('.inc-tab').forEach(tab => {
+  tab.addEventListener('click', function () {
+    const target = this.dataset.tab;
+    // update tabs
+    document.querySelectorAll('.inc-tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    // update panels
+    document.querySelectorAll('.income-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + target).classList.add('active');
+    // re-trigger reveals inside newly shown panel
+    document.querySelectorAll('#panel-' + target + ' .reveal').forEach(el => {
+      el.classList.add('in');
+    });
+  });
+});
+
+/* ═══════════════════════════════════
+   INTERSECTION OBSERVER (FADE-UP)
+═══════════════════════════════════ */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ═══════════════════════════════════
+   SMOOTH SCROLL
+═══════════════════════════════════ */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function (e) {
+    const id = this.getAttribute('href');
+    if (id.length < 2) return;
+    const target = document.querySelector(id);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // close mobile nav
+    const nav = document.getElementById('navCollapse');
+    if (nav && nav.classList.contains('show')) {
+      document.querySelector('.navbar-toggler').click();
+    }
+  });
+});
+
+/* ═══════════════════════════════════
+   NAVBAR ACTIVE LINK
+═══════════════════════════════════ */
+function updateActiveNav() {
+  const links = document.querySelectorAll('#mainNav .nav-link');
+  const sections = ['hero','about','services','why','packages','income','contact'];
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < 120) current = id;
+  });
+  links.forEach(l => {
+    l.classList.remove('active-nav');
+    if (l.getAttribute('href') === '#' + current) l.classList.add('active-nav');
+  });
+}
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+/* ═══════════════════════════════════
+   ANIMATED COUNTERS in HERO
+═══════════════════════════════════ */
+function countUp(el, endVal, suffix, decimals, duration) {
+  let start = 0;
+  const step = endVal / (duration / 16);
+  const timer = setInterval(() => {
+    start += step;
+    if (start >= endVal) { start = endVal; clearInterval(timer); }
+    el.textContent = (decimals ? start.toFixed(decimals) : Math.floor(start).toLocaleString()) + suffix;
+  }, 16);
+}
+
+const heroObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    countUp(document.getElementById('cntMembers'), 5000, '+', 0, 1800);
+    countUp(document.getElementById('cntVol'),    10, 'M+', 0, 1800);
+    countUp(document.getElementById('cntUp'),     99.9, '%', 1, 1800);
+    heroObs.disconnect();
+  }
+}, { threshold: 0.4 });
+const heroSection = document.getElementById('hero');
+if (heroSection) heroObs.observe(heroSection);
+document.getElementById('cntVol').textContent = '$0';
+</script>
+
+<!-- ╔════════════════════════════════════════════╗
+     ║            PAGE LOADER SCRIPT              ║
+     ╚════════════════════════════════════════════╝ -->
+<script>
+(function () {
+  const loader  = document.getElementById('px-loader');
+  const bar     = document.getElementById('ldrBar');
+  const pctSpan = document.getElementById('ldrPct');
+
+  let pct = 0;
+  const duration = 2600; // ms total fake load time
+  const start    = performance.now();
+
+  // easing: fast start, decelerate near end
+  function ease(t) { return t < .5 ? 2*t*t : -1+(4-2*t)*t; }
+
+  function tick(now) {
+    const elapsed = now - start;
+    const raw     = Math.min(elapsed / duration, 1);
+    pct           = Math.floor(ease(raw) * 100);
+    bar.style.width  = pct + '%';
+    pctSpan.textContent = pct;
+    if (raw < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      pctSpan.textContent = 100;
+      bar.style.width = '100%';
+      setTimeout(() => {
+        loader.classList.add('fade-out');
+        setTimeout(() => loader.remove(), 700);
+      }, 320);
+    }
+  }
+
+  requestAnimationFrame(tick);
+
+  // spawn particles
+  const container = document.querySelector('.ldr-particles');
+  const colors    = ['#4F46E5','#6366F1','#F59E0B','#FB923C','#0EA5E9','#38BDF8'];
+  for (let i = 0; i < 28; i++) {
+    const p   = document.createElement('div');
+    const sz  = 4 + Math.random() * 10;
+    p.className = 'ldr-particle';
+    p.style.cssText = [
+      `width:${sz}px`, `height:${sz}px`,
+      `left:${Math.random()*100}%`,
+      `background:${colors[Math.floor(Math.random()*colors.length)]}`,
+      `animation-duration:${3 + Math.random()*5}s`,
+      `animation-delay:${Math.random()*3}s`
+    ].join(';');
+    container.appendChild(p);
+  }
+})();
+</script>
+
+<!-- HERO PARTICLES -->
+<script>
+(function () {
+  const wrap   = document.getElementById('hero-particles');
+  const colors = ['#4F46E5','#6366F1','#818CF8','#F59E0B','#FB923C','#0EA5E9','#38BDF8','#a78bfa','#34d399'];
+
+  // ── small floating dots (50 of them) ──
+  for (let i = 0; i < 50; i++) {
+    const p  = document.createElement('div');
+    const sz = 3 + Math.random() * 9;
+    p.className = 'hp';
+    p.style.cssText = [
+      `width:${sz}px`,
+      `height:${sz}px`,
+      `left:${Math.random() * 100}%`,
+      `bottom:${-10 + Math.random() * 20}%`,
+      `background:${colors[Math.floor(Math.random() * colors.length)]}`,
+      `box-shadow:0 0 ${sz*2}px ${Math.floor(sz/2)}px ${colors[Math.floor(Math.random()*colors.length)]}55`,
+      `animation-duration:${6 + Math.random() * 12}s`,
+      `animation-delay:${Math.random() * 10}s`
+    ].join(';');
+    wrap.appendChild(p);
+  }
+
+  // ── large soft glow orbs (6 of them) ──
+  const orbColors = [
+    ['#4F46E5', 220, 220], ['#F59E0B', 200, 200],
+    ['#0EA5E9', 180, 180], ['#F97316', 160, 160],
+    ['#6366F1', 240, 240], ['#34d399',  170, 170]
+  ];
+  orbColors.forEach(([clr, w, h], i) => {
+    const o = document.createElement('div');
+    o.className = 'hp-orb';
+    o.style.cssText = [
+      `width:${w}px`, `height:${h}px`,
+      `background:${clr}`,
+      `left:${10 + (i * 16)}%`,
+      `top:${15 + (i % 3) * 25}%`,
+      `animation-duration:${10 + i * 3}s`,
+      `animation-delay:${i * 1.8}s`
+    ].join(';');
+    wrap.appendChild(o);
+  });
+})();
+</script>
+
+<!-- THEME TOGGLE -->
+<script>
+(function () {
+  const btn  = document.getElementById('themeToggle');
+  const body = document.body;
+  const KEY  = 'px-theme';
+
+  // apply saved preference on load
+  if (localStorage.getItem(KEY) === 'light') body.classList.add('light');
+
+  btn.addEventListener('click', () => {
+    body.classList.toggle('light');
+    localStorage.setItem(KEY, body.classList.contains('light') ? 'light' : 'dark');
+  });
+})();
+</script>
+
+</body>
+</html>
