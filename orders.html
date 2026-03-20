@@ -104,27 +104,29 @@
       return;
     }
     el.innerHTML = `
-      <div class="px-card" style="padding:0;overflow:hidden;">
-        <table class="px-table">
-          <thead>
-            <tr>
-              <th>Order ID</th><th>Plan</th><th>Amount</th><th>Date</th><th>Returns</th><th>Status</th><th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${list.map(o => `
+      <div class="px-table-responsive">
+        <div class="px-card" style="padding:0;overflow:hidden;">
+          <table class="px-table">
+            <thead>
               <tr>
-                <td style="font-weight:700;color:var(--green);">#${o.id}</td>
-                <td>${o.plan}</td>
-                <td style="font-weight:700;color:var(--gold);">${o.amount}</td>
-                <td style="color:var(--gray-500);">${o.date}</td>
-                <td style="font-weight:700;color:#34d399;">${o.returns}</td>
-                <td>${badgeHtml(o.status)}</td>
-                <td><a href="track-order.html?id=${o.id}" style="font-size:.8rem;color:var(--green);font-weight:600;text-decoration:none;">Track</a></td>
+                <th>Order ID</th><th>Plan</th><th>Amount</th><th>Date</th><th>Returns</th><th>Status</th><th>Action</th>
               </tr>
-            `).join('')}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              ${list.map(o => `
+                <tr>
+                  <td style="font-weight:700;color:var(--green);">#${o.id}</td>
+                  <td>${o.plan}</td>
+                  <td style="font-weight:700;color:var(--gold);">${o.amount}</td>
+                  <td style="color:var(--gray-500);">${o.date}</td>
+                  <td style="font-weight:700;color:#34d399;">${o.returns}</td>
+                  <td>${badgeHtml(o.status)}</td>
+                  <td><a href="track-order.html?id=${o.id}" style="font-size:.8rem;color:var(--green);font-weight:600;text-decoration:none;">Track</a></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
       </div>`;
   }
 

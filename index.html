@@ -465,7 +465,7 @@
     }
     .hero-input {
       flex: 1;
-      min-width: 220px;
+      min-width: 0;
       padding: .82rem 1.3rem;
       border: 2px solid var(--gray-300);
       border-radius: var(--radius-xl);
@@ -521,7 +521,8 @@
       background: var(--gray-50);
       border-radius: var(--radius-md);
       border: 1.5px solid var(--gray-300);
-      width: fit-content;
+      width: 100%;
+      max-width: 480px;
     }
     .hero-counter .count-val {
       font-family: 'Barlow Condensed', sans-serif;
@@ -1263,13 +1264,17 @@
       .sec-pad { padding: 4rem 0; }
       .svc-card { padding: 2rem 1.6rem; }
       .pkg-card { padding: 1.8rem 1.4rem; }
+      #hero { min-height: auto; padding: 3.5rem 0; }
     }
     @media (max-width: 767px) {
+      html, body { overflow-x: hidden; }
       .hero-headline { font-size: 2.1rem; }
       .sec-title { font-size: 1.82rem; }
       .quote-text { font-size: 1.55rem; }
       .sec-pad { padding: 3rem 0; }
       .sec-pad-sm { padding: 2.2rem 0; }
+      #hero { padding: 2.5rem 0; }
+      .hero-sub { font-size: .95rem; margin-bottom: 1.4rem; }
       .hero-card { padding: 1.4rem; }
       .hero-card-float-1 { top: -12px; right: -8px; font-size: .73rem; padding: .55rem .85rem; }
       .hero-card-float-2 { bottom: -12px; left: -8px; font-size: .73rem; padding: .55rem .85rem; }
@@ -1278,20 +1283,25 @@
       .boost-card { padding: 2rem 1.3rem; }
       .boost-pct { font-size: 3.2rem; }
       .pkg-price { font-size: 2.5rem; }
-      .px-table thead th, .px-table tbody td { padding: .65rem .8rem; font-size: .82rem; }
-      .income-tabs { gap: .4rem; }
+      .income-tabs { gap: .4rem; flex-wrap: wrap; }
       .inc-tab { padding: .5rem 1rem; font-size: .78rem; }
       .bin-stat-val { font-size: 2.2rem; }
+      .px-table thead th, .px-table tbody td { padding: .65rem .8rem; font-size: .82rem; }
+      .hero-counter { max-width: 100%; }
+      footer .row .col-lg-4:not(:first-child) { margin-top: 2rem; }
     }
     @media (max-width: 576px) {
+      html, body { overflow-x: hidden; }
       .hero-headline { font-size: 1.85rem; }
       .sec-title { font-size: 1.55rem; }
-      .hero-input-row { flex-direction: column; }
-      .hero-counter { flex-direction: column; gap: .9rem; }
-      .hero-counter .count-sep { width: 60px; height: 1px; }
+      .hero-input-row { flex-direction: column; gap: .5rem; }
+      .hero-input { width: 100%; }
+      .btn-px { width: 100%; text-align: center; justify-content: center; }
+      .hero-counter { flex-direction: row; flex-wrap: wrap; max-width: 100%; padding: .8rem 1rem; }
+      .hero-counter .count-sep { width: 1px; height: 28px; }
       .hero-sub { font-size: .95rem; }
-      .social-login-row { flex-direction: column; }
-      .social-btn { justify-content: center; }
+      .social-login-row { flex-direction: column; gap: .5rem; }
+      .social-btn { justify-content: center; width: 100%; }
       .svc-title { font-size: 1.45rem; }
       .svc-icon-wrap { width: 64px; height: 64px; font-size: 1.5rem; }
       .pkg-card { padding: 1.5rem 1.1rem; }
@@ -1305,10 +1315,17 @@
       .hero-deco-1, .hero-deco-2, .hero-deco-3 { display: none; }
       .footer-head { font-size: .88rem; }
       footer { padding: 3rem 0 1.5rem; }
+      #mainNav .navbar-collapse { padding: .8rem 0; }
+      #mainNav .nav-link { padding: .55rem .8rem !important; font-size: .9rem; }
+      .hero-tag { font-size: .68rem; }
+      .about-timeline { padding-left: 1.2rem; }
     }
     @media (max-width: 400px) {
       .hero-headline { font-size: 1.65rem; }
-      .nav-brand { font-size: 1.28rem; }
+      .hero-counter .count-val { font-size: 1.4rem; }
+      .hero-counter .count-lbl { font-size: .65rem; }
+      .brand-text { font-size: 1rem; letter-spacing: 1px; }
+      .brand-icon-img { width: 26px; height: 26px; }
       .btn-px { padding: .62rem 1.3rem; font-size: .85rem; }
       .pkg-price { font-size: 2.1rem; }
     }
@@ -1588,7 +1605,7 @@
       </div>
 
       <!-- Right card -->
-      <div class="col-xl-6 col-lg-6 d-flex justify-content-center">
+      <div class="col-lg-6 d-none d-lg-flex justify-content-center">
         <div style="max-width:440px;width:100%;position:relative;" class="float-anim">
           <div class="hero-card">
 
