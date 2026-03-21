@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Powerex Multi Trading – Financial Solutions</title>
+  <meta name="color-scheme" content="light">
+  <title>PowerX Multi Trading – Financial Solutions</title>
 
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -17,36 +18,37 @@
        VARIABLES
     ═══════════════════════════════════════ */
     :root {
+      color-scheme: light;
       /* ── Brand: Deep Indigo ── */
       --green:      #4F46E5;
       --green-d:    #3730A3;
       --green-l:    #6366F1;
-      --green-xl:   #1a1f4d;
+      --green-xl:   #EEF2FF;
       /* ── Secondary: Sky / Cyan ── */
       --blue:       #0EA5E9;
       --blue-d:     #0369A1;
       --blue-l:     #38BDF8;
-      --blue-xl:    #0a1f35;
+      --blue-xl:    #E0F2FE;
       /* ── Accent: Coral-Orange ── */
       --pink:       #F97316;
       --pink-d:     #C2410C;
       --pink-l:     #FB923C;
-      --pink-xl:    #2a1208;
+      --pink-xl:    #FFF7ED;
       /* ── Premium: Warm Amber ── */
       --gold:       #D97706;
       --gold-d:     #92400E;
       --gold-l:     #F59E0B;
-      --gold-xl:    #241708;
-      --white:      #131a2e;
-      --gray-50:    #0d1117;
-      --gray-100:   #1a2236;
-      --gray-300:   #2d3f5c;
-      --gray-500:   #7a8fa8;
-      --gray-700:   #b0c0d8;
-      --gray-900:   #e2e8f0;
-      --shadow-sm:  0 2px 8px rgba(0,0,0,.28);
-      --shadow-md:  0 6px 24px rgba(0,0,0,.42);
-      --shadow-lg:  0 16px 48px rgba(0,0,0,.55);
+      --gold-xl:    #FFFBEB;
+      --white:      #FFFFFF;
+      --gray-50:    #F8FAFC;
+      --gray-100:   #F1F5F9;
+      --gray-300:   #CBD5E1;
+      --gray-500:   #94A3B8;
+      --gray-700:   #475569;
+      --gray-900:   #0F172A;
+      --shadow-sm:  0 2px 8px rgba(0,0,0,.07);
+      --shadow-md:  0 6px 24px rgba(0,0,0,.10);
+      --shadow-lg:  0 16px 48px rgba(0,0,0,.13);
       --radius-sm:  8px;
       --radius-md:  14px;
       --radius-lg:  22px;
@@ -57,97 +59,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
-    /* ── LIGHT MODE overrides ── */
-    body.light {
-      --white:      #FFFFFF;
-      --gray-50:    #F8FAFC;
-      --gray-100:   #F1F5F9;
-      --gray-300:   #CBD5E1;
-      --gray-500:   #94A3B8;
-      --gray-700:   #475569;
-      --gray-900:   #0F172A;
-      --green-xl:   #EEF2FF;
-      --blue-xl:    #E0F2FE;
-      --pink-xl:    #FFF7ED;
-      --gold-xl:    #FFFBEB;
-      --shadow-sm:  0 2px 8px rgba(0,0,0,.07);
-      --shadow-md:  0 6px 24px rgba(0,0,0,.10);
-      --shadow-lg:  0 16px 48px rgba(0,0,0,.13);
-      background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 25%, #f0f9ff 50%, #fffbf0 75%, #f0fdf9 100%);
-      color: #0F172A;
-    }
-    body.light #about    { background: rgba(248,250,252,0.82); }
-    body.light #services { background: rgba(255,255,255,0.75); }
-    body.light #packages { background: rgba(248,250,252,0.82); }
-    body.light #income   { background: rgba(255,255,255,0.75); }
-    body.light #contact  { background: rgba(248,250,252,0.82); }
-    body.light ::-webkit-scrollbar-track { background: #F1F5F9; }
-    body.light .hero-input  { background: rgba(255,255,255,.85); color: #0F172A; }
-    body.light .social-btn  { background: #fff; color: var(--gray-700); }
-    body.light .hero-card   { background: #fff; }
-    body.light .hero-card-float { background: #fff; }
-    body.light .vmcard      { background: #fff; }
-    body.light .svc-card    { background: var(--gray-50); }
-    body.light .pkg-card    { background: #fff; }
-    body.light .boost-card  { background: #fff; }
-    body.light .bin-stat-card { background: #fff; }
-    body.light .contact-card  { background: #fff; }
-    body.light .px-table tbody tr:hover td { background: var(--gray-50); }
-    body.light .hero-counter { background: var(--gray-50); border-color: var(--gray-300); }
-    body.light .inc-tab      { background: #fff; }
-    body.light .boost-req    { background: var(--gray-50); }
-    body.light .hp-orb       { opacity: .08; }
-
-    /* ── THEME TOGGLE BUTTON ── */
-    .theme-toggle {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,.3);
-      background: rgba(255,255,255,.08);
-      color: rgba(255,255,255,.88);
-      font-size: 1rem;
-      cursor: pointer;
-      transition: var(--transition);
-      flex-shrink: 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .theme-toggle:hover {
-      background: rgba(245,158,11,.2);
-      border-color: var(--gold-l);
-      color: var(--gold-l);
-      transform: rotate(20deg) scale(1.08);
-    }
-    .theme-toggle .ico-moon,
-    .theme-toggle .ico-sun  { position: absolute; transition: opacity .3s, transform .3s; }
-    .theme-toggle .ico-sun  { opacity: 0; transform: rotate(-90deg) scale(.6); }
-    .theme-toggle .ico-moon { opacity: 1; transform: rotate(0)        scale(1); }
-    body.light .theme-toggle .ico-sun  { opacity: 1; transform: rotate(0)       scale(1); }
-    body.light .theme-toggle .ico-moon { opacity: 0; transform: rotate(90deg) scale(.6); }
-    body.light .theme-toggle {
-      border-color: rgba(79,70,229,.35);
-      background: rgba(79,70,229,.1);
-      color: var(--green);
-    }
-    body.light .theme-toggle:hover {
-      background: rgba(79,70,229,.2);
-      color: var(--green-d);
-    }
-
     body {
       font-family: 'Inter', sans-serif;
-      color: #e2e8f0;
-      background: linear-gradient(135deg, #0d0b2b 0%, #1a0a3d 20%, #0c1a3a 40%, #0a1f2e 60%, #0d1f1a 80%, #1a1205 100%);
-      background-attachment: fixed;
+      color: var(--gray-900);
+      background: var(--white);
       overflow-x: hidden;
     }
 
     /* ── scrollbar ── */
     ::-webkit-scrollbar { width: 7px; }
-    ::-webkit-scrollbar-track { background: #0d1117; }
+    ::-webkit-scrollbar-track { background: var(--gray-100); }
     ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 4px; }
 
     /* ═══════════════════════════════════════
@@ -298,23 +219,23 @@
       z-index: 1050;
       box-shadow: 0 3px 18px rgba(55,48,163,.45);
     }
-    .nav-brand { display:flex; align-items:center; gap:.6rem; text-decoration:none; line-height:1; }
-    .brand-icon-img {
-      width: 36px; height: 36px;
-      flex-shrink: 0;
-      border-radius: 9px;
-      box-shadow: 0 0 16px rgba(16,185,129,.5), 0 2px 8px rgba(0,0,0,.35);
-    }
-    .brand-text-wrap { display:flex; flex-direction:column; justify-content:center; }
-    .brand-text {
+    .nav-brand {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.5rem; font-weight: 800; letter-spacing: 2.5px; color: #fff; line-height: 1;
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--white) !important;
+      letter-spacing: 1.5px;
+      text-decoration: none;
+      line-height: 1.1;
     }
-    .brand-ex { color: #F59E0B; text-shadow: 0 0 18px rgba(245,158,11,.6); }
-    .brand-tag {
-      font-size: .45rem; font-weight: 700; letter-spacing: 4px;
-      color: rgba(255,255,255,.45); text-transform: uppercase;
-      margin-top: 2px; font-family: 'Inter', sans-serif;
+    .nav-brand span { color: var(--gold-l); }
+    .nav-brand small {
+      display: block;
+      font-size: .58rem;
+      font-weight: 600;
+      letter-spacing: 3.5px;
+      color: rgba(255,255,255,.68);
+      text-transform: uppercase;
     }
 
     #mainNav .nav-link {
@@ -379,12 +300,38 @@
       transition: var(--transition);
     }
     .navbar-toggler { border: none !important; padding: 0; outline: none !important; box-shadow: none !important; }
+    /* Mobile-only login button beside hamburger */
+    .nav-mobile-login {
+      display: none;
+    }
+    @media (max-width: 991px) {
+      .nav-mobile-login {
+        display: inline-flex;
+        align-items: center;
+        gap: .35rem;
+        padding: .38rem 1rem;
+        border-radius: 22px;
+        background: transparent;
+        color: var(--white) !important;
+        border: 2px solid rgba(255,255,255,.55);
+        font-weight: 700;
+        font-size: .82rem;
+        text-decoration: none;
+        transition: var(--transition);
+        white-space: nowrap;
+      }
+      .nav-mobile-login:hover {
+        border-color: var(--gold-l);
+        color: var(--gold-l) !important;
+        background: rgba(255,255,255,.08);
+      }
+    }
 
     /* ═══════════════════════════════════════
        2. HERO
     ═══════════════════════════════════════ */
     #hero {
-      background: transparent;
+      background: var(--white);
       min-height: calc(100vh - 68px);
       display: flex;
       align-items: center;
@@ -465,7 +412,7 @@
     }
     .hero-input {
       flex: 1;
-      min-width: 0;
+      min-width: 220px;
       padding: .82rem 1.3rem;
       border: 2px solid var(--gray-300);
       border-radius: var(--radius-xl);
@@ -473,8 +420,6 @@
       outline: none;
       transition: var(--transition);
       font-family: 'Inter', sans-serif;
-      background: rgba(255,255,255,0.07);
-      color: #e2e8f0;
     }
     .hero-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(79,70,229,.14); }
 
@@ -512,36 +457,267 @@
     }
     .social-btn:hover { border-color: var(--green); color: var(--green); box-shadow: var(--shadow-sm); }
 
+    /* ─── HERO STATS ROW ─── */
     .hero-counter {
-      display: flex;
-      align-items: center;
-      gap: .65rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
       margin-top: 2.4rem;
-      padding: 1rem 1.4rem;
       background: var(--gray-50);
       border-radius: var(--radius-md);
       border: 1.5px solid var(--gray-300);
-      width: 100%;
-      max-width: 480px;
+      overflow: hidden;
+    }
+    .hero-counter .stat-item {
+      text-align: center;
+      padding: 1rem .6rem;
+      position: relative;
+    }
+    .hero-counter .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 20%; bottom: 20%;
+      width: 1px;
+      background: var(--gray-300);
     }
     .hero-counter .count-val {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.9rem;
+      font-size: 1.65rem;
       font-weight: 800;
       color: var(--green);
+      line-height: 1.1;
     }
     .hero-counter .count-lbl {
-      font-size: .76rem;
+      font-size: .68rem;
       color: var(--gray-500);
-      letter-spacing: 1px;
+      letter-spacing: .9px;
       text-transform: uppercase;
       line-height: 1.35;
+      margin-top: .2rem;
     }
-    .hero-counter .count-sep {
-      width: 1px; height: 36px;
+    /* hide old sep spans */
+    .hero-counter .count-sep { display: none; }
+
+    /* ─── AUTH MODALS ─── */
+    .auth-modal .modal-content {
+      border-radius: var(--radius-lg);
+      border: none;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,.18);
+    }
+    .auth-modal .modal-header {
+      background: linear-gradient(135deg, #1e1b4b, var(--green));
+      padding: 1.6rem 2rem 1.2rem;
+      border: none;
+    }
+    .auth-modal .modal-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: .5px;
+    }
+    .auth-modal .modal-title span { color: var(--gold-l); }
+    .auth-modal .btn-close {
+      filter: invert(1) brightness(2);
+      opacity: .8;
+    }
+    .auth-modal .modal-body { padding: 2rem; }
+    .auth-tabs {
+      display: flex;
+      background: var(--gray-100);
+      border-radius: var(--radius-sm);
+      padding: 4px;
+      margin-bottom: 1.6rem;
+    }
+    .auth-tab {
+      flex: 1;
+      text-align: center;
+      padding: .55rem;
+      font-size: .85rem;
+      font-weight: 700;
+      border-radius: calc(var(--radius-sm) - 2px);
+      cursor: pointer;
+      color: var(--gray-500);
+      transition: var(--transition);
+      user-select: none;
+    }
+    .auth-tab.active {
+      background: var(--white);
+      color: var(--green);
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .auth-panel { display: none; }
+    .auth-panel.active { display: block; }
+    .auth-label {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--gray-700);
+      margin-bottom: .42rem;
+      display: block;
+      letter-spacing: .3px;
+    }
+    .auth-input {
+      width: 100%;
+      padding: .76rem 1.1rem;
+      border: 2px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      font-size: .92rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: var(--transition);
+      background: var(--white);
+      color: var(--gray-900);
+    }
+    .auth-input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(79,70,229,.12);
+    }
+    .auth-input-group {
+      display: flex;
+      gap: .5rem;
+    }
+    .auth-input-group .auth-input { flex: 1; }
+    .btn-otp {
+      padding: .76rem 1rem;
+      border-radius: var(--radius-sm);
+      background: var(--green-xl);
+      color: var(--green);
+      border: 2px solid var(--green);
+      font-weight: 700;
+      font-size: .8rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-otp:hover { background: var(--green); color: var(--white); }
+    .btn-otp:disabled { opacity: .55; cursor: not-allowed; }
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      color: var(--gray-500);
+      font-size: .76rem;
+      font-weight: 600;
+      margin: 1.3rem 0;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
       background: var(--gray-300);
-      margin: 0 .4rem;
     }
+    .btn-google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      width: 100%;
+      padding: .76rem 1.2rem;
+      border: 2px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-google:hover {
+      border-color: var(--green);
+      color: var(--green);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-auth-submit {
+      width: 100%;
+      padding: .82rem;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--green-d), var(--green));
+      color: var(--white);
+      font-weight: 700;
+      font-size: .95rem;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 4px 16px rgba(79,70,229,.28);
+    }
+    .btn-auth-submit:hover {
+      background: linear-gradient(135deg, var(--green), var(--green-l));
+      box-shadow: 0 8px 24px rgba(79,70,229,.38);
+      transform: translateY(-1px);
+    }
+    .auth-switch {
+      text-align: center;
+      font-size: .82rem;
+      color: var(--gray-500);
+      margin-top: 1.2rem;
+    }
+    .auth-switch a {
+      color: var(--green);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .auth-switch a:hover { text-decoration: underline; }
+    .otp-boxes {
+      display: flex;
+      gap: .6rem;
+      justify-content: center;
+      margin: 1.2rem 0;
+    }
+    .otp-box {
+      width: 48px; height: 52px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 800;
+      border: 2px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: var(--transition);
+      font-family: 'Barlow Condensed', sans-serif;
+      background: var(--white);
+    }
+    .otp-box:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(79,70,229,.12);
+    }
+    .auth-step { display: none; }
+    .auth-step.active { display: block; }
+    .auth-back {
+      background: none;
+      border: none;
+      color: var(--green);
+      font-size: .82rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+    }
+    .otp-hint {
+      text-align: center;
+      font-size: .78rem;
+      color: var(--gray-500);
+      margin-top: .5rem;
+    }
+    .otp-hint a { color: var(--green); font-weight: 600; text-decoration: none; cursor: pointer; }
+    .flag-select {
+      padding: .76rem .8rem;
+      border: 2px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      font-size: .88rem;
+      color: var(--gray-700);
+      background: var(--white);
+      outline: none;
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+    }
+    .flag-select:focus { border-color: var(--green); }
 
     /* Hero right card */
     .hero-card {
@@ -570,17 +746,44 @@
     .float-anim { animation: floatAnim 4.2s ease-in-out infinite; }
     @keyframes floatAnim { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-13px)} }
 
-    .card-bars {
+    .hero-chart-wrap { margin-bottom: .8rem; }
+    .chart-months {
       display: flex;
-      align-items: flex-end;
-      gap: 8px;
-      height: 110px;
-      margin-bottom: 1.2rem;
+      justify-content: space-between;
+      font-size: .68rem;
+      color: var(--gray-500);
+      margin-top: .3rem;
     }
-    .cbar { flex: 1; border-radius: 5px 5px 0 0; }
-    .cbar-b  { background: linear-gradient(180deg, var(--blue-l), var(--blue)); }
-    .cbar-g  { background: linear-gradient(180deg, var(--green-l), var(--green)); }
-    .cbar-go { background: linear-gradient(180deg, var(--gold-l), var(--gold)); }
+    .otp-demo-box {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      padding: .75rem 1rem;
+      background: rgba(217,119,6,.1);
+      border: 1.5px dashed rgba(217,119,6,.55);
+      border-radius: var(--radius-sm);
+      margin-bottom: .8rem;
+      font-size: .87rem;
+      color: var(--gray-700);
+    }
+    .otp-demo-box strong {
+      font-size: 1.25rem;
+      letter-spacing: 5px;
+      color: var(--gold);
+      font-family: 'Barlow Condensed',sans-serif;
+      font-weight: 800;
+    }
+    .auth-alert-inline {
+      color: #f87171;
+      font-size: .8rem;
+      margin: .4rem 0 .6rem;
+      display: none;
+      background: rgba(248,113,113,.1);
+      border-radius: var(--radius-sm);
+      padding: .5rem .8rem;
+      border: 1px solid rgba(248,113,113,.3);
+    }
+    .auth-alert-inline.show { display: block; }
 
     .stat-row {
       display: flex;
@@ -595,7 +798,7 @@
     /* ═══════════════════════════════════════
        3. ABOUT
     ═══════════════════════════════════════ */
-    #about { background: rgba(255,255,255,0.04); backdrop-filter: blur(4px); }
+    #about { background: var(--gray-50); }
 
     .about-timeline {
       position: relative;
@@ -661,7 +864,7 @@
     /* ═══════════════════════════════════════
        4. SERVICES
     ═══════════════════════════════════════ */
-    #services { background: rgba(255,255,255,0.03); backdrop-filter: blur(4px); }
+    #services { background: var(--white); }
 
     .svc-card {
       background: var(--gray-50);
@@ -780,7 +983,7 @@
     /* ═══════════════════════════════════════
        6. PACKAGES
     ═══════════════════════════════════════ */
-    #packages { background: rgba(255,255,255,0.04); backdrop-filter: blur(4px); }
+    #packages { background: var(--gray-50); }
 
     .pkg-card {
       background: var(--white);
@@ -882,7 +1085,7 @@
     /* ═══════════════════════════════════════
        7. INCOME SECTION
     ═══════════════════════════════════════ */
-    #income { background: rgba(255,255,255,0.03); backdrop-filter: blur(4px); }
+    #income { background: var(--white); }
 
     .income-tabs {
       display: flex;
@@ -1095,7 +1298,7 @@
     /* ═══════════════════════════════════════
        CONTACT
     ═══════════════════════════════════════ */
-    #contact { background: rgba(255,255,255,0.04); backdrop-filter: blur(4px); }
+    #contact { background: var(--gray-50); }
 
     .contact-card {
       background: var(--white);
@@ -1217,269 +1420,56 @@
     .footer-bottom span { color: var(--gold-l); }
 
     /* ═══════════════════════════════════════
-       HERO PARTICLES
+       RESPONSIVE
     ═══════════════════════════════════════ */
-    #hero-particles {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .hp {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0;
-      animation: hpDrift linear infinite;
-    }
-    @keyframes hpDrift {
-      0%   { transform: translateY(100%) translateX(0)    scale(0);   opacity: 0; }
-      8%   { opacity: 1; }
-      50%  { transform: translateY(48%)  translateX(22px)  scale(1); }
-      92%  { opacity: .6; }
-      100% { transform: translateY(-8%)  translateX(-18px) scale(.4); opacity: 0; }
-    }
-    /* a few larger glowing orbs that drift slowly */
-    .hp-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(28px);
-      opacity: 0;
-      animation: hpOrbFloat ease-in-out infinite;
-    }
-    @keyframes hpOrbFloat {
-      0%,100% { transform: translate(0,0);      opacity: .18; }
-      33%     { transform: translate(30px,-40px); opacity: .28; }
-      66%     { transform: translate(-20px,20px); opacity: .14; }
-    }
-
-    /* make sure hero content sits above particles */
-    #hero .container { position: relative; z-index: 1; }
-    #hero .hero-deco  { z-index: 0; }
-
-
     @media (max-width: 991px) {
       .hero-headline { font-size: 2.85rem; }
       .sec-title { font-size: 2.15rem; }
-      .sec-pad { padding: 4rem 0; }
-      .svc-card { padding: 2rem 1.6rem; }
-      .pkg-card { padding: 1.8rem 1.4rem; }
-      #hero { min-height: auto; padding: 3.5rem 0; }
+      /* Footer accordion on tablet/mobile */
+      footer { padding: 2.5rem 0 1.5rem; }
+      .footer-head {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: .5rem;
+      }
+      .footer-acc-icon { font-size: .7rem; transition: transform .28s ease; flex-shrink: 0; }
+      .footer-head[aria-expanded="false"] .footer-acc-icon { transform: rotate(-90deg); }
+      .footer-acc-body .footer-link { font-size: .82rem; margin-bottom: .45rem; }
+      .footer-bottom { margin-top: 1.5rem; padding-top: 1rem; font-size: .75rem; }
+    }
+    @media (min-width: 992px) {
+      /* Desktop: always show footer accordion bodies */
+      .footer-acc-body { display: block !important; }
+      .footer-head { pointer-events: none; }
+      .footer-acc-icon { display: none; }
     }
     @media (max-width: 767px) {
-      html, body { overflow-x: hidden; }
       .hero-headline { font-size: 2.1rem; }
       .sec-title { font-size: 1.82rem; }
-      .quote-text { font-size: 1.55rem; }
-      .sec-pad { padding: 3rem 0; }
-      .sec-pad-sm { padding: 2.2rem 0; }
-      #hero { padding: 2.5rem 0; }
-      .hero-sub { font-size: .95rem; margin-bottom: 1.4rem; }
-      .hero-card { padding: 1.4rem; }
-      .hero-card-float-1 { top: -12px; right: -8px; font-size: .73rem; padding: .55rem .85rem; }
-      .hero-card-float-2 { bottom: -12px; left: -8px; font-size: .73rem; padding: .55rem .85rem; }
-      .vmcard { padding: 1.5rem 1.2rem; }
-      .why-card { padding: 1.8rem 1.3rem; }
-      .boost-card { padding: 2rem 1.3rem; }
-      .boost-pct { font-size: 3.2rem; }
-      .pkg-price { font-size: 2.5rem; }
-      .income-tabs { gap: .4rem; flex-wrap: wrap; }
-      .inc-tab { padding: .5rem 1rem; font-size: .78rem; }
-      .bin-stat-val { font-size: 2.2rem; }
-      .px-table thead th, .px-table tbody td { padding: .65rem .8rem; font-size: .82rem; }
-      .hero-counter { max-width: 100%; }
-      footer .row .col-lg-4:not(:first-child) { margin-top: 2rem; }
+      .quote-text { font-size: 1.65rem; }
+      /* #1 — Mobile hero padding fix */
+      #hero .container { padding-top: 1.75rem !important; padding-bottom: 2rem !important; }
+      .hero-tag { margin-bottom: 1rem; }
+      .hero-headline { margin-bottom: 1rem; }
+      .hero-sub { margin-bottom: 1.4rem; font-size: .95rem; }
+      .hero-counter { margin-top: 1.5rem; }
+      /* Footer refinements */
+      .footer-text { font-size: .82rem; }
+      .footer-brand { font-size: 1.35rem; }
+      .footer-risk p { font-size: .68rem; }
     }
     @media (max-width: 576px) {
-      html, body { overflow-x: hidden; }
-      .hero-headline { font-size: 1.85rem; }
-      .sec-title { font-size: 1.55rem; }
-      .hero-input-row { flex-direction: column; gap: .5rem; }
-      .hero-input { width: 100%; }
-      .btn-px { width: 100%; text-align: center; justify-content: center; }
-      .hero-counter { flex-direction: row; flex-wrap: wrap; max-width: 100%; padding: .8rem 1rem; }
-      .hero-counter .count-sep { width: 1px; height: 28px; }
-      .hero-sub { font-size: .95rem; }
-      .social-login-row { flex-direction: column; gap: .5rem; }
-      .social-btn { justify-content: center; width: 100%; }
-      .svc-title { font-size: 1.45rem; }
-      .svc-icon-wrap { width: 64px; height: 64px; font-size: 1.5rem; }
-      .pkg-card { padding: 1.5rem 1.1rem; }
-      .quote-text { font-size: 1.3rem; }
-      .card-bars { height: 80px; }
-      .px-table { font-size: .78rem; }
-      .px-table thead th, .px-table tbody td { padding: .55rem .5rem; }
-      .sec-lead { font-size: .92rem; }
-      .contact-card { padding: 1.6rem 1.2rem; }
-      .bin-stat-card { padding: 1.4rem 1rem; }
-      .hero-deco-1, .hero-deco-2, .hero-deco-3 { display: none; }
-      .footer-head { font-size: .88rem; }
-      footer { padding: 3rem 0 1.5rem; }
-      #mainNav .navbar-collapse { padding: .8rem 0; }
-      #mainNav .nav-link { padding: .55rem .8rem !important; font-size: .9rem; }
-      .hero-tag { font-size: .68rem; }
-      .about-timeline { padding-left: 1.2rem; }
+      /* Stats row: 4 equal cols — just reduce text sizes */
+      .hero-counter .count-val { font-size: 1.15rem; }
+      .hero-counter .count-lbl { font-size: .6rem; letter-spacing: .4px; }
+      .hero-counter .stat-item { padding: .75rem .3rem; }
+      .social-icon { width: 34px; height: 34px; font-size: .82rem; }
     }
-    @media (max-width: 400px) {
-      .hero-headline { font-size: 1.65rem; }
-      .hero-counter .count-val { font-size: 1.4rem; }
-      .hero-counter .count-lbl { font-size: .65rem; }
-      .brand-text { font-size: 1rem; letter-spacing: 1px; }
-      .brand-icon-img { width: 26px; height: 26px; }
-      .btn-px { padding: .62rem 1.3rem; font-size: .85rem; }
-      .pkg-price { font-size: 2.1rem; }
-    }
-
-    /* ═══════════════════════════════════════
-       PAGE LOADER
-    ═══════════════════════════════════════ */
-    #px-loader {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      background: linear-gradient(135deg, #0d0b2b 0%, #1a0a3d 30%, #0c1a3a 65%, #0a1f2e 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity .65s ease, visibility .65s ease;
-    }
-    #px-loader.fade-out {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    /* floating particles */
-    .ldr-particles {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
-    .ldr-particle {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0;
-      animation: ldrFloat linear infinite;
-    }
-    @keyframes ldrFloat {
-      0%   { transform: translateY(110vh) scale(0);  opacity: 0; }
-      10%  { opacity: .55; }
-      90%  { opacity: .35; }
-      100% { transform: translateY(-10vh)  scale(1.2); opacity: 0; }
-    }
-
-    /* logo */
-    .ldr-logo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 3.4rem;
-      font-weight: 900;
-      letter-spacing: 3px;
-      color: #fff;
-      position: relative;
-      z-index: 1;
-      animation: ldrPulse 1.8s ease-in-out infinite;
-    }
-    .ldr-logo span { color: #F59E0B; }
-    @keyframes ldrPulse {
-      0%,100% { text-shadow: 0 0 18px rgba(99,102,241,.5), 0 0 40px rgba(99,102,241,.25); }
-      50%      { text-shadow: 0 0 32px rgba(245,158,11,.7), 0 0 70px rgba(245,158,11,.35); }
-    }
-
-    .ldr-tagline {
-      font-size: .72rem;
-      letter-spacing: 4.5px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.45);
-      margin-top: .3rem;
-      margin-bottom: 2.8rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* track */
-    .ldr-track {
-      width: min(340px, 78vw);
-      height: 5px;
-      background: rgba(255,255,255,.1);
-      border-radius: 99px;
-      overflow: hidden;
-      position: relative;
-      z-index: 1;
-    }
-    /* glowing fill bar */
-    .ldr-bar {
-      height: 100%;
-      width: 0%;
-      border-radius: 99px;
-      background: linear-gradient(90deg, #4F46E5, #6366F1, #F59E0B, #FB923C);
-      background-size: 250% 100%;
-      animation: ldrShift 1.4s linear infinite;
-      transition: width .08s linear;
-      box-shadow: 0 0 14px rgba(245,158,11,.55);
-    }
-    @keyframes ldrShift {
-      0%   { background-position: 0% 50%; }
-      100% { background-position: 250% 50%; }
-    }
-
-    /* pct counter */
-    .ldr-pct {
-      margin-top: 1.1rem;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: rgba(255,255,255,.55);
-      position: relative;
-      z-index: 1;
-    }
-    .ldr-pct span { color: #F59E0B; }
-
-    /* glow ring */
-    .ldr-ring {
-      position: absolute;
-      width: 420px; height: 420px;
-      border-radius: 50%;
-      border: 1px solid rgba(99,102,241,.15);
-      animation: ldrSpin 8s linear infinite;
-    }
-    .ldr-ring::before {
-      content: '';
-      position: absolute;
-      top: -3px; left: 50%;
-      transform: translateX(-50%);
-      width: 6px; height: 6px;
-      background: #6366F1;
-      border-radius: 50%;
-      box-shadow: 0 0 12px 4px rgba(99,102,241,.6);
-    }
-    .ldr-ring-2 {
-      width: 560px; height: 560px;
-      border-color: rgba(245,158,11,.08);
-      animation-duration: 14s;
-      animation-direction: reverse;
-    }
-    .ldr-ring-2::before { background: #F59E0B; box-shadow: 0 0 12px 4px rgba(245,158,11,.5); }
-    @keyframes ldrSpin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
-
-<!-- ╔════════════════════════════════════════════╗
-     ║              PAGE LOADER                   ║
-     ╚════════════════════════════════════════════╝ -->
-<div id="px-loader">
-  <div class="ldr-particles"></div>
-  <div class="ldr-ring"></div>
-  <div class="ldr-ring ldr-ring-2"></div>
-  <div class="ldr-logo"><i class="fa-solid fa-bolt-lightning" style="margin-right:.4rem;"></i>POWER<span>EX</span></div>
-  <div class="ldr-tagline">Multi Trading · Financial Solutions</div>
-  <div class="ldr-track">
-    <div class="ldr-bar" id="ldrBar"></div>
-  </div>
-  <div class="ldr-pct">Loading <span id="ldrPct">0</span>%</div>
-</div>
 
 <!-- ╔════════════════════════════════════════════╗
      ║              1. NAVIGATION                 ║
@@ -1489,37 +1479,34 @@
 
     <!-- Brand -->
     <a class="nav-brand navbar-brand" href="#hero">
-      <img src="assets/px-icon.svg" class="brand-icon-img" alt="PowerEx" width="36" height="36">
-      <span class="brand-text-wrap">
-        <span class="brand-text">POWER<span class="brand-ex">EX</span></span>
-        <span class="brand-tag">Multi Trading</span>
-      </span>
+      POWER<span>X</span>
+      <small>Multi Trading</small>
     </a>
 
-    <!-- Hamburger -->
-    <button class="navbar-toggler" type="button"
-            data-bs-toggle="collapse" data-bs-target="#navCollapse">
-      <div class="hamburger-inner">
-        <span></span><span></span><span></span>
-      </div>
-    </button>
+    <!-- Mobile Login + Hamburger (shown only on mobile) -->
+    <div class="d-flex align-items-center gap-2 d-lg-none">
+      <a href="#" class="nav-mobile-login" data-bs-toggle="modal" data-bs-target="#loginModal">
+        <i class="fa-solid fa-right-to-bracket"></i> Login
+      </a>
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse" data-bs-target="#navCollapse">
+        <div class="hamburger-inner">
+          <span></span><span></span><span></span>
+        </div>
+      </button>
+    </div>
 
     <div class="collapse navbar-collapse" id="navCollapse">
       <ul class="navbar-nav mx-auto gap-1">
-        <li class="nav-item"><a class="nav-link active-nav" href="#hero">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
         <li class="nav-item"><a class="nav-link" href="#packages">Packages</a></li>
         <li class="nav-item"><a class="nav-link" href="#income">Income</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-        <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
       </ul>
       <div class="d-flex gap-2 align-items-center pt-3 pt-lg-0">
-        <button class="theme-toggle" id="themeToggle" title="Toggle light / dark mode">
-          <i class="fa-solid fa-moon ico-moon"></i>
-          <i class="fa-solid fa-sun  ico-sun"></i>
-        </button>
-        <a href="login.html" class="nav-btn-login">Login</a>
-        <a href="signup.html" class="nav-btn-signup">Sign Up <i class="fa-solid fa-arrow-right ms-1"></i></a>
+        <a href="#" class="nav-btn-login" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+        <a href="#" class="nav-btn-signup" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up <i class="fa-solid fa-arrow-right ms-1"></i></a>
       </div>
     </div>
 
@@ -1531,7 +1518,6 @@
      ║                2. HERO                     ║
      ╚════════════════════════════════════════════╝ -->
 <section id="hero">
-  <div id="hero-particles"></div>
   <div class="hero-deco hero-deco-1"></div>
   <div class="hero-deco hero-deco-2"></div>
   <div class="hero-deco hero-deco-3"></div>
@@ -1558,30 +1544,13 @@
           visionary entrepreneurs who want exceptional, transparent returns.
         </p>
 
-        <!-- Input row -->
-        <div class="hero-input-row">
-          <input type="email" class="hero-input" placeholder="Enter your email or phone…" />
-          <a href="signup.html" class="btn-px btn-green">
+        <!-- CTA Buttons -->
+        <div class="d-flex flex-wrap gap-3 mb-4">
+          <a href="#packages" class="btn-px btn-green">
             Get Started <i class="fa-solid fa-rocket"></i>
           </a>
-        </div>
-
-        <!-- Or divider -->
-        <div class="hero-divider">or continue with</div>
-
-        <!-- Social logins -->
-        <div class="social-login-row">
-          <a href="#" class="social-btn">
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="18" alt="Google" />
-            Google
-          </a>
-          <a href="#" class="social-btn">
-            <i class="fa-brands fa-apple" style="font-size:1.15rem;color:#000;"></i>
-            Apple
-          </a>
-          <a href="#" class="social-btn">
-            <i class="fa-brands fa-telegram" style="font-size:1.1rem;color:#2CA5E0;"></i>
-            Telegram
+          <a href="#about" class="btn-px btn-outline-green">
+            Learn More <i class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
 
@@ -1601,11 +1570,16 @@
             <div class="count-val" id="cntUp">0%</div>
             <div class="count-lbl">Platform<br>Uptime</div>
           </div>
+          <div class="count-sep"></div>
+          <div class="stat-item">
+            <div class="count-val" id="cntCountries">0+</div>
+            <div class="count-lbl">Countries<br>Served</div>
+          </div>
         </div>
       </div>
 
       <!-- Right card -->
-      <div class="col-lg-6 d-none d-lg-flex justify-content-center">
+      <div class="col-xl-6 col-lg-6 d-flex justify-content-center">
         <div style="max-width:440px;width:100%;position:relative;" class="float-anim">
           <div class="hero-card">
 
@@ -1635,26 +1609,43 @@
               </div>
             </div>
 
-            <!-- Bars -->
-            <div class="card-bars">
-              <div class="cbar cbar-b" style="height:58%"></div>
-              <div class="cbar cbar-b" style="height:74%"></div>
-              <div class="cbar cbar-b" style="height:50%"></div>
-              <div class="cbar cbar-go" style="height:88%"></div>
-              <div class="cbar cbar-b" style="height:66%"></div>
-              <div class="cbar cbar-go" style="height:94%"></div>
-              <div class="cbar cbar-g" style="height:80%"></div>
-              <div class="cbar cbar-g" style="height:100%"></div>
-            </div>
-            <div class="d-flex justify-content-between" style="font-size:.68rem;color:var(--gray-500);">
-              <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
-              <span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>
+            <!-- SVG Area Chart -->
+            <div class="hero-chart-wrap">
+              <svg viewBox="0 0 300 110" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:110px;display:block;overflow:visible;">
+                <defs>
+                  <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#4F46E5" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#4F46E5" stop-opacity="0.02"/>
+                  </linearGradient>
+                  <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#0EA5E9"/>
+                    <stop offset="55%" stop-color="#4F46E5"/>
+                    <stop offset="100%" stop-color="#D97706"/>
+                  </linearGradient>
+                </defs>
+                <!-- Grid lines -->
+                <line x1="0" y1="27" x2="300" y2="27" stroke="currentColor" stroke-opacity="0.07" stroke-width="1"/>
+                <line x1="0" y1="55" x2="300" y2="55" stroke="currentColor" stroke-opacity="0.07" stroke-width="1"/>
+                <line x1="0" y1="83" x2="300" y2="83" stroke="currentColor" stroke-opacity="0.07" stroke-width="1"/>
+                <!-- Area fill -->
+                <path d="M0,88 C14,83 28,68 43,72 C58,76 72,81 86,78 C101,75 115,58 129,52 C144,46 158,62 172,58 C187,54 201,34 215,28 C229,22 243,18 257,14 C271,10 286,6 300,4 L300,110 L0,110 Z" fill="url(#areaGrad)"/>
+                <!-- Line -->
+                <path d="M0,88 C14,83 28,68 43,72 C58,76 72,81 86,78 C101,75 115,58 129,52 C144,46 158,62 172,58 C187,54 201,34 215,28 C229,22 243,18 257,14 C271,10 286,6 300,4" fill="none" stroke="url(#lineGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Latest data point -->
+                <circle cx="300" cy="4" r="6.5" fill="#D97706" fill-opacity="0.22"/>
+                <circle cx="300" cy="4" r="3.5" fill="#D97706"/>
+              </svg>
+              <div class="chart-months">
+                <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
+                <span>May</span><span>Jun</span><span>Jul</span><span>Aug</span>
+              </div>
             </div>
 
             <div class="stat-row mt-3">
               <div class="stat-item"><div class="sv">5K+</div><div class="sl">Members</div></div>
               <div class="stat-item"><div class="sv">$10M+</div><div class="sl">Volume</div></div>
               <div class="stat-item"><div class="sv">99.9%</div><div class="sl">Uptime</div></div>
+              <div class="stat-item"><div class="sv">150+</div><div class="sl">Countries</div></div>
             </div>
 
           </div>
@@ -1673,11 +1664,11 @@
 
     <div class="text-center mb-5 reveal">
       <div class="section-label">Our Story</div>
-      <h2 class="sec-title">About <span class="accent">Powerex</span> Multi Trading</h2>
+      <h2 class="sec-title">About <span class="accent">PowerX</span> Multi Trading</h2>
       <div class="gold-divider center"></div>
       <p class="sec-lead mx-auto">
         Founded in 2021 by visionary entrepreneurs passionate about financial empowerment,
-        Powerex Multi Trading bridges the gap between complex financial markets and everyday wealth-building.
+        PowerX Multi Trading bridges the gap between complex financial markets and everyday wealth-building.
       </p>
     </div>
 
@@ -1687,7 +1678,7 @@
           <div class="about-tpoint">
             <h5 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--green);">2021 — Founded</h5>
             <p style="color:var(--gray-700);font-size:.9rem;line-height:1.78;margin-top:.4rem;">
-              A team of visionary entrepreneurs launched Powerex Multi Trading with one goal:
+              A team of visionary entrepreneurs launched PowerX Multi Trading with one goal:
               to democratize premium financial investment opportunities for everyday people.
             </p>
           </div>
@@ -1708,7 +1699,7 @@
           <div class="about-tpoint">
             <h5 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--pink);">Today — 1 Million+ Members</h5>
             <p style="color:var(--gray-700);font-size:.9rem;line-height:1.78;margin-top:.4rem;">
-              Powerex continues to grow as one of the country's most trusted financial platforms,
+              PowerX continues to grow as one of the country's most trusted financial platforms,
               empowering members to achieve life-changing financial goals.
             </p>
           </div>
@@ -1768,7 +1759,7 @@
 <!-- ╔════════════════════════════════════════════╗
      ║             4. SERVICES                    ║
      ╚════════════════════════════════════════════╝ -->
-<section id="services" class="sec-pad">
+<section id="services" class="sec-pad" style="background:var(--gray-50);">
   <div class="container">
 
     <div class="text-center mb-5 reveal">
@@ -1833,7 +1824,7 @@
       <h2 class="sec-title" style="color:var(--white);">Why <span style="color:var(--gold-l);">Join Us?</span></h2>
       <div class="gold-divider center"></div>
       <p class="sec-lead mx-auto" style="color:rgba(255,255,255,.68);">
-        Experience the Powerex advantage — designed entirely around your success
+        Experience the PowerX advantage — designed entirely around your success
       </p>
     </div>
 
@@ -1994,7 +1985,7 @@
 <!-- ╔════════════════════════════════════════════╗
      ║           7-12. INCOME SECTION             ║
      ╚════════════════════════════════════════════╝ -->
-<section id="income" class="sec-pad">
+<section id="income" class="sec-pad" style="background:var(--gray-50);">
   <div class="container">
 
     <div class="text-center mb-5 reveal">
@@ -2309,7 +2300,7 @@
           "Invest your <span class="hl">energy</span> into something that is going to
           contribute to your <span class="hl">growth</span>."
         </p>
-        <p class="quote-author">— Powerex Multi Trading Philosophy</p>
+        <p class="quote-author">— PowerX Multi Trading Philosophy</p>
         <div class="text-center">
           <a href="#packages" class="btn-px btn-gold" style="font-size:1rem;padding:.9rem 2.4rem;">
             <i class="fa-solid fa-rocket"></i> Start Your Journey Today
@@ -2339,7 +2330,7 @@
           <div class="vmc-icon gr mx-auto mb-3"><i class="fa-solid fa-map-marker-alt"></i></div>
           <h5 class="vmc-title text-green">Our Office</h5>
           <p style="color:var(--gray-700);margin-top:.6rem;line-height:1.8;font-size:.9rem;">
-            Powerex Multi Trading HQ<br>Financial District, Business Bay
+            PowerX Multi Trading HQ<br>Financial District, Business Bay
           </p>
         </div>
       </div>
@@ -2348,7 +2339,7 @@
           <div class="vmc-icon gd mx-auto mb-3"><i class="fa-solid fa-envelope"></i></div>
           <h5 class="vmc-title text-gold">Email Us</h5>
           <p style="color:var(--gray-700);margin-top:.6rem;line-height:1.8;font-size:.9rem;">
-            support@powerextrading.com<br>info@powerextrading.com
+            support@PowerXtrading.com<br>info@PowerXtrading.com
           </p>
         </div>
       </div>
@@ -2373,13 +2364,13 @@
 <footer>
   <div class="container position-relative">
 
-    <div class="row g-5">
+    <div class="row g-4 g-lg-5">
 
       <!-- Brand col -->
-      <div class="col-lg-4">
-        <div class="footer-brand"><i class="fa-solid fa-bolt-lightning" style="color:#10B981;margin-right:.35rem;font-size:1rem;"></i>POWER<span>EX</span> <small>Multi Trading</small></div>
+      <div class="col-12 col-lg-4">
+        <div class="footer-brand">POWER<span>X</span> <small>Multi Trading</small></div>
         <p class="footer-text">
-          Powerex Multi Trading is a premier financial solutions company established in 2021.
+          PowerX Multi Trading is a premier financial solutions company established in 2021.
           We empower individuals through transparent investment opportunities in Commodity
           Markets and Forex Trading — with integrity and trust at every step.
         </p>
@@ -2394,47 +2385,56 @@
       </div>
 
       <!-- Quick links -->
-      <div class="col-lg-2 col-sm-6">
-        <div class="footer-head">Quick Links</div>
-        <a href="#hero"       class="footer-link"><i class="fa-solid fa-chevron-right"></i>Home</a>
-        <a href="about.html"  class="footer-link"><i class="fa-solid fa-chevron-right"></i>About Us</a>
-        <a href="#services"   class="footer-link"><i class="fa-solid fa-chevron-right"></i>Services</a>
-        <a href="#packages"   class="footer-link"><i class="fa-solid fa-chevron-right"></i>Packages</a>
-        <a href="#income"     class="footer-link"><i class="fa-solid fa-chevron-right"></i>Income Plan</a>
-        <a href="contact.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Contact</a>
-        <a href="faq.html"    class="footer-link"><i class="fa-solid fa-chevron-right"></i>FAQ</a>
+      <div class="col-6 col-lg-2">
+        <div class="footer-head" data-bs-toggle="collapse" data-bs-target="#fAcc1" aria-expanded="true" aria-controls="fAcc1">
+          Quick Links <i class="fa-solid fa-chevron-down footer-acc-icon"></i>
+        </div>
+        <div class="collapse show footer-acc-body" id="fAcc1">
+          <a href="#hero"     class="footer-link"><i class="fa-solid fa-chevron-right"></i>Home</a>
+          <a href="#about"    class="footer-link"><i class="fa-solid fa-chevron-right"></i>About Us</a>
+          <a href="#services" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Services</a>
+          <a href="#packages" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Packages</a>
+          <a href="#income"   class="footer-link"><i class="fa-solid fa-chevron-right"></i>Income Plan</a>
+          <a href="#contact"  class="footer-link"><i class="fa-solid fa-chevron-right"></i>Contact</a>
+        </div>
       </div>
 
       <!-- Income types -->
-      <div class="col-lg-3 col-sm-6">
-        <div class="footer-head">Income Types</div>
-        <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Monthly Cashback</a>
-        <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Binary Income</a>
-        <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Level Income</a>
-        <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Booster Income</a>
-        <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Awards &amp; Rewards</a>
-        <a href="track-order.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Track Order</a>
+      <div class="col-6 col-lg-3">
+        <div class="footer-head" data-bs-toggle="collapse" data-bs-target="#fAcc2" aria-expanded="true" aria-controls="fAcc2">
+          Income Types <i class="fa-solid fa-chevron-down footer-acc-icon"></i>
+        </div>
+        <div class="collapse show footer-acc-body" id="fAcc2">
+          <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Monthly Cashback</a>
+          <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Binary Income</a>
+          <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Level Income</a>
+          <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Booster Income</a>
+          <a href="#income" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Awards &amp; Rewards</a>
+        </div>
       </div>
 
       <!-- Legal / Risk -->
-      <div class="col-lg-3 col-sm-6">
-        <div class="footer-head">Legal</div>
-        <a href="privacy-policy.html" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Privacy Policy</a>
-        <a href="terms.html"          class="footer-link"><i class="fa-solid fa-chevron-right"></i>Terms of Service</a>
-        <a href="refund-policy.html"  class="footer-link"><i class="fa-solid fa-chevron-right"></i>Refund Policy</a>
-        <a href="login.html"          class="footer-link"><i class="fa-solid fa-chevron-right"></i>Login</a>
-        <a href="signup.html"         class="footer-link"><i class="fa-solid fa-chevron-right"></i>Sign Up</a>
-        <div class="footer-risk">
-          <div class="footer-risk-title"><i class="fa-solid fa-triangle-exclamation me-1"></i>Risk Warning</div>
-          <p>Trading involves risk. Past performance is not indicative of future results. Invest responsibly.</p>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="footer-head" data-bs-toggle="collapse" data-bs-target="#fAcc3" aria-expanded="true" aria-controls="fAcc3">
+          Legal <i class="fa-solid fa-chevron-down footer-acc-icon"></i>
+        </div>
+        <div class="collapse show footer-acc-body" id="fAcc3">
+          <a href="#" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Privacy Policy</a>
+          <a href="#" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Terms of Service</a>
+          <a href="#" class="footer-link"><i class="fa-solid fa-chevron-right"></i>Risk Disclosure</a>
+          <a href="#" class="footer-link"><i class="fa-solid fa-chevron-right"></i>AML Policy</a>
+          <div class="footer-risk">
+            <div class="footer-risk-title"><i class="fa-solid fa-triangle-exclamation me-1"></i>Risk Warning</div>
+            <p>Trading involves risk. Past performance is not indicative of future results. Invest responsibly.</p>
+          </div>
         </div>
       </div>
 
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; 2024 <span>Powerex Multi Trading</span>. All Rights Reserved.
-         Established 2021 &middot; Powered by <span>POWEREX</span></p>
+      <p>&copy; 2024 <span>PowerX Multi Trading</span>. All Rights Reserved.
+         Established 2021 &middot; Powered by <span>PowerX</span></p>
     </div>
 
   </div>
@@ -2443,6 +2443,251 @@
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ╔════════════════════════════════════════════╗
+     ║              LOGIN MODAL                   ║
+     ╚════════════════════════════════════════════╝ -->
+<div class="modal fade auth-modal" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:420px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Welcome Back to <span>PowerX</span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <!-- Tab switcher -->
+        <div class="auth-tabs" id="loginTabs">
+          <div class="auth-tab active" data-panel="login-email">Email / Password</div>
+          <div class="auth-tab" data-panel="login-otp">Mobile OTP</div>
+        </div>
+
+        <!-- ── Panel: Email Login ── -->
+        <div class="auth-panel active" id="login-email">
+          <div id="loginEmailAlert" class="auth-alert-inline"></div>
+          <div class="mb-3">
+            <label class="auth-label">Email Address</label>
+            <input type="email" class="auth-input" id="loginEmailInput" placeholder="you@example.com" autocomplete="email" />
+          </div>
+          <div class="mb-3">
+            <label class="auth-label">Password</label>
+            <input type="password" class="auth-input" id="loginPassInput" placeholder="Enter your password" autocomplete="current-password" />
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-3" style="font-size:.8rem;">
+            <label style="display:flex;align-items:center;gap:.4rem;color:var(--gray-700);cursor:pointer;">
+              <input type="checkbox" /> Remember me
+            </label>
+            <a href="#" style="color:var(--green);font-weight:700;text-decoration:none;">Forgot Password?</a>
+          </div>
+          <button class="btn-auth-submit" type="button" onclick="doEmailLogin()"><i class="fa-solid fa-right-to-bracket me-2"></i>Login</button>
+          <div class="auth-divider">or continue with</div>
+          <button class="btn-google" type="button" onclick="handleGoogleAuth()">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20" alt="Google" />
+            Continue with Google
+          </button>
+        </div>
+
+        <!-- ── Panel: OTP Login ── -->
+        <div class="auth-panel" id="login-otp">
+
+          <!-- Step 1: Phone -->
+          <div class="auth-step active" id="login-otp-step1">
+            <div class="mb-3">
+              <label class="auth-label">Mobile Number</label>
+              <div class="auth-input-group">
+                <select class="flag-select" id="loginDialCode" style="min-width:90px;">
+                  <option value="+91">🇮🇳 +91</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+971">🇦🇪 +971</option>
+                  <option value="+92">🇵🇰 +92</option>
+                  <option value="+880">🇧🇩 +880</option>
+                  <option value="+60">🇲🇾 +60</option>
+                  <option value="+65">🇸🇬 +65</option>
+                  <option value="+62">🇮🇩 +62</option>
+                  <option value="+966">🇸🇦 +966</option>
+                </select>
+                <input type="tel" class="auth-input" id="loginPhone" placeholder="Enter phone number" />
+              </div>
+            </div>
+            <button class="btn-auth-submit" type="button" onclick="sendOTP('login')">
+              <i class="fa-solid fa-paper-plane me-2"></i>Send OTP
+            </button>
+            <div class="auth-divider">or</div>
+            <button class="btn-google" type="button" onclick="handleGoogleAuth()">
+              <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20" alt="Google" />
+              Continue with Google
+            </button>
+          </div>
+
+          <!-- Step 2: OTP boxes -->
+          <div class="auth-step" id="login-otp-step2">
+            <button class="auth-back" onclick="goBack('login-otp-step1','login-otp-step2')">
+              <i class="fa-solid fa-arrow-left"></i> Back
+            </button>
+            <p style="font-size:.88rem;color:var(--gray-700);margin-bottom:.5rem;">OTP sent to <strong id="loginPhoneDisplay"></strong></p>
+            <div class="otp-demo-box" id="loginOtpCode" style="display:none;">
+              <i class="fa-solid fa-key" style="color:var(--gold);"></i>
+              <span>Demo OTP:</span>
+              <strong id="loginOtpValue"></strong>
+            </div>
+            <div class="otp-boxes">
+              <input type="text" maxlength="1" class="otp-box" />
+              <input type="text" maxlength="1" class="otp-box" />
+              <input type="text" maxlength="1" class="otp-box" />
+              <input type="text" maxlength="1" class="otp-box" />
+              <input type="text" maxlength="1" class="otp-box" />
+              <input type="text" maxlength="1" class="otp-box" />
+            </div>
+            <div id="loginOtpAlert" class="auth-alert-inline"></div>
+            <div class="otp-hint">Didn't receive? <a onclick="sendOTP('login')">Resend OTP</a></div>
+            <button class="btn-auth-submit mt-3" type="button" onclick="doOTPLogin()"><i class="fa-solid fa-check me-2"></i>Verify &amp; Login</button>
+          </div>
+
+        </div>
+
+        <div class="auth-switch">Don't have an account? <a href="#" onclick="switchModal('loginModal','signupModal')">Sign Up</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔════════════════════════════════════════════╗
+     ║             SIGNUP MODAL                   ║
+     ╚════════════════════════════════════════════╝ -->
+<div class="modal fade auth-modal" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:440px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupModalLabel">Join <span>PowerX</span> Today</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <!-- Tab switcher -->
+        <div class="auth-tabs" id="signupTabs">
+          <div class="auth-tab active" data-panel="signup-email">Email</div>
+          <div class="auth-tab" data-panel="signup-otp">Mobile OTP</div>
+        </div>
+
+        <!-- ── Panel: Email Signup ── -->
+        <div class="auth-panel active" id="signup-email">
+          <div id="signupEmailAlert" class="auth-alert-inline"></div>
+          <div class="row g-3 mb-3">
+            <div class="col-6">
+              <label class="auth-label">First Name</label>
+              <input type="text" class="auth-input" id="signupFirstName" placeholder="John" autocomplete="given-name" />
+            </div>
+            <div class="col-6">
+              <label class="auth-label">Last Name</label>
+              <input type="text" class="auth-input" id="signupLastName" placeholder="Doe" autocomplete="family-name" />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="auth-label">Email Address</label>
+            <input type="email" class="auth-input" id="signupEmailInput" placeholder="you@example.com" autocomplete="email" />
+          </div>
+          <div class="mb-3">
+            <label class="auth-label">Password</label>
+            <input type="password" class="auth-input" id="signupPassInput" placeholder="Min 6 characters" autocomplete="new-password" />
+          </div>
+          <div class="mb-3">
+            <label class="auth-label">Referral Code <span style="color:var(--gray-500);font-weight:400;">(optional)</span></label>
+            <input type="text" class="auth-input" id="signupReferral" placeholder="Enter referral code" />
+          </div>
+          <div class="mb-3" style="font-size:.78rem;color:var(--gray-500);">
+            <label style="display:flex;align-items:flex-start;gap:.5rem;cursor:pointer;">
+              <input type="checkbox" id="signupTerms" style="margin-top:2px;flex-shrink:0;" />
+              I agree to the <a href="#" style="color:var(--green);font-weight:700;text-decoration:none;">Terms of Service</a> and <a href="#" style="color:var(--green);font-weight:700;text-decoration:none;">Privacy Policy</a>
+            </label>
+          </div>
+          <button class="btn-auth-submit" type="button" onclick="doEmailSignup()"><i class="fa-solid fa-user-plus me-2"></i>Create Account</button>
+          <div class="auth-divider">or sign up with</div>
+          <button class="btn-google" type="button" onclick="handleGoogleAuth()">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20" alt="Google" />
+            Continue with Google
+          </button>
+        </div>
+
+        <!-- ── Panel: OTP Signup ── -->
+        <div class="auth-panel" id="signup-otp">
+
+          <!-- Step 1: Name + Phone -->
+          <div class="auth-step active" id="signup-otp-step1">
+            <div class="row g-3 mb-3">
+              <div class="col-6">
+                <label class="auth-label">First Name</label>
+                <input type="text" class="auth-input" id="signupOtpFirst" placeholder="John" />
+              </div>
+              <div class="col-6">
+                <label class="auth-label">Last Name</label>
+                <input type="text" class="auth-input" id="signupOtpLast" placeholder="Doe" />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="auth-label">Mobile Number</label>
+              <div class="auth-input-group">
+                <select class="flag-select" id="signupDialCode" style="min-width:90px;">
+                  <option value="+91">🇮🇳 +91</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+971">🇦🇪 +971</option>
+                  <option value="+92">🇵🇰 +92</option>
+                  <option value="+880">🇧🇩 +880</option>
+                  <option value="+60">🇲🇾 +60</option>
+                  <option value="+65">🇸🇬 +65</option>
+                  <option value="+62">🇮🇩 +62</option>
+                  <option value="+966">🇸🇦 +966</option>
+                </select>
+                <input type="tel" class="auth-input" id="signupPhone" placeholder="Enter phone number" />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="auth-label">Referral Code <span style="color:var(--gray-500);font-weight:400;">(optional)</span></label>
+              <input type="text" class="auth-input" placeholder="Enter referral code" />
+            </div>
+            <button class="btn-auth-submit" type="button" onclick="sendOTP('signup')">
+              <i class="fa-solid fa-paper-plane me-2"></i>Send OTP
+            </button>
+            <div class="auth-divider">or</div>
+            <button class="btn-google" type="button" onclick="handleGoogleAuth()">
+              <img src="https://www.svgrepo.com/show/475656/google-color.svg" width="20" alt="Google" />
+              Continue with Google
+            </button>
+          </div>
+
+          <!-- Step 2: OTP boxes -->
+          <div class="auth-step" id="signup-otp-step2">
+            <button class="auth-back" onclick="goBack('signup-otp-step1','signup-otp-step2')">
+              <i class="fa-solid fa-arrow-left"></i> Back
+            </button>
+            <p style="font-size:.88rem;color:var(--gray-700);margin-bottom:.5rem;">OTP sent to <strong id="signupPhoneDisplay"></strong></p>
+            <div class="otp-demo-box" id="signupOtpCode" style="display:none;">
+              <i class="fa-solid fa-key" style="color:var(--gold);"></i>
+              <span>Demo OTP:</span>
+              <strong id="signupOtpValue"></strong>
+            </div>
+            <div class="otp-boxes">
+              <input type="text" maxlength="1" class="otp-box" />
+              <input type="text" maxlength="1" class="otp-box" />
+              <input type="text" maxlength="1" class="otp-box" />
+              <input type="text" maxlength="1" class="otp-box" />
+              <input type="text" maxlength="1" class="otp-box" />
+              <input type="text" maxlength="1" class="otp-box" />
+            </div>
+            <div id="signupOtpAlert" class="auth-alert-inline"></div>
+            <div class="otp-hint">Didn't receive? <a onclick="sendOTP('signup')">Resend OTP</a></div>
+            <button class="btn-auth-submit mt-3" type="button" onclick="doOTPSignup()"><i class="fa-solid fa-check me-2"></i>Verify &amp; Create Account</button>
+          </div>
+
+        </div>
+
+        <div class="auth-switch">Already have an account? <a href="#" onclick="switchModal('signupModal','loginModal')">Login</a></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 /* ═══════════════════════════════════
@@ -2527,130 +2772,265 @@ const heroObs = new IntersectionObserver(entries => {
     countUp(document.getElementById('cntMembers'), 5000, '+', 0, 1800);
     countUp(document.getElementById('cntVol'),    10, 'M+', 0, 1800);
     countUp(document.getElementById('cntUp'),     99.9, '%', 1, 1800);
+    countUp(document.getElementById('cntCountries'), 150, '+', 0, 1800);
     heroObs.disconnect();
   }
 }, { threshold: 0.4 });
 const heroSection = document.getElementById('hero');
 if (heroSection) heroObs.observe(heroSection);
 document.getElementById('cntVol').textContent = '$0';
-</script>
+document.getElementById('cntCountries').textContent = '0+';
 
-<!-- ╔════════════════════════════════════════════╗
-     ║            PAGE LOADER SCRIPT              ║
-     ╚════════════════════════════════════════════╝ -->
-<script>
-(function () {
-  const loader  = document.getElementById('px-loader');
-  const bar     = document.getElementById('ldrBar');
-  const pctSpan = document.getElementById('ldrPct');
-
-  let pct = 0;
-  const duration = 2600; // ms total fake load time
-  const start    = performance.now();
-
-  // easing: fast start, decelerate near end
-  function ease(t) { return t < .5 ? 2*t*t : -1+(4-2*t)*t; }
-
-  function tick(now) {
-    const elapsed = now - start;
-    const raw     = Math.min(elapsed / duration, 1);
-    pct           = Math.floor(ease(raw) * 100);
-    bar.style.width  = pct + '%';
-    pctSpan.textContent = pct;
-    if (raw < 1) {
-      requestAnimationFrame(tick);
-    } else {
-      pctSpan.textContent = 100;
-      bar.style.width = '100%';
-      setTimeout(() => {
-        loader.classList.add('fade-out');
-        setTimeout(() => loader.remove(), 700);
-      }, 320);
-    }
-  }
-
-  requestAnimationFrame(tick);
-
-  // spawn particles
-  const container = document.querySelector('.ldr-particles');
-  const colors    = ['#4F46E5','#6366F1','#F59E0B','#FB923C','#0EA5E9','#38BDF8'];
-  for (let i = 0; i < 28; i++) {
-    const p   = document.createElement('div');
-    const sz  = 4 + Math.random() * 10;
-    p.className = 'ldr-particle';
-    p.style.cssText = [
-      `width:${sz}px`, `height:${sz}px`,
-      `left:${Math.random()*100}%`,
-      `background:${colors[Math.floor(Math.random()*colors.length)]}`,
-      `animation-duration:${3 + Math.random()*5}s`,
-      `animation-delay:${Math.random()*3}s`
-    ].join(';');
-    container.appendChild(p);
-  }
-})();
-</script>
-
-<!-- HERO PARTICLES -->
-<script>
-(function () {
-  const wrap   = document.getElementById('hero-particles');
-  const colors = ['#4F46E5','#6366F1','#818CF8','#F59E0B','#FB923C','#0EA5E9','#38BDF8','#a78bfa','#34d399'];
-
-  // ── small floating dots (50 of them) ──
-  for (let i = 0; i < 50; i++) {
-    const p  = document.createElement('div');
-    const sz = 3 + Math.random() * 9;
-    p.className = 'hp';
-    p.style.cssText = [
-      `width:${sz}px`,
-      `height:${sz}px`,
-      `left:${Math.random() * 100}%`,
-      `bottom:${-10 + Math.random() * 20}%`,
-      `background:${colors[Math.floor(Math.random() * colors.length)]}`,
-      `box-shadow:0 0 ${sz*2}px ${Math.floor(sz/2)}px ${colors[Math.floor(Math.random()*colors.length)]}55`,
-      `animation-duration:${6 + Math.random() * 12}s`,
-      `animation-delay:${Math.random() * 10}s`
-    ].join(';');
-    wrap.appendChild(p);
-  }
-
-  // ── large soft glow orbs (6 of them) ──
-  const orbColors = [
-    ['#4F46E5', 220, 220], ['#F59E0B', 200, 200],
-    ['#0EA5E9', 180, 180], ['#F97316', 160, 160],
-    ['#6366F1', 240, 240], ['#34d399',  170, 170]
-  ];
-  orbColors.forEach(([clr, w, h], i) => {
-    const o = document.createElement('div');
-    o.className = 'hp-orb';
-    o.style.cssText = [
-      `width:${w}px`, `height:${h}px`,
-      `background:${clr}`,
-      `left:${10 + (i * 16)}%`,
-      `top:${15 + (i % 3) * 25}%`,
-      `animation-duration:${10 + i * 3}s`,
-      `animation-delay:${i * 1.8}s`
-    ].join(';');
-    wrap.appendChild(o);
+/* ═══════════════════════════════════
+   AUTH MODAL — TAB SWITCHER
+═══════════════════════════════════ */
+document.querySelectorAll('.auth-tabs').forEach(tabGroup => {
+  tabGroup.querySelectorAll('.auth-tab').forEach(tab => {
+    tab.addEventListener('click', function () {
+      const panelId = this.dataset.panel;
+      const modal = this.closest('.modal-body');
+      // deactivate all tabs in this group
+      tabGroup.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      // deactivate all panels in this modal body
+      modal.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+      modal.querySelector('#' + panelId).classList.add('active');
+    });
   });
-})();
-</script>
+});
 
-<!-- THEME TOGGLE -->
-<script>
-(function () {
-  const btn  = document.getElementById('themeToggle');
-  const body = document.body;
-  const KEY  = 'px-theme';
+/* ═══════════════════════════════════
+   AUTH HELPERS
+═══════════════════════════════════ */
+function showAuthAlert(el, msg) {
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 4500);
+}
 
-  // apply saved preference on load
-  if (localStorage.getItem(KEY) === 'light') body.classList.add('light');
+/* ── Email Login ── */
+function doEmailLogin() {
+  const emailEl = document.getElementById('loginEmailInput');
+  const passEl  = document.getElementById('loginPassInput');
+  const alertEl = document.getElementById('loginEmailAlert');
+  const email   = emailEl.value.trim();
+  const pass    = passEl.value;
 
-  btn.addEventListener('click', () => {
-    body.classList.toggle('light');
-    localStorage.setItem(KEY, body.classList.contains('light') ? 'light' : 'dark');
+  if (!email || !pass) { showAuthAlert(alertEl, 'Please fill in all fields.'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showAuthAlert(alertEl, 'Enter a valid email address.'); return; }
+
+  const users = JSON.parse(localStorage.getItem('px-users') || '[]');
+  const user  = users.find(u => u.email === email && u.password === pass);
+  if (!user) { showAuthAlert(alertEl, 'Invalid email or password.'); return; }
+
+  localStorage.setItem('px-user', JSON.stringify({ name: user.name, email: user.email, phone: user.phone || '' }));
+  window.location.href = 'dashboard.html';
+}
+
+/* ── Email Signup ── */
+function doEmailSignup() {
+  const firstEl  = document.getElementById('signupFirstName');
+  const lastEl   = document.getElementById('signupLastName');
+  const emailEl  = document.getElementById('signupEmailInput');
+  const passEl   = document.getElementById('signupPassInput');
+  const alertEl  = document.getElementById('signupEmailAlert');
+  const termsEl  = document.getElementById('signupTerms');
+
+  const name  = (firstEl.value.trim() + ' ' + lastEl.value.trim()).trim();
+  const email = emailEl.value.trim();
+  const pass  = passEl.value;
+
+  if (!name)    { showAuthAlert(alertEl, 'Please enter your name.'); return; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showAuthAlert(alertEl, 'Enter a valid email address.'); return; }
+  if (pass.length < 6) { showAuthAlert(alertEl, 'Password must be at least 6 characters.'); return; }
+  if (termsEl && !termsEl.checked) { showAuthAlert(alertEl, 'Please accept the Terms of Service.'); return; }
+
+  const users = JSON.parse(localStorage.getItem('px-users') || '[]');
+  if (users.find(u => u.email === email)) { showAuthAlert(alertEl, 'An account with that email already exists.'); return; }
+
+  const referral = (document.getElementById('signupReferral') || {}).value || '';
+  users.push({ name, email, password: pass, referral, phone: '', joinDate: new Date().toISOString() });
+  localStorage.setItem('px-users', JSON.stringify(users));
+  localStorage.setItem('px-user',  JSON.stringify({ name, email, phone: '' }));
+  window.location.href = 'dashboard.html';
+}
+
+/* ═══════════════════════════════════
+   OTP: SEND + STEP FLOW
+═══════════════════════════════════ */
+const _otpCode = {};
+
+function sendOTP(context) {
+  const phoneInput = document.getElementById(context + 'Phone');
+  const dialCode   = document.getElementById(context + 'DialCode').value;
+  const rawPhone   = phoneInput.value.replace(/\D/g, '');
+
+  // Clear previous error
+  let errEl = phoneInput.closest('.mb-3').querySelector('.otp-phone-err');
+  if (errEl) errEl.remove();
+
+  if (rawPhone.length !== 10) {
+    phoneInput.style.borderColor = 'var(--pink)';
+    phoneInput.focus();
+    const err = document.createElement('div');
+    err.className = 'otp-phone-err';
+    err.style.cssText = 'color:#f87171;font-size:.78rem;margin-top:.3rem;';
+    err.textContent = 'Enter a valid 10-digit mobile number.';
+    phoneInput.closest('.mb-3').appendChild(err);
+    return;
+  }
+  phoneInput.style.borderColor = '';
+
+  // Generate fake OTP
+  const otp = String(Math.floor(100000 + Math.random() * 900000));
+  _otpCode[context] = otp;
+
+  const fullNumber = dialCode + ' ' + rawPhone;
+  document.getElementById(context + 'PhoneDisplay').textContent = fullNumber;
+
+  // Show demo OTP box
+  const otpBox = document.getElementById(context + 'OtpCode');
+  const otpVal = document.getElementById(context + 'OtpValue');
+  if (otpBox && otpVal) { otpVal.textContent = otp; otpBox.style.display = 'flex'; }
+
+  // Move to step 2
+  document.getElementById(context + '-otp-step1').classList.remove('active');
+  document.getElementById(context + '-otp-step2').classList.add('active');
+
+  const boxes = document.querySelectorAll('#' + context + '-otp-step2 .otp-box');
+  if (boxes.length) boxes[0].focus();
+  initOTPBoxes(context + '-otp-step2');
+}
+
+/* ── OTP Login Verify ── */
+function doOTPLogin() {
+  const boxes   = document.querySelectorAll('#login-otp-step2 .otp-box');
+  const otp     = [...boxes].map(b => b.value).join('');
+  const alertEl = document.getElementById('loginOtpAlert');
+
+  if (otp.length < 6) { showAuthAlert(alertEl, 'Enter the complete 6-digit OTP.'); return; }
+  if (otp !== _otpCode['login']) { showAuthAlert(alertEl, 'Incorrect OTP. Please try again.'); return; }
+
+  const rawPhone  = document.getElementById('loginPhone').value.replace(/\D/g, '');
+  const dial      = document.getElementById('loginDialCode').value;
+  const fullPhone = dial + rawPhone;
+
+  const users = JSON.parse(localStorage.getItem('px-users') || '[]');
+  const user  = users.find(u => u.phone === fullPhone || u.phone === rawPhone);
+
+  if (!user) {
+    showAuthAlert(alertEl, 'No account found with this number. Please sign up first.');
+    return;
+  }
+
+  localStorage.setItem('px-user', JSON.stringify({ name: user.name, email: user.email || '', phone: fullPhone }));
+  window.location.href = 'dashboard.html';
+}
+
+/* ── OTP Signup Verify ── */
+function doOTPSignup() {
+  const boxes   = document.querySelectorAll('#signup-otp-step2 .otp-box');
+  const otp     = [...boxes].map(b => b.value).join('');
+  const alertEl = document.getElementById('signupOtpAlert');
+
+  if (otp.length < 6) { showAuthAlert(alertEl, 'Enter the complete 6-digit OTP.'); return; }
+  if (otp !== _otpCode['signup']) { showAuthAlert(alertEl, 'Incorrect OTP. Please try again.'); return; }
+
+  const firstName = (document.getElementById('signupOtpFirst') || {}).value || '';
+  const lastName  = (document.getElementById('signupOtpLast') || {}).value || '';
+  const rawPhone  = document.getElementById('signupPhone').value.replace(/\D/g, '');
+  const dial      = document.getElementById('signupDialCode').value;
+  const fullPhone = dial + rawPhone;
+  const name      = (firstName.trim() + ' ' + lastName.trim()).trim() || 'Member';
+
+  const users = JSON.parse(localStorage.getItem('px-users') || '[]');
+  if (users.find(u => u.phone === fullPhone)) {
+    showAuthAlert(alertEl, 'An account with this number already exists. Please login.');
+    return;
+  }
+
+  users.push({ name, phone: fullPhone, email: '', joinDate: new Date().toISOString() });
+  localStorage.setItem('px-users', JSON.stringify(users));
+  localStorage.setItem('px-user',  JSON.stringify({ name, email: '', phone: fullPhone }));
+  window.location.href = 'dashboard.html';
+}
+
+function goBack(showId, hideId) {
+  document.getElementById(hideId).classList.remove('active');
+  document.getElementById(showId).classList.add('active');
+}
+
+function initOTPBoxes(stepId) {
+  const boxes = document.querySelectorAll('#' + stepId + ' .otp-box');
+  boxes.forEach((box, i) => {
+    const newBox = box.cloneNode(true);
+    box.parentNode.replaceChild(newBox, box);
   });
-})();
+  const freshBoxes = document.querySelectorAll('#' + stepId + ' .otp-box');
+  freshBoxes.forEach((box, i) => {
+    box.addEventListener('input', function () {
+      this.value = this.value.replace(/\D/g, '').slice(-1);
+      if (this.value && i < freshBoxes.length - 1) freshBoxes[i + 1].focus();
+    });
+    box.addEventListener('keydown', function (e) {
+      if (e.key === 'Backspace' && !this.value && i > 0) freshBoxes[i - 1].focus();
+    });
+    box.addEventListener('paste', function (e) {
+      e.preventDefault();
+      const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+      paste.split('').slice(0, freshBoxes.length - i).forEach((ch, j) => {
+        if (freshBoxes[i + j]) freshBoxes[i + j].value = ch;
+      });
+      const nextEmpty = [...freshBoxes].findIndex(b => !b.value);
+      if (nextEmpty !== -1) freshBoxes[nextEmpty].focus();
+    });
+  });
+}
+
+/* ═══════════════════════════════════
+   GOOGLE AUTH (demo stub)
+═══════════════════════════════════ */
+function handleGoogleAuth() {
+  alert('Google sign-in coming soon. Please use Email or Mobile OTP to continue.');
+}
+
+/* ═══════════════════════════════════
+   SWITCH BETWEEN LOGIN / SIGNUP
+═══════════════════════════════════ */
+function switchModal(fromId, toId) {
+  const fromEl = document.getElementById(fromId);
+  const toEl   = document.getElementById(toId);
+  const fromModal = bootstrap.Modal.getInstance(fromEl);
+  if (fromModal) fromModal.hide();
+  fromEl.addEventListener('hidden.bs.modal', function handler() {
+    fromEl.removeEventListener('hidden.bs.modal', handler);
+    new bootstrap.Modal(toEl).show();
+  }, { once: true });
+}
+
+/* Reset modals to initial state when closed */
+document.querySelectorAll('.auth-modal').forEach(modal => {
+  modal.addEventListener('hidden.bs.modal', function () {
+    // Reset to first tab
+    this.querySelectorAll('.auth-tabs .auth-tab').forEach((t, i) => {
+      t.classList.toggle('active', i === 0);
+    });
+    this.querySelectorAll('.auth-panel').forEach((p, i) => {
+      p.classList.toggle('active', i === 0);
+    });
+    // Reset OTP steps to step1
+    this.querySelectorAll('.auth-step').forEach(s => {
+      s.classList.toggle('active', s.id.endsWith('step1'));
+    });
+    // Clear inputs
+    this.querySelectorAll('.auth-input, .otp-box').forEach(el => {
+      el.value = '';
+      el.style.borderColor = '';
+    });
+  });
+});
 </script>
 
 </body>

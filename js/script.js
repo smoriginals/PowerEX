@@ -206,7 +206,7 @@ function initLogout() {
 }
 function doLogout() {
   clearUser();
-  window.location.href = 'login.html';
+  window.location.href = 'index.html';
 }
 
 /* ── 9. DASHBOARD ── */

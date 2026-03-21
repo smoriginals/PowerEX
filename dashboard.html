@@ -1,136 +1,1239 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard – PowerEx</title>
+  <title>Dashboard – PowerX</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet"/>
   <link href="css/style.css" rel="stylesheet"/>
+  <style>
+    /* ── Sidebar layout ── */
+    .dash-layout { display:flex; min-height:calc(100vh - 62px); }
+
+    .dash-sidebar-v2 {
+      width: 240px;
+      flex-shrink: 0;
+      background: var(--white);
+      border-right: 1px solid var(--gray-300);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 62px;
+      height: calc(100vh - 62px);
+      overflow-y: auto;
+      z-index: 100;
+      transition: var(--transition);
+    }
+    .dash-sidebar-v2 .side-section {
+      padding: 1.2rem 0 .5rem;
+      border-bottom: 1px solid var(--gray-300);
+    }
+    .dash-sidebar-v2 .side-section:last-child { border-bottom: none; }
+    .dash-sidebar-v2 .side-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      padding: 0 1.3rem .5rem;
+    }
+    .side-link-v2 {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .64rem 1.3rem;
+      color: var(--gray-700);
+      font-weight: 600;
+      font-size: .875rem;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .side-link-v2 i { width: 18px; text-align: center; font-size: .9rem; flex-shrink: 0; }
+    .side-link-v2:hover,
+    .side-link-v2.active {
+      color: var(--green);
+      background: var(--green-xl);
+      border-left-color: var(--green);
+    }
+    .side-link-v2 .side-badge {
+      margin-left: auto;
+      background: var(--green);
+      color: #fff;
+      font-size: .6rem;
+      font-weight: 700;
+      border-radius: 20px;
+      padding: .18rem .55rem;
+      line-height: 1.4;
+    }
+    .side-link-v2 .side-badge-warn { background: #D97706; }
+
+    /* ── Main content ── */
+    .dash-content {
+      flex: 1;
+      min-width: 0;
+      padding: 2rem 2rem 3rem;
+      overflow-x: hidden;
+    }
+
+    /* ── Page sections ── */
+    .dash-section { display: none; }
+    .dash-section.active { display: block; }
+
+    /* ── Sidebar overlay toggle (mobile) ── */
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.45);
+      z-index: 99;
+    }
+    .sidebar-backdrop.show { display: block; }
+    .sidebar-open-btn {
+      display: none;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      width: 38px; height: 38px;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* ── ROI Progress bar ── */
+    .roi-bar-wrap { margin-bottom: 1.2rem; }
+    .roi-bar-label { display:flex; justify-content:space-between; font-size:.8rem; color:var(--gray-700); margin-bottom:.4rem; font-weight:600; }
+    .roi-bar-track { height: 8px; background: var(--gray-300); border-radius: 10px; overflow: hidden; }
+    .roi-bar-fill  { height: 100%; border-radius: 10px; transition: width 1.2s ease; }
+
+    /* ── Plan card ── */
+    .plan-card {
+      border: 2px solid var(--gray-300);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      transition: var(--transition);
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .plan-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .plan-card.plan-basic::before  { background: linear-gradient(90deg,#0EA5E9,#6366F1); }
+    .plan-card.plan-silver::before { background: linear-gradient(90deg,#94A3B8,#CBD5E1); }
+    .plan-card.plan-gold::before   { background: linear-gradient(90deg,#D97706,#F59E0B); }
+    .plan-card.plan-diamond::before{ background: linear-gradient(90deg,#4F46E5,#F97316); }
+    .plan-card:hover { border-color: var(--green); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .plan-badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      padding: .22rem .75rem; border-radius: 20px;
+    }
+    .plan-badge.basic   { background: rgba(14,165,233,.12); color: #0EA5E9; }
+    .plan-badge.silver  { background: rgba(148,163,184,.15); color: #94A3B8; }
+    .plan-badge.gold    { background: rgba(217,119,6,.12);   color: #D97706; }
+    .plan-badge.diamond { background: rgba(79,70,229,.12);   color: #6366F1; }
+    .plan-roi { font-family:'Barlow Condensed',sans-serif; font-size:2rem; font-weight:800; }
+    .plan-divider { border-color: var(--gray-300); margin: .8rem 0; }
+    .plan-feature { display:flex; align-items:center; gap:.6rem; font-size:.82rem; color:var(--gray-700); padding:.28rem 0; }
+    .plan-feature i { color: var(--green); width:14px; font-size:.75rem; }
+
+    /* ── Income type grid ── */
+    .income-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:1rem; }
+    .income-cell {
+      background: var(--white);
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .income-cell:hover { box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+    .income-cell .ic-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      margin: 0 auto .7rem;
+    }
+    .income-cell .ic-val { font-family:'Barlow Condensed',sans-serif; font-size:1.5rem; font-weight:800; color:var(--gray-900); }
+    .income-cell .ic-lbl { font-size:.72rem; color:var(--gray-500); text-transform:uppercase; letter-spacing:.8px; }
+
+    /* ── Referral widget ── */
+    .ref-link-box {
+      display: flex;
+      align-items: center;
+      background: var(--gray-100);
+      border: 1.5px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .ref-link-box input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: .6rem .9rem;
+      font-size: .85rem;
+      color: var(--gray-700);
+      font-family: 'Inter', sans-serif;
+    }
+    .ref-link-box button {
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: .6rem 1rem;
+      font-size: .8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .ref-link-box button:hover { background: var(--green-d); }
+
+    .ref-tree-row {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      padding: .7rem 0;
+      border-bottom: 1px solid var(--gray-300);
+    }
+    .ref-tree-row:last-child { border-bottom: none; }
+    .ref-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg,var(--green),var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; color: #fff; font-size: .9rem; flex-shrink: 0;
+    }
+
+    /* ── Withdraw form ── */
+    .withdraw-method {
+      display: flex;
+      gap: .8rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+    .w-method-btn {
+      flex: 1;
+      min-width: 100px;
+      border: 2px solid var(--gray-300);
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      padding: .75rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+    .w-method-btn i { display:block; font-size:1.3rem; margin-bottom:.35rem; }
+    .w-method-btn:hover,
+    .w-method-btn.active { border-color: var(--green); color: var(--green); background: var(--green-xl); }
+
+    /* ── Deposit timeline ── */
+    .deposit-timeline { position:relative; padding-left:1.5rem; }
+    .deposit-timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(180deg,var(--green),var(--blue));
+      border-radius: 2px;
+    }
+    .dep-row {
+      position: relative;
+      padding: .6rem 0 .6rem .8rem;
+      margin-bottom: .2rem;
+    }
+    .dep-row::before {
+      content: '';
+      position: absolute;
+      left: -8px; top: 50%;
+      transform: translateY(-50%);
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--green);
+      border: 2px solid var(--white);
+      box-shadow: 0 0 0 2px var(--green);
+    }
+
+    /* ── Notification item ── */
+    .notif-item {
+      display: flex;
+      gap: .85rem;
+      padding: .9rem 0;
+      border-bottom: 1px solid var(--gray-300);
+      align-items: flex-start;
+    }
+    .notif-item:last-child { border-bottom: none; }
+    .notif-dot {
+      width: 38px; height: 38px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .95rem;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+    .notif-unread .notif-title { font-weight: 700; }
+
+    /* ── Responsive ── */
+    @media (max-width: 991px) {
+      .dash-sidebar-v2 {
+        position: fixed;
+        top: 0;
+        left: -260px;
+        height: 100vh;
+        z-index: 1050;
+        box-shadow: var(--shadow-lg);
+      }
+      .dash-sidebar-v2.mobile-open { left: 0; }
+      .sidebar-open-btn { display: inline-flex; }
+      .dash-content { padding: 1.2rem 1rem 3rem; }
+    }
+    @media (max-width: 576px) {
+      .income-grid { grid-template-columns: repeat(2, 1fr); }
+      .plan-roi    { font-size: 1.5rem; }
+      .dash-content { padding: 1rem .75rem 3rem; }
+    }
+  </style>
 </head>
-<body>
+<body class="light">
 
 <!-- Navbar -->
 <nav class="px-nav navbar navbar-expand-lg">
-  <div class="container">
-    <a class="nav-brand" href="index.html">
-      <img src="assets/px-icon.svg" class="brand-icon-img" alt="PowerEx" width="34" height="34">
-      <span class="brand-text-wrap">
-        <span class="brand-text">POWER<span class="brand-ex">EX</span></span>
-        <span class="brand-tag">Multi Trading</span>
-      </span>
-    </a>
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#dashNav">
-      <i class="fa-solid fa-bars" style="color:#fff;"></i>
-    </button>
-    <div class="collapse navbar-collapse" id="dashNav">
-      <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
-        <li class="nav-item"><a class="nav-link" href="orders.html"><i class="fa-solid fa-box me-1"></i>Orders</a></li>
-        <li class="nav-item"><a class="nav-link" href="profile.html"><i class="fa-solid fa-user me-1"></i>Profile</a></li>
-        <li class="nav-item">
-          <button class="theme-toggle" id="themeToggle" title="Toggle theme">
-            <i class="fa-solid fa-moon ico-moon"></i>
-            <i class="fa-solid fa-sun  ico-sun"></i>
-          </button>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="logout-btn" style="background:rgba(249,115,22,.18);color:#FB923C;border:2px solid rgba(249,115,22,.35);border-radius:20px;padding:.4rem 1.1rem;font-size:.85rem;font-weight:700;text-decoration:none;">
-            <i class="fa-solid fa-right-from-bracket me-1"></i>Logout
-          </a>
-        </li>
-      </ul>
+  <div class="container-fluid px-3">
+    <div class="d-flex align-items-center gap-2">
+      <button class="sidebar-open-btn" id="sidebarToggle" title="Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <a class="nav-brand" href="index.html">
+        <img src="assets/px-icon.svg" class="brand-icon-img" alt="PowerX" width="34" height="34">
+        <span class="brand-text-wrap">
+          <span class="brand-text">POWER<span class="brand-ex">X</span></span>
+          <span class="brand-tag">Multi Trading</span>
+        </span>
+      </a>
+    </div>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <!-- Notification bell -->
+      <button class="theme-toggle" title="Notifications" onclick="showSection('notifications')"
+        style="position:relative;">
+        <i class="fa-solid fa-bell"></i>
+        <span style="position:absolute;top:5px;right:5px;width:8px;height:8px;background:#F97316;border-radius:50%;border:1.5px solid var(--green-xl);"></span>
+      </button>
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+        <i class="fa-solid fa-moon ico-moon"></i>
+        <i class="fa-solid fa-sun  ico-sun"></i>
+      </button>
+      <!-- Avatar -->
+      <div class="user-avatar-letter" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--gold));display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:800;color:#fff;cursor:pointer;" onclick="showSection('profile')">M</div>
     </div>
   </div>
 </nav>
 
-<div class="container-fluid">
-  <div class="row g-0">
+<!-- Sidebar backdrop (mobile) -->
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
-    <!-- Main content -->
-    <div class="col-12">
-      <div class="dash-main fade-in" style="max-width:900px;margin:0 auto;">
+<div class="dash-layout">
 
-        <!-- Welcome -->
-        <div class="d-flex align-items-center gap-3 mb-4 p-4 fade-in" style="background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(245,158,11,.06));border:1px solid rgba(16,185,129,.18);border-radius:16px;">
-          <div class="user-avatar-letter" style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--gold));display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:800;color:#fff;flex-shrink:0;">M</div>
-          <div>
-            <div style="font-size:.78rem;color:var(--gray-500);font-weight:500;margin-bottom:.1rem;">Welcome back 👋</div>
-            <h5 class="user-name" style="font-weight:800;color:var(--gray-900);margin:0;font-size:1.1rem;">Member</h5>
-            <div class="user-email" style="font-size:.82rem;color:var(--gray-500);"></div>
-          </div>
-          <span class="ms-auto d-none d-sm-flex" style="background:rgba(52,211,153,.15);color:#34d399;border-radius:20px;padding:.3rem .9rem;font-size:.75rem;font-weight:700;align-items:center;gap:.3rem;">
-            <i class="fa-solid fa-circle" style="font-size:.4rem;"></i>Active
-          </span>
+  <!-- ═══════════════  SIDEBAR  ═══════════════ -->
+  <aside class="dash-sidebar-v2" id="dashSidebar">
+
+    <!-- User card -->
+    <div style="padding:1.4rem 1.2rem;border-bottom:1px solid var(--gray-300);">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <div class="user-avatar-letter" style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--gold));display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff;flex-shrink:0;">M</div>
+        <div style="min-width:0;">
+          <div class="user-name" style="font-weight:700;color:var(--gray-900);font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Member</div>
+          <div class="user-email" style="font-size:.72rem;color:var(--gray-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></div>
         </div>
+      </div>
+      <div style="background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);border-radius:8px;padding:.35rem .8rem;font-size:.72rem;font-weight:700;color:#34d399;display:inline-flex;align-items:center;gap:.4rem;">
+        <i class="fa-solid fa-circle" style="font-size:.35rem;"></i>Account Active
+      </div>
+    </div>
 
-        <!-- Stats -->
-        <div class="row g-3 mb-4">
-          <div class="col-6 col-lg-3">
-            <div class="stat-card">
-              <div class="stat-icon" style="background:rgba(79,70,229,.15);color:#6366F1;"><i class="fa-solid fa-wallet"></i></div>
-              <div><div class="stat-val">$0</div><div class="stat-lbl">Balance</div></div>
+    <!-- Main nav -->
+    <div class="side-section">
+      <div class="side-label">Main</div>
+      <a class="side-link-v2 active" data-section="overview" onclick="showSection('overview')">
+        <i class="fa-solid fa-gauge-high"></i> Overview
+      </a>
+      <a class="side-link-v2" data-section="investment" onclick="showSection('investment')">
+        <i class="fa-solid fa-seedling"></i> My Investment
+      </a>
+      <a class="side-link-v2" data-section="income" onclick="showSection('income')">
+        <i class="fa-solid fa-sack-dollar"></i> Income Summary
+      </a>
+      <a class="side-link-v2" data-section="packages" onclick="showSection('packages')">
+        <i class="fa-solid fa-layer-group"></i> Plans &amp; Packages
+      </a>
+    </div>
+
+    <!-- Transactions -->
+    <div class="side-section">
+      <div class="side-label">Wallet</div>
+      <a class="side-link-v2" data-section="deposit" onclick="showSection('deposit')">
+        <i class="fa-solid fa-arrow-down-to-line"></i> Deposit
+      </a>
+      <a class="side-link-v2" data-section="withdraw" onclick="showSection('withdraw')">
+        <i class="fa-solid fa-arrow-up-from-line"></i> Withdraw
+      </a>
+      <a class="side-link-v2" data-section="history" onclick="showSection('history')">
+        <i class="fa-solid fa-clock-rotate-left"></i> Transaction History
+        <span class="side-badge">0</span>
+      </a>
+    </div>
+
+    <!-- Network -->
+    <div class="side-section">
+      <div class="side-label">Network</div>
+      <a class="side-link-v2" data-section="referral" onclick="showSection('referral')">
+        <i class="fa-solid fa-share-nodes"></i> Referral Program
+      </a>
+      <a class="side-link-v2" data-section="team" onclick="showSection('team')">
+        <i class="fa-solid fa-people-group"></i> My Team
+      </a>
+    </div>
+
+    <!-- Account -->
+    <div class="side-section">
+      <div class="side-label">Account</div>
+      <a class="side-link-v2" data-section="notifications" onclick="showSection('notifications')">
+        <i class="fa-solid fa-bell"></i> Notifications
+        <span class="side-badge side-badge-warn">3</span>
+      </a>
+      <a class="side-link-v2" data-section="profile" onclick="showSection('profile')">
+        <i class="fa-solid fa-user-pen"></i> My Profile
+      </a>
+      <a class="side-link-v2" data-section="support" onclick="showSection('support')">
+        <i class="fa-solid fa-headset"></i> Support
+      </a>
+      <a class="side-link-v2 logout-btn" href="#" style="color:#FB923C;">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </a>
+    </div>
+
+  </aside>
+
+  <!-- ═══════════════  MAIN CONTENT  ═══════════════ -->
+  <div class="dash-content">
+
+    <!-- ─────────────────────────────────
+         SECTION: OVERVIEW
+    ───────────────────────────────── -->
+    <div class="dash-section active" id="sec-overview">
+
+      <div class="d-flex align-items-center gap-3 mb-4">
+        <div>
+          <div style="font-size:.76rem;color:var(--gray-500);font-weight:500;">Welcome back 👋</div>
+          <h4 class="user-name" style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gray-900);margin:0;font-size:1.6rem;">Member</h4>
+        </div>
+        <span class="ms-auto" style="font-size:.76rem;color:var(--gray-500);">Last login: Just now</span>
+      </div>
+
+      <!-- KPI Stats -->
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(79,70,229,.15);color:#6366F1;"><i class="fa-solid fa-wallet"></i></div>
+            <div>
+              <div class="stat-val">$0.00</div>
+              <div class="stat-lbl">Total Balance</div>
             </div>
           </div>
-          <div class="col-6 col-lg-3">
-            <div class="stat-card">
-              <div class="stat-icon" style="background:rgba(245,158,11,.15);color:#F59E0B;"><i class="fa-solid fa-arrow-trend-up"></i></div>
-              <div><div class="stat-val">0%</div><div class="stat-lbl">Returns</div></div>
-            </div>
-          </div>
-          <div class="col-6 col-lg-3">
-            <div class="stat-card">
-              <div class="stat-icon" style="background:rgba(52,211,153,.15);color:#34d399;"><i class="fa-solid fa-users"></i></div>
-              <div><div class="stat-val">0</div><div class="stat-lbl">Referrals</div></div>
-            </div>
-          </div>
-          <div class="col-6 col-lg-3">
-            <div class="stat-card">
-              <div class="stat-icon" style="background:rgba(249,115,22,.15);color:#FB923C;"><i class="fa-solid fa-box"></i></div>
-              <div><div class="stat-val">0</div><div class="stat-lbl">Orders</div></div>
+        </div>
+        <div class="col-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(52,211,153,.15);color:#34d399;"><i class="fa-solid fa-arrow-trend-up"></i></div>
+            <div>
+              <div class="stat-val" style="color:#34d399;">$0.00</div>
+              <div class="stat-lbl">Total Earnings</div>
             </div>
           </div>
         </div>
-
-        <!-- Recent orders -->
-        <div class="px-card mb-4">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 style="font-weight:800;color:var(--gray-900);margin:0;">Recent Orders</h6>
-            <a href="orders.html" style="font-size:.82rem;color:var(--green);text-decoration:none;font-weight:600;">View all →</a>
-          </div>
-          <div class="empty-state">
-            <i class="fa-solid fa-box-open"></i>
-            <h5>No orders yet</h5>
-            <p>Your investment activity will appear here once you join a package.</p>
-            <a href="index.html#packages" class="btn-auth mt-3 d-inline-block" style="width:auto;padding:.6rem 1.6rem;text-decoration:none;">Explore Packages</a>
+        <div class="col-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(217,119,6,.15);color:#D97706;"><i class="fa-solid fa-seedling"></i></div>
+            <div>
+              <div class="stat-val">$0.00</div>
+              <div class="stat-lbl">Active Investment</div>
+            </div>
           </div>
         </div>
-
-        <!-- Quick links -->
-        <div class="row g-3">
-          <div class="col-md-4">
-            <a href="index.html#packages" class="px-card text-decoration-none d-block text-center">
-              <i class="fa-solid fa-layer-group" style="font-size:1.8rem;color:var(--green);margin-bottom:.7rem;display:block;"></i>
-              <div style="font-weight:700;color:var(--gray-900);">View Packages</div>
-              <div style="font-size:.8rem;color:var(--gray-500);">Browse investment plans</div>
-            </a>
-          </div>
-          <div class="col-md-4">
-            <a href="track-order.html" class="px-card text-decoration-none d-block text-center">
-              <i class="fa-solid fa-location-dot" style="font-size:1.8rem;color:var(--gold);margin-bottom:.7rem;display:block;"></i>
-              <div style="font-weight:700;color:var(--gray-900);">Track Order</div>
-              <div style="font-size:.8rem;color:var(--gray-500);">Check order status</div>
-            </a>
-          </div>
-          <div class="col-md-4">
-            <a href="profile.html" class="px-card text-decoration-none d-block text-center">
-              <i class="fa-solid fa-user-pen" style="font-size:1.8rem;color:var(--pink);margin-bottom:.7rem;display:block;"></i>
-              <div style="font-weight:700;color:var(--gray-900);">Edit Profile</div>
-              <div style="font-size:.8rem;color:var(--gray-500);">Update your information</div>
-            </a>
+        <div class="col-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(249,115,22,.15);color:#FB923C;"><i class="fa-solid fa-users"></i></div>
+            <div>
+              <div class="stat-val">0</div>
+              <div class="stat-lbl">Team Members</div>
+            </div>
           </div>
         </div>
+      </div>
 
+      <!-- Second KPI row -->
+      <div class="row g-3 mb-4">
+        <div class="col-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(99,102,241,.15);color:#818CF8;"><i class="fa-solid fa-percent"></i></div>
+            <div><div class="stat-val">0%</div><div class="stat-lbl">ROI This Month</div></div>
+          </div>
+        </div>
+        <div class="col-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(14,165,233,.15);color:#0EA5E9;"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+            <div><div class="stat-val">$0.00</div><div class="stat-lbl">Referral Income</div></div>
+          </div>
+        </div>
+        <div class="col-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(249,115,22,.12);color:#FB923C;"><i class="fa-solid fa-arrow-down-to-line"></i></div>
+            <div><div class="stat-val">$0.00</div><div class="stat-lbl">Total Deposited</div></div>
+          </div>
+        </div>
+        <div class="col-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(248,113,113,.12);color:#f87171;"><i class="fa-solid fa-arrow-up-from-line"></i></div>
+            <div><div class="stat-val">$0.00</div><div class="stat-lbl">Total Withdrawn</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROI Progress + Active Plan -->
+      <div class="row g-3 mb-4">
+        <div class="col-lg-7">
+          <div class="px-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 style="font-weight:800;color:var(--gray-900);margin:0;"><i class="fa-solid fa-chart-line me-2" style="color:var(--green);"></i>ROI Progress</h6>
+              <span class="badge-warn" style="font-size:.72rem;padding:.22rem .7rem;border-radius:20px;">No Active Plan</span>
+            </div>
+            <div class="roi-bar-wrap">
+              <div class="roi-bar-label"><span>Direct Income</span><span>$0 / $0</span></div>
+              <div class="roi-bar-track"><div class="roi-bar-fill" style="width:0%;background:linear-gradient(90deg,#4F46E5,#6366F1);"></div></div>
+            </div>
+            <div class="roi-bar-wrap">
+              <div class="roi-bar-label"><span>Level Income</span><span>$0 / $0</span></div>
+              <div class="roi-bar-track"><div class="roi-bar-fill" style="width:0%;background:linear-gradient(90deg,#0EA5E9,#38BDF8);"></div></div>
+            </div>
+            <div class="roi-bar-wrap">
+              <div class="roi-bar-label"><span>Daily ROI</span><span>$0 / $0</span></div>
+              <div class="roi-bar-track"><div class="roi-bar-fill" style="width:0%;background:linear-gradient(90deg,#D97706,#F59E0B);"></div></div>
+            </div>
+            <div class="roi-bar-wrap">
+              <div class="roi-bar-label"><span>Binary Income</span><span>$0 / $0</span></div>
+              <div class="roi-bar-track"><div class="roi-bar-fill" style="width:0%;background:linear-gradient(90deg,#F97316,#FB923C);"></div></div>
+            </div>
+            <div class="text-center mt-3">
+              <button class="btn-auth" style="width:auto;padding:.5rem 1.8rem;font-size:.85rem;" onclick="showSection('packages')">
+                <i class="fa-solid fa-plus me-1"></i>Activate a Plan
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="px-card h-100">
+            <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1.2rem;"><i class="fa-solid fa-calendar-check me-2" style="color:var(--gold);"></i>Daily ROI Calendar</h6>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;">
+              <!-- Day headers -->
+              <div style="font-size:.6rem;text-align:center;color:var(--gray-500);font-weight:600;padding:.2rem 0;">S</div>
+              <div style="font-size:.6rem;text-align:center;color:var(--gray-500);font-weight:600;padding:.2rem 0;">M</div>
+              <div style="font-size:.6rem;text-align:center;color:var(--gray-500);font-weight:600;padding:.2rem 0;">T</div>
+              <div style="font-size:.6rem;text-align:center;color:var(--gray-500);font-weight:600;padding:.2rem 0;">W</div>
+              <div style="font-size:.6rem;text-align:center;color:var(--gray-500);font-weight:600;padding:.2rem 0;">T</div>
+              <div style="font-size:.6rem;text-align:center;color:var(--gray-500);font-weight:600;padding:.2rem 0;">F</div>
+              <div style="font-size:.6rem;text-align:center;color:var(--gray-500);font-weight:600;padding:.2rem 0;">S</div>
+              <!-- Calendar days generated by JS -->
+            </div>
+            <div id="roiCalendar" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:4px;"></div>
+            <div class="d-flex gap-3 mt-3" style="font-size:.72rem;color:var(--gray-500);">
+              <span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(52,211,153,.3);margin-right:4px;"></span>ROI Credited</span>
+              <span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--gray-300);margin-right:4px;"></span>Pending</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent transactions -->
+      <div class="px-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h6 style="font-weight:800;color:var(--gray-900);margin:0;"><i class="fa-solid fa-receipt me-2" style="color:var(--blue);"></i>Recent Transactions</h6>
+          <a class="side-link-v2" style="font-size:.82rem;color:var(--green);font-weight:600;padding:0;border:none;" onclick="showSection('history')">View all →</a>
+        </div>
+        <div class="empty-state" style="padding:2rem 1rem;">
+          <i class="fa-solid fa-receipt"></i>
+          <h5>No transactions yet</h5>
+          <p>Your deposit, withdraw &amp; ROI credits will appear here.</p>
+        </div>
+      </div>
+
+    </div><!-- /sec-overview -->
+
+
+    <!-- ─────────────────────────────────
+         SECTION: MY INVESTMENT
+    ───────────────────────────────── -->
+    <div class="dash-section" id="sec-investment">
+      <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gray-900);margin-bottom:1.5rem;">My Investment</h4>
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <div class="px-card text-center">
+            <div class="stat-icon mx-auto mb-2" style="background:rgba(79,70,229,.15);color:#6366F1;font-size:1.4rem;"><i class="fa-solid fa-coins"></i></div>
+            <div class="stat-val">$0.00</div>
+            <div class="stat-lbl">Principal Invested</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="px-card text-center">
+            <div class="stat-icon mx-auto mb-2" style="background:rgba(52,211,153,.15);color:#34d399;font-size:1.4rem;"><i class="fa-solid fa-chart-pie"></i></div>
+            <div class="stat-val" style="color:#34d399;">0%</div>
+            <div class="stat-lbl">Daily ROI Rate</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="px-card text-center">
+            <div class="stat-icon mx-auto mb-2" style="background:rgba(217,119,6,.15);color:#D97706;font-size:1.4rem;"><i class="fa-solid fa-hourglass-half"></i></div>
+            <div class="stat-val">— days</div>
+            <div class="stat-lbl">Plan Duration Left</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-card mb-4">
+        <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1rem;">Active Plan Details</h6>
+        <div class="empty-state" style="padding:2rem;">
+          <i class="fa-solid fa-seedling"></i>
+          <h5>No active investment</h5>
+          <p>Choose a plan below to start earning daily ROI.</p>
+          <button class="btn-auth mt-3" style="width:auto;padding:.55rem 1.8rem;font-size:.88rem;" onclick="showSection('packages')">
+            <i class="fa-solid fa-layer-group me-2"></i>Browse Plans
+          </button>
+        </div>
+      </div>
+
+      <!-- ROI crediting history table -->
+      <div class="px-card">
+        <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1rem;"><i class="fa-solid fa-calendar-days me-2" style="color:var(--gold);"></i>Daily ROI Credit Log</h6>
+        <div class="px-table-responsive">
+          <table class="px-table">
+            <thead>
+              <tr>
+                <th>Date</th><th>Plan</th><th>Rate</th><th>Amount Credited</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="5" style="text-align:center;color:var(--gray-500);padding:2rem;">No ROI credits yet. Activate a plan to start.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- /sec-investment -->
+
+
+    <!-- ─────────────────────────────────
+         SECTION: INCOME SUMMARY
+    ───────────────────────────────── -->
+    <div class="dash-section" id="sec-income">
+      <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gray-900);margin-bottom:1.5rem;">Income Summary</h4>
+
+      <div class="income-grid mb-4">
+        <div class="income-cell">
+          <div class="ic-icon" style="background:rgba(79,70,229,.12);color:#6366F1;"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="ic-val">$0</div>
+          <div class="ic-lbl">Daily ROI</div>
+        </div>
+        <div class="income-cell">
+          <div class="ic-icon" style="background:rgba(217,119,6,.12);color:#D97706;"><i class="fa-solid fa-handshake"></i></div>
+          <div class="ic-val">$0</div>
+          <div class="ic-lbl">Direct Income</div>
+        </div>
+        <div class="income-cell">
+          <div class="ic-icon" style="background:rgba(14,165,233,.12);color:#0EA5E9;"><i class="fa-solid fa-sitemap"></i></div>
+          <div class="ic-val">$0</div>
+          <div class="ic-lbl">Level Income</div>
+        </div>
+        <div class="income-cell">
+          <div class="ic-icon" style="background:rgba(249,115,22,.12);color:#FB923C;"><i class="fa-solid fa-code-branch"></i></div>
+          <div class="ic-val">$0</div>
+          <div class="ic-lbl">Binary Income</div>
+        </div>
+        <div class="income-cell">
+          <div class="ic-icon" style="background:rgba(52,211,153,.12);color:#34d399;"><i class="fa-solid fa-trophy"></i></div>
+          <div class="ic-val">$0</div>
+          <div class="ic-lbl">Reward Bonus</div>
+        </div>
+        <div class="income-cell">
+          <div class="ic-icon" style="background:rgba(99,102,241,.12);color:#818CF8;"><i class="fa-solid fa-star"></i></div>
+          <div class="ic-val">$0</div>
+          <div class="ic-lbl">Leadership Bonus</div>
+        </div>
+      </div>
+
+      <div class="px-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h6 style="font-weight:800;color:var(--gray-900);margin:0;">Income Breakdown</h6>
+          <select style="background:var(--gray-100);border:1px solid var(--gray-300);border-radius:8px;padding:.3rem .7rem;font-size:.8rem;color:var(--gray-700);outline:none;">
+            <option>This Month</option><option>Last Month</option><option>All Time</option>
+          </select>
+        </div>
+        <div class="empty-state" style="padding:2rem;">
+          <i class="fa-solid fa-sack-dollar"></i>
+          <h5>No income yet</h5>
+          <p>Activate a plan and build your network to unlock all income streams.</p>
+        </div>
+      </div>
+    </div><!-- /sec-income -->
+
+
+    <!-- ─────────────────────────────────
+         SECTION: PLANS & PACKAGES
+    ───────────────────────────────── -->
+    <div class="dash-section" id="sec-packages">
+      <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gray-900);margin-bottom:.4rem;">Plans &amp; Packages</h4>
+      <p style="color:var(--gray-500);font-size:.88rem;margin-bottom:1.8rem;">Choose an investment plan to start earning daily ROI.</p>
+
+      <div class="row g-4">
+        <!-- Basic -->
+        <div class="col-sm-6 col-xl-3">
+          <div class="plan-card plan-basic">
+            <span class="plan-badge basic"><i class="fa-solid fa-circle-dot"></i>Basic</span>
+            <div class="plan-roi mt-2" style="color:#0EA5E9;">1.5% <span style="font-size:1rem;font-weight:600;">/ day</span></div>
+            <div style="font-size:.8rem;color:var(--gray-500);margin-bottom:.6rem;">Duration: 90 days</div>
+            <hr class="plan-divider">
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Min: $50 · Max: $499</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Daily ROI credited</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Direct income: 5%</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Level income: 2 levels</div>
+            <div class="plan-feature" style="color:var(--gray-500);"><i class="fa-solid fa-xmark" style="color:var(--gray-500);"></i>Binary income</div>
+            <button class="btn-auth mt-3" style="font-size:.83rem;padding:.52rem;">Activate Basic</button>
+          </div>
+        </div>
+        <!-- Silver -->
+        <div class="col-sm-6 col-xl-3">
+          <div class="plan-card plan-silver">
+            <span class="plan-badge silver"><i class="fa-solid fa-medal"></i>Silver</span>
+            <div class="plan-roi mt-2" style="color:#94A3B8;">2% <span style="font-size:1rem;font-weight:600;">/ day</span></div>
+            <div style="font-size:.8rem;color:var(--gray-500);margin-bottom:.6rem;">Duration: 120 days</div>
+            <hr class="plan-divider">
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Min: $500 · Max: $1,999</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Daily ROI credited</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Direct income: 7%</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Level income: 4 levels</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Binary income: 5%</div>
+            <button class="btn-auth mt-3" style="font-size:.83rem;padding:.52rem;background:linear-gradient(135deg,#64748B,#94A3B8);">Activate Silver</button>
+          </div>
+        </div>
+        <!-- Gold -->
+        <div class="col-sm-6 col-xl-3">
+          <div class="plan-card plan-gold" style="border-color:#D97706;">
+            <div style="position:absolute;top:-1px;right:16px;background:#D97706;color:#fff;font-size:.65rem;font-weight:800;letter-spacing:1px;padding:.25rem .75rem;border-radius:0 0 8px 8px;">POPULAR</div>
+            <span class="plan-badge gold"><i class="fa-solid fa-star"></i>Gold</span>
+            <div class="plan-roi mt-2" style="color:#D97706;">2.5% <span style="font-size:1rem;font-weight:600;">/ day</span></div>
+            <div style="font-size:.8rem;color:var(--gray-500);margin-bottom:.6rem;">Duration: 150 days</div>
+            <hr class="plan-divider">
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Min: $2,000 · Max: $9,999</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Daily ROI credited</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Direct income: 10%</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Level income: 7 levels</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Binary income: 8%</div>
+            <button class="btn-auth mt-3" style="font-size:.83rem;padding:.52rem;background:linear-gradient(135deg,#D97706,#F59E0B);">Activate Gold</button>
+          </div>
+        </div>
+        <!-- Diamond -->
+        <div class="col-sm-6 col-xl-3">
+          <div class="plan-card plan-diamond">
+            <span class="plan-badge diamond"><i class="fa-solid fa-gem"></i>Diamond</span>
+            <div class="plan-roi mt-2" style="color:#6366F1;">3% <span style="font-size:1rem;font-weight:600;">/ day</span></div>
+            <div style="font-size:.8rem;color:var(--gray-500);margin-bottom:.6rem;">Duration: 180 days</div>
+            <hr class="plan-divider">
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Min: $10,000+</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Daily ROI credited</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Direct income: 12%</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Level income: 10 levels</div>
+            <div class="plan-feature"><i class="fa-solid fa-check"></i>Binary + Leadership</div>
+            <button class="btn-auth mt-3" style="font-size:.83rem;padding:.52rem;background:linear-gradient(135deg,#4F46E5,#F97316);">Activate Diamond</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /sec-packages -->
+
+
+    <!-- ─────────────────────────────────
+         SECTION: DEPOSIT
+    ───────────────────────────────── -->
+    <div class="dash-section" id="sec-deposit">
+      <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gray-900);margin-bottom:1.5rem;">Deposit Funds</h4>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="px-card">
+            <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1.2rem;">Choose Payment Method</h6>
+            <div class="withdraw-method">
+              <div class="w-method-btn active">
+                <i class="fa-brands fa-bitcoin" style="color:#F7931A;"></i>Bitcoin (BTC)
+              </div>
+              <div class="w-method-btn">
+                <i class="fa-solid fa-circle" style="color:#26A17B;"></i>USDT (TRC20)
+              </div>
+              <div class="w-method-btn">
+                <i class="fa-solid fa-ethereum" style="color:#627EEA;"></i>Ethereum
+              </div>
+              <div class="w-method-btn">
+                <i class="fa-solid fa-money-bill-wave" style="color:#34d399;"></i>Bank Transfer
+              </div>
+            </div>
+            <div class="mb-3">
+              <label style="font-size:.82rem;font-weight:600;color:var(--gray-700);margin-bottom:.4rem;display:block;">Send to Address</label>
+              <div class="ref-link-box">
+                <input type="text" readonly value="3FZbgi29cpjq2GjdwV8eyHuJJnkLtktZc5" id="depositAddr" />
+                <button onclick="copyText('depositAddr','Copied!')"><i class="fa-solid fa-copy me-1"></i>Copy</button>
+              </div>
+              <div style="font-size:.72rem;color:var(--gray-500);margin-top:.45rem;">⚠️ Only send BTC to this address. Other assets will be lost.</div>
+            </div>
+            <div class="mb-3">
+              <label style="font-size:.82rem;font-weight:600;color:var(--gray-700);margin-bottom:.4rem;display:block;">Amount (USD)</label>
+              <input type="number" class="auth-input" placeholder="Minimum $50" style="width:100%;" />
+            </div>
+            <div class="mb-3">
+              <label style="font-size:.82rem;font-weight:600;color:var(--gray-700);margin-bottom:.4rem;display:block;">Upload Payment Screenshot</label>
+              <input type="file" accept="image/*" style="display:block;font-size:.82rem;color:var(--gray-700);" />
+            </div>
+            <button class="btn-auth" style="font-size:.88rem;"><i class="fa-solid fa-paper-plane me-2"></i>Submit Deposit Request</button>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="px-card mb-3">
+            <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1rem;"><i class="fa-solid fa-clock-rotate-left me-2" style="color:var(--gold);"></i>Recent Deposits</h6>
+            <div class="deposit-timeline">
+              <div style="text-align:center;padding:1.5rem 0;color:var(--gray-500);font-size:.85rem;">No deposit history yet.</div>
+            </div>
+          </div>
+          <div class="px-card" style="background:var(--green-xl);border-color:rgba(79,70,229,.25);">
+            <div style="font-size:.82rem;font-weight:700;color:var(--green);margin-bottom:.5rem;"><i class="fa-solid fa-shield-halved me-1"></i>Deposit Guidelines</div>
+            <ul style="font-size:.8rem;color:var(--gray-700);padding-left:1.2rem;margin:0;line-height:1.9;">
+              <li>Minimum deposit: <strong>$50</strong></li>
+              <li>Funds reflect within <strong>1–12 hours</strong> after confirmation</li>
+              <li>Always double-check the wallet address before sending</li>
+              <li>Contact support if payment isn't credited after 12 hours</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div><!-- /sec-deposit -->
+
+
+    <!-- ─────────────────────────────────
+         SECTION: WITHDRAW
+    ───────────────────────────────── -->
+    <div class="dash-section" id="sec-withdraw">
+      <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gray-900);margin-bottom:1.5rem;">Withdraw Funds</h4>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="px-card">
+            <div class="d-flex gap-3 mb-3" style="padding:.9rem;background:var(--gray-100);border-radius:var(--radius-sm);">
+              <div>
+                <div style="font-size:.72rem;color:var(--gray-500);">Available Balance</div>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:800;color:var(--green);">$0.00</div>
+              </div>
+              <div style="margin-left:auto;">
+                <div style="font-size:.72rem;color:var(--gray-500);">Min Withdraw</div>
+                <div style="font-weight:700;color:var(--gray-700);">$20.00</div>
+              </div>
+            </div>
+            <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1rem;">Withdraw Method</h6>
+            <div class="withdraw-method">
+              <div class="w-method-btn active"><i class="fa-brands fa-bitcoin" style="color:#F7931A;"></i>Bitcoin</div>
+              <div class="w-method-btn"><i class="fa-solid fa-circle" style="color:#26A17B;"></i>USDT</div>
+              <div class="w-method-btn"><i class="fa-solid fa-building-columns"></i>Bank</div>
+            </div>
+            <div class="mb-3">
+              <label style="font-size:.82rem;font-weight:600;color:var(--gray-700);margin-bottom:.4rem;display:block;">Wallet Address</label>
+              <input type="text" class="auth-input" placeholder="Enter your BTC wallet address" style="width:100%;" />
+            </div>
+            <div class="mb-3">
+              <label style="font-size:.82rem;font-weight:600;color:var(--gray-700);margin-bottom:.4rem;display:block;">Amount (USD)</label>
+              <input type="number" class="auth-input" placeholder="Minimum $20" style="width:100%;" />
+            </div>
+            <div class="mb-3">
+              <label style="font-size:.82rem;font-weight:600;color:var(--gray-700);margin-bottom:.4rem;display:block;">Security PIN</label>
+              <input type="password" class="auth-input" placeholder="Enter 6-digit PIN" maxlength="6" style="width:100%;" />
+            </div>
+            <button class="btn-auth" style="font-size:.88rem;background:linear-gradient(135deg,#F97316,#C2410C);"><i class="fa-solid fa-arrow-up-from-line me-2"></i>Request Withdrawal</button>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="px-card mb-3">
+            <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1rem;"><i class="fa-solid fa-clock-rotate-left me-2" style="color:var(--gold);"></i>Withdrawal History</h6>
+            <div style="text-align:center;padding:2rem 0;color:var(--gray-500);font-size:.85rem;">No withdrawal history yet.</div>
+          </div>
+          <div class="px-card" style="background:rgba(249,115,22,.06);border-color:rgba(249,115,22,.25);">
+            <div style="font-size:.82rem;font-weight:700;color:#FB923C;margin-bottom:.5rem;"><i class="fa-solid fa-circle-info me-1"></i>Withdrawal Policy</div>
+            <ul style="font-size:.8rem;color:var(--gray-700);padding-left:1.2rem;margin:0;line-height:1.9;">
+              <li>Minimum withdrawal: <strong>$20</strong></li>
+              <li>Processing time: <strong>24–48 hours</strong></li>
+              <li>Withdrawal fee: <strong>2%</strong> (network fee)</li>
+              <li>Maximum <strong>1 withdrawal</strong> per day</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div><!-- /sec-withdraw -->
+
+
+    <!-- ─────────────────────────────────
+         SECTION: TRANSACTION HISTORY
+    ───────────────────────────────── -->
+    <div class="dash-section" id="sec-history">
+      <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gray-900);margin-bottom:1.5rem;">Transaction History</h4>
+
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        <button class="w-method-btn active" style="flex:unset;min-width:auto;padding:.42rem 1rem;font-size:.8rem;">All</button>
+        <button class="w-method-btn" style="flex:unset;min-width:auto;padding:.42rem 1rem;font-size:.8rem;">Deposits</button>
+        <button class="w-method-btn" style="flex:unset;min-width:auto;padding:.42rem 1rem;font-size:.8rem;">Withdrawals</button>
+        <button class="w-method-btn" style="flex:unset;min-width:auto;padding:.42rem 1rem;font-size:.8rem;">ROI Credits</button>
+        <button class="w-method-btn" style="flex:unset;min-width:auto;padding:.42rem 1rem;font-size:.8rem;">Referral Income</button>
+      </div>
+
+      <div class="px-card">
+        <div class="px-table-responsive">
+          <table class="px-table">
+            <thead>
+              <tr><th>#</th><th>Date &amp; Time</th><th>Type</th><th>Amount</th><th>Status</th><th>Reference</th></tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:2.5rem;">No transactions found.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- /sec-history -->
+
+
+    <!-- ─────────────────────────────────
+         SECTION: REFERRAL
+    ───────────────────────────────── -->
+    <div class="dash-section" id="sec-referral">
+      <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gray-900);margin-bottom:1.5rem;">Referral Program</h4>
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-3 col-6">
+          <div class="px-card text-center">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:800;color:var(--green);">0</div>
+            <div style="font-size:.75rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;">Direct Referrals</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="px-card text-center">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:800;color:var(--blue);">0</div>
+            <div style="font-size:.75rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;">Total Network</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="px-card text-center">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:800;color:var(--gold);">$0</div>
+            <div style="font-size:.75rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;">Referral Earned</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="px-card text-center">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:800;color:var(--pink);">10%</div>
+            <div style="font-size:.75rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;">Commission Rate</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="px-card">
+            <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1rem;"><i class="fa-solid fa-link me-2" style="color:var(--green);"></i>Your Referral Link</h6>
+            <div class="ref-link-box mb-3">
+              <input type="text" readonly id="refLink" value="https://powerx.io/ref/POWERX0001" />
+              <button onclick="copyText('refLink','Link Copied!')"><i class="fa-solid fa-copy me-1"></i>Copy</button>
+            </div>
+            <div style="font-size:.8rem;color:var(--gray-500);margin-bottom:1rem;">Share this link to earn <strong style="color:var(--green);">10%</strong> direct commission on every referral's investment.</div>
+            <div class="d-flex gap-2 flex-wrap">
+              <button style="background:rgba(29,161,242,.15);color:#1DA1F2;border:1px solid rgba(29,161,242,.3);border-radius:20px;padding:.4rem 1rem;font-size:.8rem;font-weight:700;cursor:pointer;"><i class="fa-brands fa-twitter me-1"></i>Twitter</button>
+              <button style="background:rgba(37,211,102,.15);color:#25D366;border:1px solid rgba(37,211,102,.3);border-radius:20px;padding:.4rem 1rem;font-size:.8rem;font-weight:700;cursor:pointer;"><i class="fa-brands fa-whatsapp me-1"></i>WhatsApp</button>
+              <button style="background:rgba(0,119,181,.15);color:#0077B5;border:1px solid rgba(0,119,181,.3);border-radius:20px;padding:.4rem 1rem;font-size:.8rem;font-weight:700;cursor:pointer;"><i class="fa-brands fa-telegram me-1"></i>Telegram</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="px-card">
+            <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1rem;"><i class="fa-solid fa-sitemap me-2" style="color:var(--blue);"></i>Level Commission Structure</h6>
+            <div style="overflow-x:auto;">
+              <table style="width:100%;font-size:.82rem;border-collapse:collapse;">
+                <thead>
+                  <tr style="border-bottom:2px solid var(--gray-300);">
+                    <th style="padding:.5rem .7rem;text-align:left;color:var(--gray-700);">Level</th>
+                    <th style="padding:.5rem .7rem;text-align:center;color:var(--gray-700);">Commission</th>
+                    <th style="padding:.5rem .7rem;text-align:center;color:var(--gray-700);">Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid var(--gray-300);"><td style="padding:.5rem .7rem;font-weight:600;">L1 — Direct</td><td style="padding:.5rem .7rem;text-align:center;color:#34d399;font-weight:700;">10%</td><td style="padding:.5rem .7rem;text-align:center;color:var(--gray-500);">Always</td></tr>
+                  <tr style="border-bottom:1px solid var(--gray-300);"><td style="padding:.5rem .7rem;font-weight:600;">L2</td><td style="padding:.5rem .7rem;text-align:center;color:#0EA5E9;font-weight:700;">5%</td><td style="padding:.5rem .7rem;text-align:center;color:var(--gray-500);">Silver+</td></tr>
+                  <tr style="border-bottom:1px solid var(--gray-300);"><td style="padding:.5rem .7rem;font-weight:600;">L3</td><td style="padding:.5rem .7rem;text-align:center;color:#D97706;font-weight:700;">3%</td><td style="padding:.5rem .7rem;text-align:center;color:var(--gray-500);">Gold+</td></tr>
+                  <tr style="border-bottom:1px solid var(--gray-300);"><td style="padding:.5rem .7rem;font-weight:600;">L4 – L7</td><td style="padding:.5rem .7rem;text-align:center;color:#6366F1;font-weight:700;">1%</td><td style="padding:.5rem .7rem;text-align:center;color:var(--gray-500);">Gold+</td></tr>
+                  <tr><td style="padding:.5rem .7rem;font-weight:600;">L8 – L10</td><td style="padding:.5rem .7rem;text-align:center;color:#F97316;font-weight:700;">0.5%</td><td style="padding:.5rem .7rem;text-align:center;color:var(--gray-500);">Diamond</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /sec-referral -->
+
+
+    <!-- ─────────────────────────────────
+         SECTION: MY TEAM
+    ───────────────────────────────── -->
+    <div class="dash-section" id="sec-team">
+      <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gray-900);margin-bottom:1.5rem;">My Team</h4>
+
+      <div class="px-card mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h6 style="font-weight:800;color:var(--gray-900);margin:0;">Direct Referrals (Level 1)</h6>
+          <span class="badge-success" style="font-size:.75rem;">0 Members</span>
+        </div>
+        <div class="empty-state" style="padding:2rem;">
+          <i class="fa-solid fa-users"></i>
+          <h5>No team members yet</h5>
+          <p>Share your referral link to grow your network and earn commissions.</p>
+          <button class="btn-auth mt-3" style="width:auto;padding:.52rem 1.8rem;font-size:.85rem;" onclick="showSection('referral')">
+            <i class="fa-solid fa-share-nodes me-2"></i>Get Referral Link
+          </button>
+        </div>
+      </div>
+
+      <div class="px-card">
+        <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1rem;">Team Performance</h6>
+        <div class="px-table-responsive">
+          <table class="px-table">
+            <thead>
+              <tr><th>Member</th><th>Level</th><th>Plan</th><th>Investment</th><th>Joined</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:2.5rem;">No team members yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- /sec-team -->
+
+
+    <!-- ─────────────────────────────────
+         SECTION: NOTIFICATIONS
+    ───────────────────────────────── -->
+    <div class="dash-section" id="sec-notifications">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gray-900);margin:0;">Notifications</h4>
+        <button style="font-size:.8rem;font-weight:600;color:var(--green);background:none;border:none;cursor:pointer;">Mark all read</button>
+      </div>
+      <div class="px-card">
+        <div class="notif-item notif-unread">
+          <div class="notif-dot" style="background:rgba(79,70,229,.12);color:#6366F1;"><i class="fa-solid fa-bell"></i></div>
+          <div style="flex:1;">
+            <div class="notif-title" style="font-size:.88rem;color:var(--gray-900);">Welcome to PowerX Multi Trading!</div>
+            <div style="font-size:.78rem;color:var(--gray-500);margin-top:.2rem;">Your account is active. Explore our investment plans and start growing your wealth today.</div>
+            <div style="font-size:.7rem;color:var(--gray-500);margin-top:.4rem;"><i class="fa-regular fa-clock me-1"></i>Just now</div>
+          </div>
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:.5rem;"></div>
+        </div>
+        <div class="notif-item notif-unread">
+          <div class="notif-dot" style="background:rgba(217,119,6,.12);color:#D97706;"><i class="fa-solid fa-gift"></i></div>
+          <div style="flex:1;">
+            <div class="notif-title" style="font-size:.88rem;color:var(--gray-900);">Special Offer: 5% Cashback on first deposit!</div>
+            <div style="font-size:.78rem;color:var(--gray-500);margin-top:.2rem;">Deposit within 48 hours and get an extra 5% added to your first investment. Limited time offer.</div>
+            <div style="font-size:.7rem;color:var(--gray-500);margin-top:.4rem;"><i class="fa-regular fa-clock me-1"></i>2 hours ago</div>
+          </div>
+          <div style="width:8px;height:8px;border-radius:50%;background:#D97706;flex-shrink:0;margin-top:.5rem;"></div>
+        </div>
+        <div class="notif-item notif-unread">
+          <div class="notif-dot" style="background:rgba(249,115,22,.12);color:#FB923C;"><i class="fa-solid fa-shield-halved"></i></div>
+          <div style="flex:1;">
+            <div class="notif-title" style="font-size:.88rem;color:var(--gray-900);">Security tip: Set your withdrawal PIN</div>
+            <div style="font-size:.78rem;color:var(--gray-500);margin-top:.2rem;">Protect your account by setting a 6-digit withdrawal PIN in your profile settings.</div>
+            <div style="font-size:.7rem;color:var(--gray-500);margin-top:.4rem;"><i class="fa-regular fa-clock me-1"></i>1 day ago</div>
+          </div>
+          <div style="width:8px;height:8px;border-radius:50%;background:#FB923C;flex-shrink:0;margin-top:.5rem;"></div>
+        </div>
+      </div>
+    </div><!-- /sec-notifications -->
+
+
+    <!-- ─────────────────────────────────
+         SECTION: PROFILE
+    ───────────────────────────────── -->
+    <div class="dash-section" id="sec-profile">
+      <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gray-900);margin-bottom:1.5rem;">My Profile</h4>
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="px-card text-center">
+            <div class="user-avatar-letter mx-auto mb-3" style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--gold));display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;color:#fff;">M</div>
+            <h5 class="user-name" style="font-weight:800;color:var(--gray-900);margin-bottom:.2rem;">Member</h5>
+            <div class="user-email" style="font-size:.82rem;color:var(--gray-500);margin-bottom:1rem;"></div>
+            <div style="background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);border-radius:8px;padding:.4rem .9rem;font-size:.75rem;font-weight:700;color:#34d399;display:inline-flex;align-items:center;gap:.4rem;">
+              <i class="fa-solid fa-circle" style="font-size:.35rem;"></i>Active Member
+            </div>
+            <hr style="border-color:var(--gray-300);margin:1.2rem 0;">
+            <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.5rem;">
+              <span style="color:var(--gray-500);">Referral Code</span>
+              <strong class="user-ref-code" style="color:var(--green);">POWERX0001</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.5rem;">
+              <span style="color:var(--gray-500);">Member Since</span>
+              <strong class="user-join-date" style="color:var(--gray-700);">—</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:.8rem;">
+              <span style="color:var(--gray-500);">Plan</span>
+              <strong style="color:var(--gray-700);">None Active</strong>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="px-card mb-3">
+            <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1.2rem;">Edit Profile</h6>
+            <div class="row g-3 mb-3">
+              <div class="col-6">
+                <label style="font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:.3rem;display:block;">First Name</label>
+                <input type="text" class="auth-input" placeholder="First name" style="width:100%;" />
+              </div>
+              <div class="col-6">
+                <label style="font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:.3rem;display:block;">Last Name</label>
+                <input type="text" class="auth-input" placeholder="Last name" style="width:100%;" />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label style="font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:.3rem;display:block;">Email Address</label>
+              <input type="email" class="auth-input user-email-input" placeholder="your@email.com" style="width:100%;" />
+            </div>
+            <div class="mb-3">
+              <label style="font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:.3rem;display:block;">Mobile Number</label>
+              <input type="tel" class="auth-input user-phone-input" placeholder="+91 XXXXXXXXXX" style="width:100%;" />
+            </div>
+            <button class="btn-auth" style="width:auto;padding:.52rem 1.8rem;font-size:.88rem;"><i class="fa-solid fa-floppy-disk me-2"></i>Save Changes</button>
+          </div>
+          <div class="px-card">
+            <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1.2rem;">Security Settings</h6>
+            <div class="mb-3">
+              <label style="font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:.3rem;display:block;">Change Password</label>
+              <input type="password" class="auth-input" placeholder="New password (min 6 chars)" style="width:100%;" />
+            </div>
+            <div class="mb-3">
+              <label style="font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:.3rem;display:block;">Set / Change Withdrawal PIN</label>
+              <input type="password" class="auth-input" placeholder="6-digit PIN" maxlength="6" style="width:100%;" />
+            </div>
+            <button class="btn-auth" style="width:auto;padding:.52rem 1.8rem;font-size:.88rem;background:linear-gradient(135deg,#F97316,#C2410C);"><i class="fa-solid fa-lock me-2"></i>Update Security</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /sec-profile -->
+
+
+    <!-- ─────────────────────────────────
+         SECTION: SUPPORT
+    ───────────────────────────────── -->
+    <div class="dash-section" id="sec-support">
+      <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--gray-900);margin-bottom:1.5rem;">Support Center</h4>
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="px-card mb-3">
+            <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1.2rem;"><i class="fa-solid fa-envelope me-2" style="color:var(--green);"></i>Raise a Ticket</h6>
+            <div class="mb-3">
+              <label style="font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:.3rem;display:block;">Subject</label>
+              <select class="auth-input" style="width:100%;">
+                <option>Deposit issue</option>
+                <option>Withdrawal not received</option>
+                <option>ROI not credited</option>
+                <option>Account locked</option>
+                <option>Referral issue</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label style="font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:.3rem;display:block;">Message</label>
+              <textarea class="auth-input" rows="5" placeholder="Describe your issue in detail..." style="width:100%;height:auto;resize:vertical;"></textarea>
+            </div>
+            <div class="mb-3">
+              <label style="font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:.3rem;display:block;">Attachment (optional)</label>
+              <input type="file" style="font-size:.8rem;color:var(--gray-700);" />
+            </div>
+            <button class="btn-auth" style="font-size:.88rem;"><i class="fa-solid fa-paper-plane me-2"></i>Submit Ticket</button>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="px-card mb-3">
+            <h6 style="font-weight:800;color:var(--gray-900);margin-bottom:1rem;">Quick Contact</h6>
+            <div style="display:flex;flex-direction:column;gap:.85rem;">
+              <a href="mailto:support@powerx.io" style="display:flex;align-items:center;gap:.9rem;text-decoration:none;">
+                <div style="width:42px;height:42px;border-radius:12px;background:rgba(79,70,229,.12);color:#6366F1;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;"><i class="fa-solid fa-envelope"></i></div>
+                <div>
+                  <div style="font-weight:700;color:var(--gray-900);font-size:.88rem;">Email Support</div>
+                  <div style="font-size:.78rem;color:var(--gray-500);">support@powerx.io</div>
+                </div>
+              </a>
+              <a href="https://t.me/powerxofficial" style="display:flex;align-items:center;gap:.9rem;text-decoration:none;">
+                <div style="width:42px;height:42px;border-radius:12px;background:rgba(37,211,102,.12);color:#25D366;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;"><i class="fa-brands fa-telegram"></i></div>
+                <div>
+                  <div style="font-weight:700;color:var(--gray-900);font-size:.88rem;">Telegram Support</div>
+                  <div style="font-size:.78rem;color:var(--gray-500);">@powerxofficial</div>
+                </div>
+              </a>
+              <a href="https://wa.me/919999999999" style="display:flex;align-items:center;gap:.9rem;text-decoration:none;">
+                <div style="width:42px;height:42px;border-radius:12px;background:rgba(37,211,102,.12);color:#25D366;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;"><i class="fa-brands fa-whatsapp"></i></div>
+                <div>
+                  <div style="font-weight:700;color:var(--gray-900);font-size:.88rem;">WhatsApp</div>
+                  <div style="font-size:.78rem;color:var(--gray-500);">+91 99999 99999</div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="px-card" style="background:var(--green-xl);border-color:rgba(79,70,229,.2);">
+            <h6 style="font-weight:800;color:var(--green);margin-bottom:.8rem;"><i class="fa-solid fa-circle-info me-1"></i>Support Hours</h6>
+            <p style="font-size:.83rem;color:var(--gray-700);margin:0;line-height:1.8;">Our support team is available<br><strong>Monday – Saturday, 9 AM – 9 PM IST</strong>.<br>Average response time: <strong>under 4 hours</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </div><!-- /sec-support -->
+
+  </div><!-- /.dash-content -->
+
+</div><!-- /.dash-layout -->
+
+<!-- Logout Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background:var(--white);border:1px solid var(--gray-300);border-radius:var(--radius-md);">
+      <div class="modal-header" style="border-color:var(--gray-300);">
+        <h5 class="modal-title" style="color:var(--gray-900);font-weight:700;">Confirm Logout</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" style="color:var(--gray-700);">
+        Are you sure you want to sign out of your PowerX account?
+      </div>
+      <div class="modal-footer" style="border-color:var(--gray-300);">
+        <button type="button" class="btn btn-sm" data-bs-dismiss="modal"
+          style="background:var(--gray-100);color:var(--gray-700);border:1px solid var(--gray-300);border-radius:20px;padding:.42rem 1.2rem;font-weight:600;">
+          Cancel
+        </button>
+        <button type="button" id="logoutConfirm"
+          style="background:linear-gradient(135deg,#F97316,#C2410C);color:#fff;border:none;border-radius:20px;padding:.42rem 1.2rem;font-weight:700;cursor:pointer;">
+          <i class="fa-solid fa-right-from-bracket me-1"></i>Yes, Logout
+        </button>
       </div>
     </div>
   </div>
@@ -145,7 +1248,7 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body" style="color:var(--gray-700);">
-        Are you sure you want to sign out of your PowerEx account?
+        Are you sure you want to sign out of your PowerX account?
       </div>
       <div class="modal-footer" style="border-color:var(--gray-300);">
         <button type="button" class="btn btn-sm" data-bs-dismiss="modal"
@@ -163,6 +1266,107 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/script.js"></script>
-<script>requireAuth('login.html');</script>
+<script>
+requireAuth('index.html');
+
+/* ── Section navigation ── */
+function showSection(name) {
+  document.querySelectorAll('.dash-section').forEach(s => s.classList.remove('active'));
+  const sec = document.getElementById('sec-' + name);
+  if (sec) sec.classList.add('active');
+
+  document.querySelectorAll('.side-link-v2[data-section]').forEach(l => l.classList.remove('active'));
+  const link = document.querySelector('.side-link-v2[data-section="' + name + '"]');
+  if (link) link.classList.add('active');
+
+  // Close sidebar on mobile after nav
+  if (window.innerWidth < 992) closeSidebar();
+
+  // Scroll to top of content
+  document.querySelector('.dash-content').scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── Sidebar toggle (mobile) ── */
+const sidebar   = document.getElementById('dashSidebar');
+const backdrop  = document.getElementById('sidebarBackdrop');
+
+document.getElementById('sidebarToggle').addEventListener('click', () => {
+  sidebar.classList.add('mobile-open');
+  backdrop.classList.add('show');
+});
+
+backdrop.addEventListener('click', closeSidebar);
+function closeSidebar() {
+  sidebar.classList.remove('mobile-open');
+  backdrop.classList.remove('show');
+}
+
+/* ── Copy to clipboard ── */
+function copyText(inputId, msg) {
+  const el = document.getElementById(inputId);
+  if (!el) return;
+  navigator.clipboard.writeText(el.value).then(() => {
+    const btn = el.nextElementSibling;
+    if (btn) { const orig = btn.innerHTML; btn.textContent = msg; setTimeout(() => btn.innerHTML = orig, 1800); }
+  }).catch(() => {
+    el.select();
+    document.execCommand('copy');
+  });
+}
+
+/* ── Payment method tab toggle ── */
+document.querySelectorAll('.w-method-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const group = this.closest('.withdraw-method, .d-flex');
+    if (group) group.querySelectorAll('.w-method-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+/* ── ROI Calendar ── */
+(function buildCalendar() {
+  const cal  = document.getElementById('roiCalendar');
+  if (!cal) return;
+  const now  = new Date();
+  const year = now.getFullYear();
+  const mon  = now.getMonth();
+  const days = new Date(year, mon + 1, 0).getDate();
+  const first= new Date(year, mon, 1).getDay();
+  let html   = '';
+  for (let i = 0; i < first; i++) html += '<div></div>';
+  for (let d = 1; d <= days; d++) {
+    const isToday = d === now.getDate();
+    const isPast  = d < now.getDate();
+    const style = isToday
+      ? 'background:var(--green);color:#fff;font-weight:700;'
+      : isPast
+        ? 'background:rgba(52,211,153,.2);color:var(--gray-700);'
+        : 'background:var(--gray-100);color:var(--gray-500);';
+    html += `<div style="${style}font-size:.65rem;text-align:center;border-radius:5px;padding:3px 1px;cursor:default;">${d}</div>`;
+  }
+  cal.innerHTML = html;
+})();
+
+/* ── Populate user data ── */
+(function populateUser() {
+  const user = JSON.parse(localStorage.getItem('px-user') || 'null');
+  if (!user) return;
+  document.querySelectorAll('.user-name').forEach(el => el.textContent = user.name || 'Member');
+  document.querySelectorAll('.user-email').forEach(el => el.textContent = user.email || user.phone || '');
+  document.querySelectorAll('.user-avatar-letter').forEach(el => {
+    el.textContent = (user.name || 'M').charAt(0).toUpperCase();
+  });
+  const joinEl = document.querySelector('.user-join-date');
+  if (joinEl && user.joinDate) joinEl.textContent = new Date(user.joinDate).toLocaleDateString('en-US', { month:'short', year:'numeric' });
+  // Referral code from phone/name hash
+  const codeEl = document.querySelector('.user-ref-code');
+  if (codeEl) {
+    const base = (user.name || 'MBR').replace(/\s+/g,'').toUpperCase().slice(0,5);
+    codeEl.textContent = 'PX' + base + '001';
+    const refInput = document.getElementById('refLink');
+    if (refInput) refInput.value = 'https://powerx.io/ref/PX' + base + '001';
+  }
+})();
+</script>
 </body>
 </html>
