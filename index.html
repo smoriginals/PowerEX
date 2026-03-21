@@ -15,6 +15,139 @@
 
   <style>
     /* ═══════════════════════════════════════
+       PAGE LOADER
+    ═══════════════════════════════════════ */
+    #px-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.8rem;
+      background: linear-gradient(135deg, #0d0b2b 0%, #1a0a3d 30%, #0c1a3a 60%, #0a1f2e 100%);
+      transition: opacity .55s ease, visibility .55s ease;
+    }
+    #px-loader.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    /* Top progress bar */
+    #px-topbar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      z-index: 100000;
+      background: linear-gradient(90deg, #4F46E5, #0EA5E9, #D97706, #F97316);
+      background-size: 300% 100%;
+      border-radius: 0 3px 3px 0;
+      box-shadow: 0 0 12px rgba(79,70,229,.7);
+      transition: width 0s;
+      animation: topbarShimmer 1.8s linear infinite;
+    }
+    @keyframes topbarShimmer {
+      0%   { background-position: 100% 0; }
+      100% { background-position: -100% 0; }
+    }
+    .loader-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      animation: loaderPulse 2s ease-in-out infinite;
+    }
+    @keyframes loaderPulse {
+      0%, 100% { transform: scale(1);   opacity: 1; }
+      50%       { transform: scale(1.04); opacity: .85; }
+    }
+    .loader-logo-ring {
+      width: 72px; height: 72px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #4F46E5, #0EA5E9);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.9rem; font-weight: 800; color: #fff;
+      box-shadow: 0 0 40px rgba(79,70,229,.55), 0 0 80px rgba(79,70,229,.2);
+      position: relative;
+    }
+    .loader-logo-ring::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 23px;
+      border: 2.5px solid transparent;
+      background: linear-gradient(135deg, #4F46E5, #D97706, #F97316) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      animation: ringRotate 2.4s linear infinite;
+    }
+    @keyframes ringRotate {
+      to { transform: rotate(360deg); }
+    }
+    .loader-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.55rem; font-weight: 800; letter-spacing: 3px;
+      color: #fff;
+    }
+    .loader-title span { color: #D97706; }
+    .loader-subtitle {
+      font-size: .72rem; font-weight: 600; letter-spacing: 3.5px;
+      color: rgba(255,255,255,.38); text-transform: uppercase;
+    }
+    /* Animated bar under logo */
+    .loader-bar-track {
+      width: 180px;
+      height: 4px;
+      background: rgba(255,255,255,.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .loader-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #4F46E5, #0EA5E9, #D97706);
+      background-size: 200% 100%;
+      animation: loaderBarAnim 1.8s ease forwards, barShimmer 1.4s linear infinite;
+    }
+    @keyframes loaderBarAnim {
+      0%   { width: 0%; }
+      40%  { width: 55%; }
+      75%  { width: 82%; }
+      100% { width: 96%; }
+    }
+    @keyframes barShimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .loader-status {
+      font-size: .73rem; color: rgba(255,255,255,.45);
+      letter-spacing: 1px;
+      min-height: 1em;
+    }
+    /* Dots indicator */
+    .loader-dots {
+      display: flex; gap: 6px;
+    }
+    .loader-dots span {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.25);
+      animation: dotBounce .9s ease-in-out infinite;
+    }
+    .loader-dots span:nth-child(1) { animation-delay: 0s;    background: #4F46E5; }
+    .loader-dots span:nth-child(2) { animation-delay: .18s;  background: #0EA5E9; }
+    .loader-dots span:nth-child(3) { animation-delay: .36s;  background: #D97706; }
+    @keyframes dotBounce {
+      0%,80%,100% { transform: scale(1);   opacity: .5; }
+      40%          { transform: scale(1.5); opacity: 1; }
+    }
+
+    /* ═══════════════════════════════════════
        VARIABLES
     ═══════════════════════════════════════ */
     :root {
@@ -1470,6 +1603,23 @@
   </style>
 </head>
 <body>
+
+<!-- PAGE LOADER -->
+<div id="px-topbar"></div>
+<div id="px-loader">
+  <div class="loader-brand">
+    <div class="loader-logo-ring">PX</div>
+    <div class="loader-title">POWER<span>X</span></div>
+    <div class="loader-subtitle">Multi Trading</div>
+  </div>
+  <div class="loader-bar-track">
+    <div class="loader-bar-fill" id="loaderBarFill"></div>
+  </div>
+  <div class="loader-status" id="loaderStatus">Initializing…</div>
+  <div class="loader-dots">
+    <span></span><span></span><span></span>
+  </div>
+</div>
 
 <!-- ╔════════════════════════════════════════════╗
      ║              1. NAVIGATION                 ║
@@ -3031,6 +3181,58 @@ document.querySelectorAll('.auth-modal').forEach(modal => {
     });
   });
 });
+
+/* ═══════════════════════════════════
+   PAGE LOADER
+═══════════════════════════════════ */
+(function() {
+  const loader    = document.getElementById('px-loader');
+  const topbar    = document.getElementById('px-topbar');
+  const statusEl  = document.getElementById('loaderStatus');
+  const fillEl    = document.getElementById('loaderBarFill');
+  const statuses  = ['Initializing…', 'Loading assets…', 'Connecting securely…', 'Almost ready…'];
+  let step = 0;
+
+  // Animate status text
+  const statusTimer = setInterval(() => {
+    step++;
+    if (step < statuses.length) statusEl.textContent = statuses[step];
+  }, 420);
+
+  // Animate top progress bar
+  let pct = 0;
+  const topbarTimer = setInterval(() => {
+    pct += Math.random() * 18 + 4;
+    if (pct > 90) pct = 90;
+    topbar.style.width = pct + '%';
+    topbar.style.transition = 'width .4s ease';
+  }, 320);
+
+  // Dismiss loader on window load (or max 2.8s fallback)
+  function dismissLoader() {
+    clearInterval(statusTimer);
+    clearInterval(topbarTimer);
+    statusEl.textContent = 'Ready!';
+    topbar.style.transition = 'width .25s ease';
+    topbar.style.width = '100%';
+    setTimeout(() => {
+      loader.classList.add('hide');
+      setTimeout(() => {
+        loader.remove();
+        topbar.style.opacity = '0';
+        topbar.style.transition = 'opacity .4s ease';
+        setTimeout(() => topbar.remove(), 420);
+      }, 580);
+    }, 220);
+  }
+
+  if (document.readyState === 'complete') {
+    dismissLoader();
+  } else {
+    window.addEventListener('load', dismissLoader);
+    setTimeout(dismissLoader, 2800);
+  }
+})();
 </script>
 
 </body>
